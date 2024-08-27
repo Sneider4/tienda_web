@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+    <header class="header">
+
+        <div class="menu container">
+            <a href="#" class="logo">logo</a>
+            <input type="checkbox" id="menu"/>
+            <label for="menu">
+                <img src="../../static/images/menu.png" class="menu-icono" alt="menu">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Productos</a></li>
+                    <li><a href="#">Contactos</a></li>
+                </ul>
+            </nav>
+            
+            <div>
+                <ul>
+                    <li class="submenu">
+                        <img src="../../static/images/car.png" id="img-carrito"
+                        alt="carrito">
+                        <div id="carrito">
+                            <table id="lista-carrito">
+                                <thead>
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <a href="#" id="vaciar-carrito" class="btn-2">Vaciar carrito</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </header>
+    <div class="registrar">
+        <div class="r-1">
+            <h1>Sé el primero</h1>
+        </div>
+        <div class="r-2">
+            <p>Inscríbete para recibir correos electrónicos de Malcon, oficial de Nike en Colombia y ser el primero en ver contenido inspirador, noticias y ofertas exclusivas.</p>
+        </div>
+        <form action="{{ url_for('usuario.add') }}" method="post" enctype="multipart/form-data">
+            <div class="m2 col-md-12 form-floating">
+                <input type="text" class="form-control" id="floatinInputGrid" name="nombre" placeholder="Primer nombre" required>
+                <label for="floatingInputGrid">Nombres</label>
+            </div>
+            <div class="m2 col-md-12 form-floating">
+                <input type="text" class="form-control" id="floatinInputGrid" name="apellido" placeholder="Primer apellido" required>
+                <label for="floatingInputGrid">Apellidos</label>
+            </div>
+            <div class="m2 col-md-12 form-floating">
+                <input type="email" class="form-control" id="floatingInputGrid" name="correo_electronico" placeholder="name@example.com">
+                <label for="floatingInputGrid">Correo electronico</label>
+            </div>
+            <div class="m2 col-md-12 form-floating">
+                <input type="text" class="form-control" id="floatingInputGrid" name="telefono" placeholder="Telefono">
+                <label for="floatingInputGrid">Telefono</label>
+            </div>
+            <div class="m2 col-md-12 form-floating">
+                <input type="text" class="form-control" id="floatingInputGrid" name="departamento" placeholder="Departamento">
+                <label for="floatingInputGrid">Departamento</label>
+            </div>
+            <div class="m2 col-md-12 form-floating">
+                <input type="text" class="form-control" id="floatingInputGrid" name="ciudad" placeholder="Ciudad">
+                <label for="floatingInputGrid">Ciudad</label>
+            </div>
+            <div class="m2 col-md-12 form-floating">
+                <select class="form-select" id="floatingSelectGrid" name="genero" required>
+                    <option selected>Opcion</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="otro">Otro</option>
+                </select>
+                <label for="floatingSelectGrid">Seleccionar genero:</label>
+            </div>
+            <div class="m2 col-md-12 form-floating">
+                <input type="date" class="form-control" id="floatingInputGrid" name="fecha_nacimiento" placeholder="Ciudad">
+                <label for="floatingInputGrid">Cumpleaños</label>
+            </div>
+            <div class="m2 col-md-12 form-floating">
+                <input type="password" class="form-control" id="floatingPassword" name="contrasena" placeholder="Contrasena">
+                <label for="floatingPassword">Contrasena</label>
+            </div>
+            <div class="m2 col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                    <label class="form-check-label" for="invalidCheck2">
+                        Al hacer clic en continuar, acepto los <a href="">Términos y Condiciones</a> de Athletic Sport, y autorizo el tratamiento de mis datos personales de acuerdo con la <a href="">Política de Privacidad.</a>
+                    </label>
+                </div>  
+            </div>
+            <div class="m2 col-12">
+            <button class="btn-1 btn-primary" type="submit">Registrarse</button>
+            </div>
+        </form>
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-content container">
+
+            <div class="link">
+                <h3>Lorem</h3>
+                <ul>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                </ul>
+            </div>
+
+            <div class="link">
+                <h3>Lorem</h3>
+                <ul>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                </ul>
+            </div>
+
+            <div class="link">
+                <h3>Lorem</h3>
+                <ul>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                </ul>
+            </div>
+
+            <div class="link">
+                <h3>Lorem</h3>
+                <ul>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                    <li><a href="#">Lorem</a></li>
+                </ul>
+            </div>  
+
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
