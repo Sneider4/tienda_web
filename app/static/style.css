@@ -15,6 +15,7 @@ font-family: "Poppins", sans-serif;
 
 body {
     font-family: "Poppins", sans-serif;
+    background-color: #000000;
 }
 
 body a{
@@ -72,54 +73,10 @@ img {
     display: block;
 }
 
-.menu {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
-.logo {
-    font-size: 25px;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-weight: 800;
-}
-
-.menu .navbar ul li{
-    position: relative;
-    float: left;
-}
-
-.menu .navbar ul li a {
-    font-size: 18px;
-    padding: 20px;
-    color: #ffffff;
-    display: block;
-}
-
-#menu {
-    display: none;
-}
-
-.menu-icono {
-    width: 25px;
-}
-
-.menu label {
-    cursor: pointer;
-    display: none;
-}
 
 .submenu {
     position: relative;
-}
-
-.submenu img{
-    color: #ffffff;
 }
 
 .submenu #carrito {
@@ -467,6 +424,11 @@ th, td {
 
 @media (max-width:991px) {
 
+    .sidebar{
+        background-color: rgb(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px );
+    }
+
     .registrar {
         padding: 0 40px;
     }
@@ -507,10 +469,6 @@ th, td {
 
     .submenu:hover #carrito {
         min-width: 100%;
-    }
-
-    .btn-iniciar {
-        margin-left: 30px;
     }
 
     .header-content {

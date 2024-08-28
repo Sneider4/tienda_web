@@ -9,87 +9,84 @@
 </head>
 <body>
 
-    <header class="header">
+    <nav class="navbar navbar-expand-lg bg-black navbar-dark ">
+        <div class="container">
+            
+            <!-- logo-->
+            <a class= "navbar-brand fs-4" href="#">Nike</a>
+            <button class="navbar-toggler shadow-none border-0 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="menu container">
-            <a href="#" class="logo">logo</a>
-            <input type="checkbox" id="menu"/>
-            <label for="menu">
-                <img src="../../static/images/menu.png" class="menu-icono" alt="menu">
-            </label>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Servicios</a></li>
-                    <li><a href="#">Productos</a></li>
-                    <li><a href="#">Contactos</a></li>
+            <!--sidebar-->
+            <div class="sidebar offcanvas offcanvas-start" style="background-color: rgba(39, 39, 39, 0.479);" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+
+                <!--sidebar header-->
+                <div class="offcanvas-header text-white border-bottom">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <!--sidebar body-->
+                <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
+                <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
+                    <li class="nav-item mx-2">
+                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item  mx-2">
+                    <a class="nav-link" href="#about">Nosotros</a>
+                    </li>
+                    <li class="nav-item  mx-2">
+                        <a class="nav-link" href="#services">Servicios</a>
+                    </li>
+                    <li class="nav-item  mx-2">
+                        <a class="nav-link" href="#contact">Contacto</a>
+                    </li>
+                    
                 </ul>
-            </nav>
-
-            
-            
-            <div>
-                <div class="container py-4">
-
-                    <button class="btn-iniciar btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#mi-modal">
+                <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center p-2">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mi-modal">
                         Iniciar sesion
                     </button>
+                </div>
+                </div>
+            </div> 
+        </div>
+    </nav>
+
+    <div class="modal" id="mi-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <h1 class="fw-bold mb-0 fs-2">Iniciar sesion</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
             
-                    <div class="modal" id="mi-modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-            
-                                <div class="modal-header p-5 pb-4 border-bottom-0">
-                                    <h1 class="fw-bold mb-0 fs-2">Iniciar sesion</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                            
-                                <div class="modal-body p-5 pt-0">
-                                    <form action="{{ url_for('usuario.login') }}" method="post" enctype="multipart/form-data">
-                                        <div class="form-floating mb-3">
-                                            <input type="email" class="form-control rounded-3" id="floatingInputGrid"  name="correo_electronico" placeholder="name@example.com">
-                                            <label for="floatingInputGrid">Correo electronico</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="password" class="form-control rounded-3" id="floatingPassword" name="contrasena" placeholder="contrasena">
-                                            <label for="floatingPassword">Contrasena</label>
-                                        </div>
-                                        <button class="w-100 mb-2 btn-2 btn-lg rounded-3 " type="submit">Iniciar sesion</button>
-                                        <small class="text-body-secondary">Al firmar registrarse, acepta todos los terminos de uso.</small>
-                                        <hr class="my-4">
-                                        <small class="text-body-secondary">¿No tienes cuenta? <a href="{{ url_for('usuario.add') }}">Registrarse</a></small>
-                                        
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
+                <div class="modal-body p-5 pt-0">
+                    <form action="{{ url_for('usuario.login') }}" method="post" enctype="multipart/form-data">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-3" id="floatingInputGrid"  name="correo_electronico" placeholder="name@example.com">
+                            <label for="floatingInputGrid">Correo electronico</label>
                         </div>
-                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword" name="contrasena" placeholder="contrasena">
+                            <label for="floatingPassword">Contrasena</label>
+                        </div>
+                        <button class="w-100 mb-2 btn-2 btn-lg rounded-3 " type="submit">Iniciar sesion</button>
+                        <small class="text-body-secondary">Al firmar registrarse, acepta todos los terminos de uso.</small>
+                        <hr class="my-4">
+                        <small class="text-body-secondary">¿No tienes cuenta? <a href="{{ url_for('usuario.add') }}">Registrarse</a></small>
+                        
+                        </button>
+                    </form>
                 </div>
             </div>
-            <div>
-                <ul>
-                    <li class="submenu">
-                        <img src="../../static/images/car.png" id="img-carrito"
-                        alt="carrito">
-                        <div id="carrito">
-                            <table id="lista-carrito">
-                                <thead>
-                                    <tr>
-                                        <th>Imagen</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                            <a href="#" id="vaciar-carrito" class="btn-2">Vaciar carrito</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
         </div>
+    </div>
+
+    <header class="header">
+
         <div class="header-content container">
             <div class="header-img">
                 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
