@@ -38,12 +38,14 @@ def login():
         correo_electronico = request.form['correo_electronico']
         contrasena = request.form['contrasena']
         
-        usuario = Usuario.query.filter_by(correo_electronico=correo_electronico).first()
-
-        if usuario and check_password_hash(usuario.contrasena, contrasena):
+        usuario = Usuario.query.filter_by(correo_electronico=correo_electronico, contrasena=contrasena).first()
+        print(f"uno {correo_electronico}  --  {contrasena}")
+        print(usuario)
+        if usuario:
             login_user(usuario)
             flash("Login successful!", "success")
-            return redirect(url_for('usuario.dashboard'))
+            print("entra al login")
+            return redirect(url_for('producto.index'))
         
         flash('Invalid credentials. Please try again.', 'danger')
     
@@ -54,11 +56,11 @@ def login():
 
 @bp.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html', email=current_user.correo_electronico)
+    return render_template('producto/index.html', email=current_user.correo_electronico)
 
 # Ruta de Logout
 @bp.route('/logout')
 def logout():
     logout_user() 
     flash('Has cerrado sesión.', 'info')
-    return redirect(url_for('usuario.login'))
+    return redirect(url_for('producto.index'))

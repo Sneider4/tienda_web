@@ -56,25 +56,6 @@ img {
     align-items: center;
 }
 
-.carousel-item img{
-    max-width: 80%;
-    margin: 0 auto;
-}
-
-.header {
-    display: flex;
-    align-items: center;
-    min-height: 90px;
-    background-color: #000000;
-    
-}
-
-.header-content {
-    display: block;
-}
-
-
-
 .submenu {
     position: relative;
 }
@@ -90,28 +71,86 @@ img {
     backdrop-filter: blur(10px);
     top: 100%;
     z-index: 1;
-    background-color: #ffffff3d;
-    padding: 20px;
-    min-width: 400px;
+    background-color: #ffffff;
+    min-width: 500px;
     border-radius: 15px;
+    max-height: 500px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
 }
 
 table {
     width: 100%;
+    text-align: center;
 }
 
-th, td {
+thead{
+    position: sticky;
+    z-index: 10;
+    top: 0;
+    background-color: #d6d4d4;
+}
+
+th {
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    padding: 20px 10px 20px 10px;
+    text-transform: uppercase;
+}
+
+td {
+    color: rgb(0, 0, 0);
+    font-size: 17px;
+    padding: 20px 10px;
+    text-transform: capitalize;
+}
+
+td img {
+    max-width: 120px;
+}
+
+tbody tr{
+    cursor: pointer;
+}
+
+tbody tr:hover{
+    background-color: rgba(196, 196, 196, 0.267);
     color: white;
 }
 
+.sticky-footer {
+    padding: 15px;
+    position: sticky;
+    z-index: 10;
+    bottom: 0;
+    background-color: #ffffff;
+}
+
 .borrar {
-    background-color: black;
-    border-radius: 50%;
-    padding: 5px 10px;
-    text-decoration: none;
-    color: #ffffff;
+    padding: 0 15px;
     font-weight: 800;
-    cursor:pointer;
+}
+
+.btn-carrito {
+    display: none;
+    background-color: #2445ff;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 20px;
+    border-radius: 8px;
+}
+
+.carousel-item img{
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    min-height: 90px;
+    background-color: #000000;
+    
 }
 
 .header-content {
@@ -120,7 +159,7 @@ th, td {
     gap: 50px;
     align-items: center;
     flex: 1;
-    padding: 80px 0 0 0;
+    padding: 0 0 0 0;
 }
 
 .header-img {
@@ -199,7 +238,7 @@ th, td {
 }
 
 .tendencia {
-    padding: 100px 0 130px 0;
+    padding: 60px  0;
 }
 
 .tendencia-txt {
@@ -207,10 +246,10 @@ th, td {
 }
 
 .tendencia-txt h2{
-    padding: 0 0 50px 0;
+    padding: 0 0 25px 0;
     color: #111111;
     font-family: 'Oswald', sans-serif;
-    font-size: 50px;
+    font-size: 40px;
     text-transform: uppercase;
 }
 
@@ -254,7 +293,7 @@ th, td {
 .ofert-txt h3{
     color: #111111;
     font-family: 'Oswald', sans-serif;
-    font-size: 25px;
+    font-size: 20px;
     text-transform: uppercase;
 }
 
@@ -281,28 +320,28 @@ th, td {
 }
 
 .products {
-    padding: 100px 0 130px 0;
+    padding: 60px 0 ;
     text-align: center;
 }
 
 .products h2{
     color: #ffffff;
-    font-family: 'Oswald', sans -serif;
-    font-size: 50px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 40px;
     text-transform: uppercase;
     padding: 0 0 50px 0;
 }
 
 .product-content {
     display: grid;
-    grid-template-columns:  repeat(4, 1fr);
-    gap: 50px;
+    grid-template-columns:  repeat(5, 1fr);
+    gap: 20px;
 }
 
 .product {
     text-align: center;
-    padding: 30px;
-    border-radius: 15px;
+    padding: 15px;
+    border-radius: 8px;
     box-shadow:  0 0 20px rgba(0, 0, 0, 0.1);
     background-color: #ffffffaf;
 }
@@ -314,7 +353,7 @@ th, td {
 .product img {
     width: 250px;
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .product img:hover {
@@ -322,21 +361,49 @@ th, td {
 }
 
 .product h3 {
-    font-size: 25px;
+    font-size: 17px;
     color: #111111;
     font-family:  'Oswald', sans-serif;
     text-transform: uppercase;
+    margin-bottom: 0;
 }
 
 .product p, .precio {
     text-transform: capitalize;
-    font-size: 16px;
+    font-size: 15px;
     color: #111111;
-    margin-bottom: 15px;
+    margin-bottom: 0;
+}
+
+.product h3, p, .precio {
+    text-align: left;
 }
 
 .precio{
     font-weight: 800;
+}
+
+.cantidad {
+    display: none;
+    width: 80px;
+}
+
+.product-car {
+    padding:  10px 0 0 0;
+}
+
+.btn-3 {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 35px;
+    background-color: #474747;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor:pointer;
+    padding: 5px 20px 0 20px;
 }
 
 .icons {
@@ -433,46 +500,19 @@ th, td {
         padding: 0 40px;
     }
 
-    .menu label {
-        display:flex;
-    }
-
-    .menu {
-        padding: 20px 20px;  
-    }
-
-    .menu .navbar {
-        position: absolute;
-        top: 100%;
-        left: 15px;
-        right: 200px;
-        background-color: #313131;
+    .submenu img {
         display: none;
-        border-radius: 15px;
+    }   
+
+    .btn-carrito {
+        display: block;
     }
 
-    .menu .navbar ul li {
-        width: 100%;
-    }
-
-    .menu .navbar ul li a {
-        color: #ffffff;
-    }
-
-    #menu:checked ~ .navbar {
-        display: initial;
-    }
-
-    .logo {
-        display: none;
-    }
-
-    .submenu:hover #carrito {
-        min-width: 100%;
+    .header {
+        padding:40px 30px 10px 30px;
     }
 
     .header-content {
-        padding: 110px 0 10px 0;
         flex-direction: column;
     }
 
@@ -490,8 +530,27 @@ th, td {
         font-size: 40px;
     }
 
+    .marcas {
+        padding: 10px;
+    }
+
+    .marcas h2 {
+        font-size: 30px;
+    }
+    
+    .marcas p {
+        font-size: 15px;
+        flex-basis: 100%;
+        text-align: center;
+    }
+
+    .tendencia {
+        padding: 20px 0 20px 0;
+    }
+
     .tendencia-txt h2{
-        padding: 50px 0 20px 0;
+        padding: 20px;
+        font-size: 34px;
     }
 
     .ofert {
@@ -500,26 +559,35 @@ th, td {
     }
 
     .ofert-1 {
-        margin-bottom: 30px
+        margin-bottom: 20px;
+        padding: 20px;  
+    }
+
+    .ofert-txt h3 {
+        font-size: 20px;
+    }
+
+    .ofert-txt p {
+        font-size: 15px;
     }
 
     .products {
-        padding:  0 30px 30px 30px;
+        padding:40px 0 40px 0 ;
     }
 
     .products h2 {
-        margin-bottom: 30px;
+        font-size: 34px;
     }
 
     .product-content {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
+        gap: 15px;
     }
 
 
     .product img {
-        width: 200px;
+        width: 120px;
         height: auto;
     }
 

@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request, redirect, url_for, jsonif
 from werkzeug.utils import secure_filename
 from app.models.producto import Producto
 from app.models.categoria import Categoria
+from app.models.usuario import Usuario
+from app.models.carrito import Carrito
 from app import db
 import os
 
@@ -11,7 +13,10 @@ bp = Blueprint('producto', __name__)
 def index():
     data = Producto.query.all()
     dataC = Categoria.query.all()
-    return render_template('producto/index.html', data=data, dataC=dataC)
+    dataU = Usuario.query.all()
+    dataCar = Carrito.query.all()
+
+    return render_template('producto/index.html', data=data, dataC=dataC, dataCar=dataCar, dataU=dataU)
 
 @bp.route('/producto/add', methods=['GET', 'POST'])
 def add():

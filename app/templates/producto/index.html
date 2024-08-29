@@ -19,7 +19,7 @@
             </button>
 
             <!--sidebar-->
-            <div class="sidebar offcanvas offcanvas-start" style="background-color: rgba(39, 39, 39, 0.479);" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="sidebar offcanvas offcanvas-start" style="background-color: rgba(0, 0, 0, 0.842);" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
                 <!--sidebar header-->
                 <div class="offcanvas-header text-white border-bottom">
@@ -34,20 +34,91 @@
                     <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                     </li>
                     <li class="nav-item  mx-2">
-                    <a class="nav-link" href="#about">Nosotros</a>
+                    <a class="nav-link" href="#about">Productos</a>
                     </li>
                     <li class="nav-item  mx-2">
-                        <a class="nav-link" href="#services">Servicios</a>
+                        <a class="nav-link" href="#services">Nosotros</a>
                     </li>
                     <li class="nav-item  mx-2">
                         <a class="nav-link" href="#contact">Contacto</a>
                     </li>
                     
                 </ul>
-                <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center p-2">
+                <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center p-2 gap-5">
+
+                    {% if current_user.is_authenticated %}
+                    <div class="submenu">
+                        <img src="../../static/images/car.png" alt="">
+                        <ul>
+                            <li>
+                                <div id="carrito">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Imagen</th>
+                                                <th>Nombre</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for carrito in dataCar %}
+                                            <tr>
+                                                <td class="td">
+                                                    {% for producto in data %}
+                                                        {% if producto.id == carrito.producto_id %}
+                                                            {% if producto.imagen %}
+                                                                {% set direccion = 'images/' + producto.imagen %}
+                                                                <img src="{{ url_for('static', filename=direccion) }}" alt="{{ producto.nombre }}">
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                </td>
+                                                <td class="td">
+                                                    {% for producto in data %}
+                                                    {% if producto.id == carrito.producto_id %}
+                                                        {{ producto.nombre }}
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </td>
+                                                <td class="td">
+                                                    {{ carrito.cantidad }} UND
+                                                </td>
+                                                <td class="td">
+                                                    {% for producto in data %}
+                                                    {% if producto.id == carrito.producto_id %}
+                                                        ${{ producto.precio }}
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </td>
+                                                <td class="td"><img class="borrar" src="../../static/images/delete.png" alt=""></td>
+                                                </div>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <div class="sticky-footer">
+                                        <a href="" id="vaciar-carrito" class="btn btn-primary">Vaciar carrito</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                        
+                    {% endif %}
+
+
+                    {% if current_user.is_authenticated %}
+                    <button class="btn-carrito" data-bs-toggle="modal" data-bs-target="#carrito-responsive"><img src="../../static/images/car.png" alt=""><br>Carrito</button>
+                    <a class="btn btn-danger" href="{{ url_for('usuario.logout') }}">Cerrar sesion</a>
+                    {% else %}
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mi-modal">
-                        Iniciar sesion
+                        Iniciar sesion 
                     </button>
+                    {% endif %}
+
                 </div>
                 </div>
             </div> 
@@ -64,7 +135,7 @@
                 </div>
             
                 <div class="modal-body p-5 pt-0">
-                    <form action="{{ url_for('usuario.login') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ url_for('usuario.login') }}" method="post">
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control rounded-3" id="floatingInputGrid"  name="correo_electronico" placeholder="name@example.com">
                             <label for="floatingInputGrid">Correo electronico</label>
@@ -73,7 +144,7 @@
                             <input type="password" class="form-control rounded-3" id="floatingPassword" name="contrasena" placeholder="contrasena">
                             <label for="floatingPassword">Contrasena</label>
                         </div>
-                        <button class="w-100 mb-2 btn-2 btn-lg rounded-3 " type="submit">Iniciar sesion</button>
+                        <button class="w-100 mb-2 btn btn-primary rounded-3 " type="submit">Iniciar sesion</button>
                         <small class="text-body-secondary">Al firmar registrarse, acepta todos los terminos de uso.</small>
                         <hr class="my-4">
                         <small class="text-body-secondary">¿No tienes cuenta? <a href="{{ url_for('usuario.add') }}">Registrarse</a></small>
@@ -84,6 +155,68 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="carrito-responsive" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Carrito de compras</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <ul>
+                        <li>
+                            <div id="carrito">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for carrito in dataCar %}
+                                        <tr>
+                                            <td class="td">
+                                                {% for producto in data %}
+                                                {% if producto.id == carrito.producto_id %}
+                                                    {{ producto.nombre }}
+                                                {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                            <td class="td">
+                                                {{ carrito.cantidad }} UND
+                                            </td>
+                                            <td class="td">
+                                                {% for producto in data %}
+                                                {% if producto.id == carrito.producto_id %}
+                                                    ${{ producto.precio }}
+                                                {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                            <td class="td"><img class="borrar" src="../../static/images/delete.png" alt=""></td>
+                                            </div>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="sticky-footer">
+                                    <a href="" id="vaciar-carrito" class="btn btn-primary">Vaciar carrito</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 
     <header class="header">
 
@@ -113,7 +246,7 @@
             </div>
             <div class="header-txt">
                 <h1>Hasta</h1>
-                <h1 class="descuento">%50</h1>
+                <h1>%50</h1>
                 <h1>descuento</h1>
                 <p>referencias seleccionadas</p>
                 <p class="valido">Valido desde 01 de agosto hasta el 30 de septiembre, o hasta agotar existencias.</p>
@@ -153,7 +286,7 @@
 
     <section class="marcas py-1">
         <div class="container my-4">
-            <div class="row text-center py-4">
+            <div class=" text-center py-4">
                 <div class="marcas-txt col-lg-6 m-auto">
                     <h2>"Ve al siguiente nivel con Nike.</h2>   
                     <p>
@@ -303,7 +436,28 @@
                                 {% endif %}
                             {% endfor %}</p>
                         <p class="precio">{{ producto.precio }}</p>
-                        <a href="#" class="agregar-carrito btn-2" data-id="1">Agregar al carrito</a>
+                        
+                        {% if current_user.is_authenticated %}
+                           <form action="{{ url_for('carrito.add') }}" method="POST">
+                                <input type="hidden" id="idP" value="{{producto.id}}" name="idP">
+                                <input type="hidden" id="idU" value="{{current_user.id}}" name="idU">
+                                <div class="cantidad form-floating mb-3">
+                                    <input type="number" name="cantidad" value="1" min="1"class="form-control" id="floatingInputGrid"  name="correo_electronico" placeholder="name@example.com">
+                                    <label for="floatingInputGrid cantidad">Cantidad</label>
+                                </div>
+                                <div class="product-car">
+                                    <button type="submit" class="btn-3"><img src="../../static/images/car.png" alt=""></button>
+                                </div>
+                            </form>
+                            
+                        
+                            
+                        {% else %}
+                        <a class="agregar-carrito btn-2" data-bs-toggle="modal" data-bs-target="#mi-modal">
+                            Agregar al carrito
+                        </a>
+                        {% endif %}
+
                     </div>
                 </div>
                 {% endfor %}
