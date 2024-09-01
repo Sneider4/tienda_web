@@ -43,8 +43,7 @@ def login():
         print(usuario)
         if usuario:
             login_user(usuario)
-            flash("Login successful!", "success")
-            print("entra al login")
+            flash(f"Bienvenido, {usuario.nombre} {usuario.apellido}!" , "success")
             return redirect(url_for('producto.index'))
         
         flash('Invalid credentials. Please try again.', 'danger')

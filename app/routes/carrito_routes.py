@@ -27,5 +27,3 @@ def add():
         db.session.commit()
         
         return redirect(url_for('producto.index'))
-
-    return render_template('producto/index.html')

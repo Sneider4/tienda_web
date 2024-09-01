@@ -31,6 +31,16 @@ img {
     margin: 0 auto;
 }
 
+.flash-container {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    width: 90%;
+    max-width: 500px;
+}
+
 .registrar{
     text-align: center;
     max-width: 500px;
@@ -158,8 +168,9 @@ tbody tr:hover{
     justify-content: space-between;
     gap: 50px;
     align-items: center;
+    text-align: center;
     flex: 1;
-    padding: 0 0 0 0;
+    padding: 50px 0 0 0;
 }
 
 .header-img {
@@ -371,11 +382,11 @@ tbody tr:hover{
 .product p, .precio {
     text-transform: capitalize;
     font-size: 15px;
-    color: #111111;
-    margin-bottom: 0;
+        color: #111111;
+        margin-bottom: 0;
 }
 
-.product h3, p, .precio {
+.product-txt h3, .categoria, .precio {
     text-align: left;
 }
 
@@ -509,7 +520,7 @@ tbody tr:hover{
     }
 
     .header {
-        padding:40px 30px 10px 30px;
+        padding:60px 30px 10px 30px;
     }
 
     .header-content {
@@ -581,8 +592,8 @@ tbody tr:hover{
 
     .product-content {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
     }
 
 
@@ -601,7 +612,7 @@ tbody tr:hover{
     }
 
     .blog {
-        padding: 0 30px 30px 30px;
+        padding: 0 50px 30px 30px;
         flex-direction: column;
     }
 
@@ -620,4 +631,14 @@ tbody tr:hover{
 
 }
 
+
+@media (max-width:440px){
+
+    .product-content {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+}
 
