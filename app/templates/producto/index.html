@@ -5,125 +5,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda Malcon</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!--css bootstrap 5-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!--css bootstrap 5-->
+
+    <!--css bootstrap 4-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--css bootstrap 4-->
+
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-black navbar-dark fixed-top">
-        <div class="container">
-            
-            <!-- logo-->
-            <a class= "navbar-brand fs-4" href="#">Nike</a>
-            <button class="navbar-toggler shadow-none border-0 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <!--Navbar top-->
+    <div class="container">
+        <div class="navbar-top">
+            <div class="social-link">
+                <i><img src="../../static/images/facebook-logo-24.png" alt="" width="30px"></i>
+                <i><img src="../../static/images/instagram-logo-24.png" alt="" width="30px"></i>
+                <i><img src="../../static/images/twitch-logo-24.png" alt="" width="30px"></i>
+            </div>
+            <div class="logo">
+                <i><img src="../../static/images/logo.png" alt="" height="30px"></i>    
+            </div>
+            <div class="search">
+                <i><img src="../../static/images/search-alt-2-regular-24.png" alt="" width="30px"></i>
 
-            <!--sidebar-->
-            <div class="sidebar offcanvas offcanvas-start" style="background-color: rgba(0, 0, 0, 0.993);" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-
-                <!--sidebar header-->
-                <div class="offcanvas-header text-white border-bottom">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-
-                <!--sidebar body-->
-                <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
-                <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
-                    <li class="nav-item mx-2">
-                    <a class="nav-link" aria-current="page" href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item  mx-2">
-                    <a class="nav-link" href="#about">Productos</a>
-                    </li>
-                    <li class="nav-item  mx-2">
-                        <a class="nav-link" href="#services">Nosotros</a>
-                    </li>
-                    <li class="nav-item  mx-2">
-                        <a class="nav-link" href="#contact">Contacto</a>
-                    </li>
-                    
-                </ul>
-                <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center p-2 gap-5">
-
-                    {% if current_user.is_authenticated %}
-                    <div class="submenu">
-                        <img src="../../static/images/car.png" alt="">
-                        <ul>
-                            <li>
-                                <div id="carrito">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Imagen</th>
-                                                <th>Nombre</th>
-                                                <th>Cantidad</th>
-                                                <th>Precio</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for carrito in dataCar %}
-                                            <tr>
-                                                <td class="td">
-                                                    {% for producto in data %}
-                                                        {% if producto.id == carrito.producto_id %}
-                                                            {% if producto.imagen %}
-                                                                {% set direccion = 'images/' + producto.imagen %}
-                                                                <img src="{{ url_for('static', filename=direccion) }}" alt="{{ producto.nombre }}">
-                                                            {% endif %}
-                                                        {% endif %}
-                                                    {% endfor %}
-
-                                                </td>
-                                                <td class="td">
-                                                    {% for producto in data %}
-                                                    {% if producto.id == carrito.producto_id %}
-                                                        {{ producto.nombre }}
-                                                    {% endif %}
-                                                    {% endfor %}
-                                                </td>
-                                                <td class="td">
-                                                    {{ carrito.cantidad }} UND
-                                                </td>
-                                                <td class="td">
-                                                    {% for producto in data %}
-                                                    {% if producto.id == carrito.producto_id %}
-                                                        ${{ producto.precio }}
-                                                    {% endif %}
-                                                    {% endfor %}
-                                                </td>
-                                                <td class="td"><img class="borrar" src="../../static/images/delete.png" alt=""></td>
-                                                </div>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                    <div class="sticky-footer">
-                                        <a href="" id="vaciar-carrito" class="btn btn-primary">Vaciar carrito</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                        
-                    {% endif %}
-
-
-                    {% if current_user.is_authenticated %}
-                    <button class="btn-carrito" data-bs-toggle="modal" data-bs-target="#    "><img src="../../static/images/car.png" alt=""><br>Carrito</button>
-                    <a class="btn btn-danger" href="{{ url_for('usuario.logout') }}">Cerrar sesion</a>
-                    {% else %}
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mi-modal">
-                        Iniciar sesion 
-                    </button>
-                    {% endif %}
-
-                </div>
-                </div>
-            </div> 
+                {% if current_user.is_authenticated %}
+                <i>
+                    <a data-bs-toggle="modal" data-bs-target="#carrito">
+                        <img src="../../static/images/shopping-bag-regular-24.png" alt="" width="30px">
+                        <!--<span id="contador-carrito" class="contador">{{ session.get('total_items', 0) }}</span>-->
+                    </a>
+                </i>
+                <i>
+                    <a href="{{ url_for('usuario.logout') }}">
+                        <img src="../../static/images/exit-regular-24.png" alt="" width="30px">
+                    </a>
+                </i>
+                {% else %}
+                <i>
+                    <a data-bs-toggle="modal" data-bs-target="#mi-modal">
+                        <img src="../../static/images/user-plus-regular-24.png" alt="" width="30px">
+                    </a>
+                </i>
+                {% endif %}
+            </div>
         </div>
-    </nav>
+    </div>
+    <!--Navbar top-->
+
+    <div class="main-content">
+        <nav class="navbar navbar-expand-md" id="navbar-color">
+            <div class="container">
+          
+            <!-- Toggler/collapsibe Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span><i><img src="../../static/images/menu.png" alt="" width="30px"></i></span>
+                </button>
+            
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"> Chair</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Chair</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Brands</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contac</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+
+
+
+    <div class="modal fade" id="carrito" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-scrollable modal-sm modal-dialog-centered modal-side">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Carrito de compras</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    {% for carrito in dataCar %}
+                    <div class="carrito">
+                        <div class="carrito-img">
+                            {% for producto in dataP %}
+                                {% if producto.id == carrito.producto_id %}
+                                    {% if producto.imagen %}
+                                        {% set direccion = 'images/' + producto.imagen %}
+                                        <img src="{{ url_for('static', filename=direccion) }}" alt="{{ producto.nombre }}">
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="carrito-txt-delete">
+                            <div class="carrito-txt">
+                                <h3>{% for producto in dataP %}
+                                        {% if producto.id == carrito.producto_id %}
+                                            {{ producto.nombre }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </h3>
+                                <p>EUR 38</p>
+                                <p>
+                                    {{ carrito.cantidad }} UND
+                                </p>
+                                <p class="precio">
+                                    {% for producto in dataP %}
+                                        {% if producto.id == carrito.producto_id %}
+                                            ${{ producto.precio }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </p>
+                            </div>
+                            <div class="carrito-delete">
+                                <a href="{{ url_for('carrito.delete', id=carrito.id) }}"><img class="carrito-delete" src="../../static/images/delete.png" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="carrito-summary">
+                        <div class="summary-item">
+                            <span>Impuesto de iva 9%:</span>
+                            <span><strong>${{ impuesto }}</strong></span>
+                        </div>
+                        <div class="summary-item">
+                            <span><strong>Total a pagar:</strong></span>
+                            <span><strong>${{ total }}</strong></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <div>
+                        <a class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</a>
+                        <a href="{{ url_for('pago.shopping')}}" class="btn btn-primary">Ir a pagar</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <div class="modal" id="mi-modal">
         <div class="modal-dialog">
@@ -172,7 +212,7 @@
 
 
 
-    <header class="header">
+    <header class="header" id="inicio">
 
         <div class="header-content container">
             <div class="header-img">
@@ -320,9 +360,17 @@
         </div>
     </section>
 
-    
 
-    <section class="tendencia container">
+    <section class="galeria container">
+        <img src="../../static/images/cristiano-galeria.jpeg" alt="">
+        <img src="../../static/images/kobe-galeria.jpeg" alt="">
+        <img src="../../static/images/naomi-galeria.jpeg" alt="">
+        <img src="../../static/images/tiger-galeria.jpeg" alt="">
+        <img src="../../static/images/rafa-galeria.jpeg" alt="">
+    </section>
+
+
+    <section class="tendencia container" id="">
 
         <div class="tendencia-txt">
             <h2>tendencia</h2>
@@ -368,7 +416,7 @@
 
     </section>
 
-    <main class="products-principal">
+    <main class="products-principal" id="productos">
 
         <div class="products container">
 
@@ -376,7 +424,7 @@
 
             <div class="product-content">
 
-                {% for producto in data %}
+                {% for producto in dataP %}
                 <div class="product">
                     {% if producto.imagen %}
                         {% set direccion = 'images/' + producto.imagen %}
@@ -384,7 +432,8 @@
                     {% endif %}
                     <div class="product-txt">
                         <h3>{{ producto.nombre }}</h3>
-                        <p class="categoria">{% for categoria in dataC %}
+                        <p class="categoria">
+                            {% for categoria in dataC %}
                                 {% if categoria.id == producto.categoria %}
                                     {{ categoria.nombre }}
                                 {% endif %}
@@ -532,6 +581,17 @@
 
         </div>
     </footer>
+
+    <!--js bootstrap 5-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!--js bootstrap 5-->
+
+
+    <!--js bootstrap 4-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!--js bootstrap 4-->
+
 </body>
 </html>

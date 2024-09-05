@@ -39,14 +39,12 @@ def login():
         contrasena = request.form['contrasena']
         
         usuario = Usuario.query.filter_by(correo_electronico=correo_electronico, contrasena=contrasena).first()
-        print(f"uno {correo_electronico}  --  {contrasena}")
-        print(usuario)
         if usuario:
             login_user(usuario)
             flash(f"Bienvenido, {usuario.nombre} {usuario.apellido}!" , "success")
             return redirect(url_for('producto.index'))
         
-        flash('Invalid credentials. Please try again.', 'danger')
+        flash('Credenciales invalidos. Intente nuevamente.', 'danger')
     
     if current_user.is_authenticated:
         return redirect(url_for('usuario.dashboard'))

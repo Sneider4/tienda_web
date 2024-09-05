@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identificacion</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!--css bootstrap 5-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!--css bootstrap 5-->
+
+    <!--css bootstrap 4-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--css bootstrap 4-->
+
+</head>
+<body>
+    
+    <!--Navbar top-->
+    <div class="container">
+        <div class="navbar-top">
+            <div class="social-link">
+                <i><img src="../../static/images/facebook-logo-24.png" alt="" width="30px"></i>
+                <i><img src="../../static/images/instagram-logo-24.png" alt="" width="30px"></i>
+                <i><img src="../../static/images/twitch-logo-24.png" alt="" width="30px"></i>
+            </div>
+            <div class="logo">
+                <i><img src="../../static/images/logo.png" alt="" height="30px"></i>    
+            </div>
+            <div class="search">
+                <i><img src="../../static/images/search-alt-2-regular-24.png" alt="" width="30px"></i>
+
+                {% if current_user.is_authenticated %}
+                    <i>
+                        <a data-bs-toggle="modal" data-bs-target="#carrito">
+                            <img src="../../static/images/shopping-bag-regular-24.png" alt="" width="30px">
+                            <!--<span id="contador-carrito" class="contador">{{ session.get('total_items', 0) }}</span>-->
+                        </a>
+                    </i>
+                    {% else %}
+                    <i>
+                        <a data-bs-toggle="modal" data-bs-target="#mi-modal">
+                            <img src="../../static/images/user-plus-regular-24.png" alt="" width="30px">
+                        </a>
+                    </i>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!--Navbar top-->
+
+    <div class="main-content">
+        <nav class="navbar navbar-expand-md" id="navbar-color">
+            <div class="container">
+          
+            <!-- Toggler/collapsibe Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span><i><img src="../../static/images/menu.png" alt="" width="30px"></i></span>
+                </button>
+            
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Chair</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Chair</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Brands</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contac</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+    
+
+    <!--Progreso de pago-->
+    <div class="container">
+        <div class="progreso-pago">
+            <div class="progreso-icons">
+                <div class="progreso-text active">
+                    <img src="../../static/images/shopping-bag-white.png" alt="">
+                    <p>Shopping</p>
+                </div>
+                <div class="progreso-separador active">
+                    <img src="../../static/images/separador.png" alt="">
+                </div>
+                <div class="progreso-text active">
+                    <img src="../../static/images/user-regular-24-white.png" alt="">
+                    <p>Identificacion</p>
+                </div>
+                <div class="progreso-separador active">
+                    <img src="../../static/images/separador.png" alt="">
+                </div>
+                <div class="progreso-text">
+                    <img src="../../static/images/package-regular-24.png" alt="">
+                    <p>Entrega</p>
+                </div>
+                <div class="progreso-separador">
+                    <img src="../../static/images/separador.png" alt="">
+                </div>
+                <div class="progreso-text">
+                    <img src="../../static/images/credit-card-regular-24.png" alt="">
+                    <p>Pago</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Progreso de pago-->
+
+
+    <!--Carrito shopping-->
+    <section class="carrito-shopping">
+
+        <div class="pago-carrito container">
+            <div class="identificacion">
+                <div class="identificacion-1">
+                    <div class="titulo">
+                        <div class="titulo-numero-paso">
+                            <h5 >1</h5>
+                        </div>
+                        <div class="titulo-txt">
+                            <h5>Identificacion</h5>
+                        </div>
+                    </div>
+                    <div class="datos">
+                        <div class="datos-txt">
+                            <p>malagonrichar13@gmail.com</p>
+                            <p>Nombre: Richard Sneider Malagon Conde</p>
+                            <p>Telefono: 3115759679</p>
+                        </div>
+                        <div class="datos-img">
+                            <img src="../../static/images/edit-solid-24.png" alt="">
+                        </div>
+                        <!--  {% for carrito in dataCar %}
+                        <p>
+                            {% for usuario in dataU %}
+                                {% if usuario.id == carrito.usuario_id %}
+                                    {{ usuario.correo }}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                        {% endfor %} -->
+                    </div>
+                </div>
+                <div class="identificacion-2">
+                    <div class="titulo">
+                        <div class="titulo-numero-paso">
+                            <h5 >2</h5>
+                        </div>
+                        <div class="titulo-txt">
+                            <h5>Envio</h5>
+                        </div>
+                    </div>
+                    <div class="formulario-envio">
+                        <h5>Formulario de envio</h5>
+                        <form action="">
+                            <div class="formulario-input">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="">Departamento</label>
+                                        <input type="text" class="form-control" placeholder="Departamento" required>
+                                    </div>
+                                    <div class="col">
+                                        <label for="">Municipio</label>
+                                        <input type="text" class="form-control" placeholder="Municipio" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="formulario-input">
+                                <label for="">Calle</label>
+                                <input type="text" class="form-control" placeholder="Direccion" required>
+                            </div>
+                            <div class="formulario-input">
+                                <label for="">Información adicional (ej.: apto. 201)
+                                </label>
+                                <input type="text" class="form-control" placeholder="Direccin complementaria" required>
+                            </div>
+                            <div class="formulario-input">
+                                <label for="">Barrio
+                                </label>
+                                <input type="text" class="form-control" placeholder="Opcional" required>
+                            </div>
+                            <div class="formulario-input">
+                                <label for="">Destinatario
+                                </label>
+                                <input type="text" class="form-control" placeholder="Destinatario" value="Richard Malagon" required>
+                            </div>
+                            <div class="formulario-input check">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                    <label class="form-check-label" for="exampleRadios1"> Envio a domicilio
+                                    </label>
+                                    <br>
+                                    <small>Disponible lunes, 8 de octubre</small>
+                                </div>
+                                <div>
+                                    <p>Gratis</p>
+                                </div>
+                            </div>
+                            <div class="formulario-input">
+                                <small>No podras modificar direccion o punto de retiro una vez colocada la orden, ni devolver o cambiar los productos en tienda o puntos de retiro</small>
+                            </div>
+                            <div class="formulario-input button">
+                                <button class="btn btn-primary" type="submit"><a  href="">Ir a pagar</a></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contenedor-pago">
+                <div class="pagar-content">
+                    <div class="carrito-summary">
+                        <div class="summary-item subtotal">
+                            <span>Subtotal</span>
+                            <span>${{ total }}</span>
+                        </div>
+                        <div class="summary-item subtotal">
+                            <span>Gastos de envio</span>
+                            <span>Gratis</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="carrito-summary">
+                        <div class="summary-item total">
+                            <span>Total</span>
+                            <span>${{ total }}</span>
+                        </div>
+                    </div>
+                    <div class="check-pago">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="" required>
+                            <label>
+                                Acepto los <a href="">Términos y Condiciones</a> Autorizo a Street Snakers a procesar mis datos personales, de acuerdo con el <a href="">Aviso de Privacidad de Street Snakers</a>
+                            </label>
+                        </div>  
+                    </div>
+                    <div class="btn-pagar">
+                        <a class="btn btn-primary" href="{{ url_for('pago.identificacion') }}">Proceder a identificacion</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Carrito shopping-->
+
+
+
+
+
+
+     <!--js bootstrap 5-->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+     <!--js bootstrap 5-->
+ 
+ 
+     <!--js bootstrap 4-->
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+     <!--js bootstrap 4-->
+</body>
+</html>

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
+from flask_login import current_user
 from werkzeug.utils import secure_filename
 from app.models.producto import Producto
 from app.models.categoria import Categoria
@@ -7,16 +8,29 @@ from app.models.carrito import Carrito
 from app import db
 import os
 
+
 bp = Blueprint('producto', __name__)
 
 @bp.route('/')
 def index():
-    data = Producto.query.all()
+    dataP = Producto.query.all()
     dataC = Categoria.query.all()
     dataU = Usuario.query.all()
-    dataCar = Carrito.query.all()
+    total = 0
 
-    return render_template('producto/index.html', data=data, dataC=dataC, dataCar=dataCar, dataU=dataU)
+    if current_user.is_authenticated:
+        dataCar = Carrito.query.filter_by(usuario_id=current_user.id).all()
+    else:
+        dataCar = []
+
+    for item in dataCar:
+        for producto in dataP:
+            if producto.id == item.producto_id:
+                total += producto.precio * item.cantidad
+
+    impuesto = total * 0.19
+
+    return render_template('producto/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto)
 
 @bp.route('/producto/add', methods=['GET', 'POST'])
 def add():
