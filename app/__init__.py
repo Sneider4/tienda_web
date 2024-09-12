@@ -24,7 +24,11 @@ def create_app():
         return Usuario.query.get(int(user_id))
 
 
+<<<<<<< Updated upstream
     from app.routes import carrito_routes, categoria_routes, detalle_orden_routes, envio_routes,orden_routes, pago_routes, producto_routes, usuario_routes, direccion_cliente_routes
+=======
+    from app.routes import carrito_routes, categoria_routes, detalle_orden_routes, envio_routes,orden_routes, pago_routes, producto_routes, usuario_routes, admin_routes
+>>>>>>> Stashed changes
 
     app.register_blueprint(carrito_routes.bp)
     app.register_blueprint(categoria_routes.bp)
@@ -34,6 +38,10 @@ def create_app():
     app.register_blueprint(pago_routes.bp)
     app.register_blueprint(producto_routes.bp)
     app.register_blueprint(usuario_routes.bp)
+<<<<<<< Updated upstream
     app.register_blueprint(direccion_cliente_routes.bp)
+=======
+    app.register_blueprint(admin_routes.bp)
+>>>>>>> Stashed changes
     
     return app
