@@ -50,6 +50,7 @@
     </div>
     <!--Navbar top-->
 
+    <!-- Menu -->
     <div class="main-content">
         <nav class="navbar navbar-expand-md" id="navbar-color">
             <div class="container">
@@ -86,6 +87,7 @@
         </nav>
 
     </div>
+    <!-- Menu -->
     
 
     <!--Progreso de pago-->
@@ -123,11 +125,13 @@
     <!--Progreso de pago-->
 
 
-    <!--Carrito shopping-->
+    
     <section class="carrito-shopping">
 
         <div class="pago-carrito container">
             <div class="identificacion">
+
+                <!-- Paso 1: Identificacion -->
                 <div class="identificacion-1">
                     <div class="titulo">
                         <div class="titulo-numero-paso">
@@ -139,24 +143,36 @@
                     </div>
                     <div class="datos">
                         <div class="datos-txt">
-                            <p>malagonrichar13@gmail.com</p>
-                            <p>Nombre: Richard Sneider Malagon Conde</p>
-                            <p>Telefono: 3115759679</p>
+                            <p> 
+                                {% for carrito in dataCar %}
+                                {{ carrito.usuario.correo_electronico }}
+                                {% endfor %}
+                            </p>
+                            <p>
+                                <strong>Nombre: </strong>
+                                {% for carrito in dataCar %}
+                                {{ carrito.usuario.nombre }} {{ carrito.usuario.apellido }}
+                                {% endfor %}
+                            </p>
+                            <p>
+                                <strong>Telefono: </strong>
+                                {% for carrito in dataCar %}
+                                {{ carrito.usuario.telefono }}
+                                {% endfor %}
+                            </p>
                         </div>
                         <div class="datos-img">
                             <img src="../../static/images/edit-solid-24.png" alt="">
                         </div>
-                        <!--  {% for carrito in dataCar %}
-                        <p>
-                            {% for usuario in dataU %}
-                                {% if usuario.id == carrito.usuario_id %}
-                                    {{ usuario.correo }}
-                                {% endif %}
-                            {% endfor %}
-                        </p>
-                        {% endfor %} -->
+                       
                     </div>
                 </div>
+                <!-- Paso 1: Identificacion -->
+
+                <!-- Paso 2: Entrega -->
+                
+
+
                 <div class="identificacion-2">
                     <div class="titulo">
                         <div class="titulo-numero-paso">
@@ -166,98 +182,146 @@
                             <h5>Envio</h5>
                         </div>
                     </div>
-                    <div class="formulario-envio">
-                        <h5>Formulario de envio</h5>
-                        <form action="">
-                            <div class="formulario-input">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="">Departamento</label>
-                                        <input type="text" class="form-control" placeholder="Departamento" required>
+
+                    {% if direccion_cliente %}
+                        <div class="container-datos-entrega">
+                            <div class="datos-1">
+                                <div class="datos-txt">
+                                    <div>
+                                        <p>{{ direccion_cliente.calle }} - {{ direccion_cliente.barrio }}</p>
+                                        <p>{{ direccion_cliente.municipio }} - {{ direccion_cliente.departamento }}</p>
                                     </div>
-                                    <div class="col">
-                                        <label for="">Municipio</label>
-                                        <input type="text" class="form-control" placeholder="Municipio" required>
+                                    <div>
+                                        <p><strong>Disponible viernes, 27 septiembre</strong></p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="formulario-input">
-                                <label for="">Calle</label>
-                                <input type="text" class="form-control" placeholder="Direccion" required>
-                            </div>
-                            <div class="formulario-input">
-                                <label for="">Información adicional (ej.: apto. 201)
-                                </label>
-                                <input type="text" class="form-control" placeholder="Direccin complementaria" required>
-                            </div>
-                            <div class="formulario-input">
-                                <label for="">Barrio
-                                </label>
-                                <input type="text" class="form-control" placeholder="Opcional" required>
-                            </div>
-                            <div class="formulario-input">
-                                <label for="">Destinatario
-                                </label>
-                                <input type="text" class="form-control" placeholder="Destinatario" value="Richard Malagon" required>
-                            </div>
-                            <div class="formulario-input check">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                    <label class="form-check-label" for="exampleRadios1"> Envio a domicilio
-                                    </label>
-                                    <br>
-                                    <small>Disponible lunes, 8 de octubre</small>
-                                </div>
-                                <div>
+                                <div class="datos-img">
                                     <p>Gratis</p>
                                 </div>
                             </div>
-                            <div class="formulario-input">
-                                <small>No podras modificar direccion o punto de retiro una vez colocada la orden, ni devolver o cambiar los productos en tienda o puntos de retiro</small>
+                            <div class="cambiar-datos-entrega">
+                                <a href="#">Cambiar opciones de entrega</a>
                             </div>
-                            <div class="formulario-input button">
-                                <button class="btn btn-primary" type="submit"><a  href="">Ir a pagar</a></button>
+                        </div>
+                    {% else %}
+
+                        <form action="{{ url_for('direccion_cliente.add') }}" method="post">
+                            <div class="formulario-envio">
+                                <h5>Formulario de envio</h5>
+                                <div class="formulario-input">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="">Departamento</label>
+                                            <input type="text" class="form-control" placeholder="Departamento" name="departamento" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="">Municipio</label>
+                                            <input type="text" class="form-control" placeholder="Municipio" name="municipio" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formulario-input">
+                                    <label for="">Calle</label>
+                                    <input type="text" class="form-control" placeholder="Direccion" name="calle" required>
+                                </div>
+                                <div class="formulario-input">
+                                    <label for="">Información adicional (ej.: apto. 201)
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="Direccin complementaria" name="informacion_adicional" required>
+                                </div>
+                                <div class="formulario-input">
+                                    <label for="">Barrio
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="Opcional" name="barrio" required>
+                                </div>
+                                <div class="formulario-input">
+                                    <label for="">Destinatario
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="Destinatario" value="{% for carrito in dataCar %} {{ carrito.usuario.nombre }} {{ carrito.usuario.apellido }}
+                                    {% endfor %}" name="destinatario" required>
+                                </div>
+                                <div class="formulario-input check">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                        <label class="form-check-label" for="exampleRadios1"> Envio a domicilio
+                                        </label>
+                                        <br>
+                                        <small>Disponible lunes, 8 de octubre</small>
+                                    </div>
+                                    <div>
+                                        <p>Gratis</p>
+                                    </div>
+                                </div>
+                                <div class="formulario-input">
+                                    <small>No podras modificar direccion o punto de retiro una vez colocada la ftvorden, ni devolver o cambiar los productos en tienda o puntos de retiro</small>
+                                </div>
+                                <div class="formulario-input button">
+                                    <button class="btn-1 btn-primary" type="submit">Ir a pagar</button>
+                                </div>
                             </div>
                         </form>
-                    </div>
+                    {% endif %}
                 </div>
+                <!-- Paso 2: Entrega -->
             </div>
 
-            <div class="contenedor-pago">
-                <div class="pagar-content">
-                    <div class="carrito-summary">
-                        <div class="summary-item subtotal">
-                            <span>Subtotal</span>
-                            <span>${{ total }}</span>
-                        </div>
-                        <div class="summary-item subtotal">
-                            <span>Gastos de envio</span>
-                            <span>Gratis</span>
-                        </div>
+            <!-- Carrito pequeño proceso de pago -->
+            <div class="pago-carrito-progreso">
+                {% for carrito in dataCar %}
+                <div class="carrito-progreso">
+                    <div>
+                        {% for producto in dataP %}
+                            {% if producto.id == carrito.producto_id %}
+                                {% if producto.imagen %}
+                                    {% set direccion = 'images/' + producto.imagen %}
+                                    <img src="{{ url_for('static', filename=direccion) }}" alt="{{ producto.nombre }}">
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                    <hr>
-                    <div class="carrito-summary">
-                        <div class="summary-item total">
-                            <span>Total</span>
-                            <span>${{ total }}</span>
-                        </div>
+                    <div class="carrito-txt">
+                        <p>{% for producto in dataP %}
+                                {% if producto.id == carrito.producto_id %}
+                                    {{ producto.nombre }}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p>EUR 38</p>
+                        <p class="precio">
+                            {% for producto in dataP %}
+                                {% if producto.id == carrito.producto_id %}
+                                    ${{ producto.precio }}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
                     </div>
-                    <div class="check-pago">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="" required>
-                            <label>
-                                Acepto los <a href="">Términos y Condiciones</a> Autorizo a Street Snakers a procesar mis datos personales, de acuerdo con el <a href="">Aviso de Privacidad de Street Snakers</a>
-                            </label>
-                        </div>  
+                </div>
+                {% endfor %}
+
+                <hr>
+
+                <div class="carrito-summary">
+                    <div class="summary-item subtotal">
+                        <span>Subtotal</span>
+                        <span>${{ total }}</span>
                     </div>
-                    <div class="btn-pagar">
-                        <a class="btn btn-primary" href="{{ url_for('pago.identificacion') }}">Proceder a identificacion</a>
+                    <div class="summary-item subtotal">
+                        <span>Gastos de envio</span>
+                        <span>Gratis</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="carrito-summary">
+                    <div class="summary-item total">
+                        <span>Total</span>
+                        <span>${{ total }}</span>
                     </div>
                 </div>
             </div>
+            <!-- Carrito pequeño proceso de pago -->
+
         </div>
     </section>
-    <!--Carrito shopping-->
 
 
 

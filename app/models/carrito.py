@@ -6,4 +6,4 @@ class Carrito(db.Model):
     producto_id = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
     cantidad = db.Column(db.Integer, nullable=False)
 
-    
+    usuario = db.relationship('Usuario', backref='carritos')

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping bag</title>
+    <title>Identificacion</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <!--css bootstrap 5-->
@@ -16,7 +16,7 @@
 
 </head>
 <body>
-
+    
     <!--Navbar top-->
     <div class="container">
         <div class="navbar-top">
@@ -50,6 +50,7 @@
     </div>
     <!--Navbar top-->
 
+    <!-- Menu -->
     <div class="main-content">
         <nav class="navbar navbar-expand-md" id="navbar-color">
             <div class="container">
@@ -86,6 +87,7 @@
         </nav>
 
     </div>
+    <!-- Menu -->
     
 
     <!--Progreso de pago-->
@@ -99,11 +101,11 @@
                 <div class="progreso-separador active">
                     <img src="../../static/images/separador.png" alt="">
                 </div>
-                <div class="progreso-text">
-                    <img src="../../static/images/user-regular-24.png" alt="">
+                <div class="progreso-text active">
+                    <img src="../../static/images/user-regular-24-white.png" alt="">
                     <p>Identificacion</p>
                 </div>
-                <div class="progreso-separador">
+                <div class="progreso-separador active">
                     <img src="../../static/images/separador.png" alt="">
                 </div>
                 <div class="progreso-text">
@@ -123,65 +125,62 @@
     <!--Progreso de pago-->
 
 
-    <!--Carrito shopping-->
+    
     <section class="carrito-shopping">
 
-        <!-- Carrito para pantallas grandes -->
         <div class="pago-carrito container">
-            <div class="pago-carrito-tabla">
-                <table class="tabla table-hover">
-                    <thead>
-                        <tr>
-                            <th colspan="3" >Producto(s)</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th colspan="1"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for carrito in dataCar %}
-                        <tr>
-                            <td>
-                                {% for producto in dataP %}
-                                    {% if producto.id == carrito.producto_id %}
-                                        {% if producto.imagen %}
-                                            {% set direccion = 'images/' + producto.imagen %}
-                                            <img class="tenis" src="{{ url_for('static', filename=direccion) }}" alt="{{ producto.nombre }}">
-                                        {% endif %}
-                                    {% endif %}
+            <div class="identificacion">
+
+                <!-- Paso 1: Identificacion -->
+                <div class="identificacion-1">
+                    <div class="titulo">
+                        <div class="titulo-numero-paso">
+                            <h5 >1</h5>
+                        </div>
+                        <div class="titulo-txt">
+                            <h5>Identificacion</h5>
+                        </div>
+                    </div>
+                    <div class="datos">
+                        <div class="datos-txt">
+                            <p> 
+                                {% for carrito in dataCar %}
+                                {{ carrito.usuario.correo_electronico }}
                                 {% endfor %}
-                            </td>
-                            <td colspan="2">
-                                {% for producto in dataP %}
-                                    {% if producto.id == carrito.producto_id %}
-                                        {{ producto.nombre }}
-                                    {% endif %}
+                            </p>
+                            <p>
+                                Nombre: 
+                                {% for carrito in dataCar %}
+                                {{ carrito.usuario.nombre }} {{ carrito.usuario.apellido }}
                                 {% endfor %}
-                            </td>
-                            <td>
-                                {{ carrito.cantidad }} UND
-                            </td>
-                            <td>
-                                {% for producto in dataP %}
-                                    {% if producto.id == carrito.producto_id %}
-                                        ${{ producto.precio }}
-                                    {% endif %}
+                            </p>
+                            <p>
+                                Telefono: 
+                                {% for carrito in dataCar %}
+                                {{ carrito.usuario.telefono }}
                                 {% endfor %}
-                            </td>
-                            <td><a href="{{ url_for('carrito.delete', id=carrito.id) }}"><img width="30px" class="carrito-delete" src="../../static/images/delete.png" alt=""></a></td>
-                        </tr> 
-                        {% endfor %}  
-                    </tbody>
-                </table>
+                            </p>
+                        </div>
+                        <div class="datos-img">
+                            <img src="../../static/images/edit-solid-24.png" alt="">
+                        </div>
+                       
+                    </div>
+                </div>
+                <!-- Paso 1: Identificacion -->
+
+                <!-- Paso 2: Entrega -->
+                <div class="identificacion-2">
+                    
+                </div>
+                <!-- Paso 2: Entrega -->
             </div>
-            <!-- Carrito para pantallas grandes -->
 
-
-            <!-- Carrito para pantallas pequeñas -->
-            <div class="pago-carrito-pequeño">
+            <!-- Carrito pequeño proceso de pago -->
+            <div class="pago-carrito-progreso">
                 {% for carrito in dataCar %}
-                <div class="carrito">
-                    <div class="carrito-img">
+                <div class="carrito-progreso">
+                    <div>
                         {% for producto in dataP %}
                             {% if producto.id == carrito.producto_id %}
                                 {% if producto.imagen %}
@@ -191,72 +190,49 @@
                             {% endif %}
                         {% endfor %}
                     </div>
-                    <div class="carrito-txt-delete">
-                        <div class="carrito-txt">
-                            <h3>{% for producto in dataP %}
-                                    {% if producto.id == carrito.producto_id %}
-                                        {{ producto.nombre }}
-                                    {% endif %}
-                                {% endfor %}
-                            </h3>
-                            <p>EUR 38</p>
-                            <p>
-                                {{ carrito.cantidad }} UND
-                            </p>
-                            <p class="precio">
-                                {% for producto in dataP %}
-                                    {% if producto.id == carrito.producto_id %}
-                                        ${{ producto.precio }}
-                                    {% endif %}
-                                {% endfor %}
-                            </p>
-                        </div>
-                        <div class="carrito-delete">
-                            <a href="{{ url_for('carrito.delete', id=carrito.id) }}"><img class="carrito-delete" src="../../static/images/delete.png" alt=""></a>
-                        </div>
+                    <div class="carrito-txt">
+                        <p>{% for producto in dataP %}
+                                {% if producto.id == carrito.producto_id %}
+                                    {{ producto.nombre }}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p>EUR 38</p>
+                        <p class="precio">
+                            {% for producto in dataP %}
+                                {% if producto.id == carrito.producto_id %}
+                                    ${{ producto.precio }}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
                     </div>
                 </div>
                 {% endfor %}
 
-            </div>
-            <!-- Carrito para pantallas pequeñas -->
+                <hr>
 
-
-            <div class="contenedor-pago">
-                <div class="pagar-content">
-                    <div class="carrito-summary">
-                        <div class="summary-item subtotal">
-                            <span>Subtotal</span>
-                            <span>${{ total }}</span>
-                        </div>
-                        <div class="summary-item subtotal">
-                            <span>Gastos de envio</span>
-                            <span>Gratis</span>
-                        </div>
+                <div class="carrito-summary">
+                    <div class="summary-item subtotal">
+                        <span>Subtotal</span>
+                        <span>${{ total }}</span>
                     </div>
-                    <hr>
-                    <div class="carrito-summary">
-                        <div class="summary-item total">
-                            <span>Total</span>
-                            <span>${{ total }}</span>
-                        </div>
+                    <div class="summary-item subtotal">
+                        <span>Gastos de envio</span>
+                        <span>Gratis</span>
                     </div>
-                    <div class="check-pago">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="" required>
-                            <label>
-                                Acepto los <a href="">Términos y Condiciones</a> Autorizo a Street Snakers a procesar mis datos personales, de acuerdo con el <a href="">Aviso de Privacidad de Street Snakers</a>
-                            </label>
-                        </div>  
-                    </div>
-                    <div class="btn-pagar">
-                        <a class="btn btn-primary" href="{{ url_for('pago.identificacion') }}">Proceder a identificacion</a>
+                </div>
+                <hr>
+                <div class="carrito-summary">
+                    <div class="summary-item total">
+                        <span>Total</span>
+                        <span>${{ total }}</span>
                     </div>
                 </div>
             </div>
+            <!-- Carrito pequeño proceso de pago -->
+
         </div>
     </section>
-    <!--Carrito shopping-->
 
 
 
@@ -273,6 +249,5 @@
      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
      <!--js bootstrap 4-->
-
 </body>
 </html>

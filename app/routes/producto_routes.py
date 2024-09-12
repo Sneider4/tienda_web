@@ -1,10 +1,11 @@
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, session, redirect, url_for, jsonify
 from flask_login import current_user
 from werkzeug.utils import secure_filename
 from app.models.producto import Producto
 from app.models.categoria import Categoria
 from app.models.usuario import Usuario
 from app.models.carrito import Carrito
+from app.models.direccion_cliente import DireccionCliente
 from app import db
 import os
 
@@ -17,6 +18,7 @@ def index():
     dataC = Categoria.query.all()
     dataU = Usuario.query.all()
     total = 0
+
 
     if current_user.is_authenticated:
         dataCar = Carrito.query.filter_by(usuario_id=current_user.id).all()
@@ -59,3 +61,26 @@ def add():
 
     data = Categoria.query.all()
     return render_template('producto/add.html', data=data)
+
+
+@bp.route('/producto/ver_producto')
+def ver_producto():
+
+    dataP = Producto.query.all()
+    dataC = Categoria.query.all()
+    dataU = Usuario.query.all()
+    total = 0
+
+    if current_user.is_authenticated:
+        dataCar = Carrito.query.filter_by(usuario_id=current_user.id).all()
+    else:
+        dataCar = []
+
+    for item in dataCar:
+        for producto in dataP:
+            if producto.id == item.producto_id:
+                total += producto.precio * item.cantidad
+
+    impuesto = total * 0.19
+
+    return render_template('producto/ver_producto.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto)
