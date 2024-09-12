@@ -1,11 +1,8 @@
-<<<<<<< Updated upstream
 from flask import Blueprint, render_template, request, session, redirect, url_for, jsonify
 from flask_login import current_user
-=======
+from werkzeug.utils import secure_filename
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash, get_flashed_messages
 from flask_login import current_user, login_required
->>>>>>> Stashed changes
-from werkzeug.utils import secure_filename
 from app.models.producto import Producto
 from app.models.categoria import Categoria
 from app.models.usuario import Usuario
@@ -110,13 +107,10 @@ def edit(id):
 
         db.session.commit()
         flash('Producto actualizado con éxito', 'success')
-        return redirect(url_for('producto.tabla', dataP=dataP, dataC=dataC))
+        return redirect(url_for('producto.tabla'))
     print(f"hola")
 
-<<<<<<< Updated upstream
-    data = Categoria.query.all()
-    return render_template('producto/add.html', data=data)
-
+    return render_template('producto/edit.html', dataP=dataP, dataC=dataC)
 
 @bp.route('/producto/ver_producto')
 def ver_producto():
@@ -139,8 +133,6 @@ def ver_producto():
     impuesto = total * 0.19
 
     return render_template('producto/ver_producto.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto)
-=======
-    return render_template('producto/edit.html', dataP=dataP, dataC=dataC)
 
 @bp.route('/producto/delete/<int:id>', methods=['POST'])
 @login_required
@@ -160,4 +152,3 @@ def tabla():
     dataP = Producto.query.all()
     dataC = Categoria.query.all()
     return render_template('producto/tabla.html', dataP=dataP, dataC=dataC)
->>>>>>> Stashed changes

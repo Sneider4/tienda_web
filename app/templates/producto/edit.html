@@ -211,28 +211,28 @@
                     </ol>
                     <div class="form-container">
                         <h1>Editar Producto</h1>
-                        <form action="{{ url_for('producto.edit', id=producto.id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url_for('producto.edit', id=dataP.id) }}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" id="nombre" name="nombre" value="{{ producto.nombre }}" required />
+                                <input type="text" id="nombre" name="nombre" value="{{ dataP.nombre }}" required />
                             </div>
                             <div class="form-group">
                                 <label for="descripcion">Descripción:</label>
-                                <textarea id="descripcion" name="descripcion" required>{{ producto.descripcion }}</textarea>
+                                <textarea id="descripcion" name="descripcion" required>{{ dataP.descripcion }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="precio">Precio:</label>
-                                <input type="number" id="precio" name="precio" value="{{ producto.precio }}" required />
+                                <input type="number" id="precio" name="precio" value="{{ dataP.precio }}" required />
                             </div>
                             <div class="form-group">
                                 <label for="stock">Stock:</label>
-                                <input type="number" id="stock" name="stock" value="{{ producto.stock }}" required />
+                                <input type="number" id="stock" name="stock" value="{{ dataP.stock }}" required />
                             </div>
                             <div class="form-group">
                                 <label for="categoria">Categoría:</label>
                                 <select id="categoria" name="categoria" required>
                                     {% for categoria in dataC %}
-                                    <option value="{{ categoria.id }}" {% if categoria.id == producto.categoria %}selected{% endif %}>
+                                    <option value="{{ categoria.id }}" {% if categoria.id == dataP.categoria %}selected{% endif %}>
                                         {{ categoria.nombre }}
                                     </option>
                                     {% endfor %}
