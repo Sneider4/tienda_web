@@ -108,6 +108,15 @@
                 <div class="progreso-separador active">
                     <img src="../../static/images/separador.png" alt="">
                 </div>
+                {% if direccion_cliente %}
+                <div class="progreso-text active">
+                    <img src="../../static/images/package-regular-white.png" alt="">
+                    <p>Entrega</p>
+                </div>
+                <div class="progreso-separador active">
+                    <img src="../../static/images/separador.png" alt="">
+                </div>
+                {% else %}
                 <div class="progreso-text">
                     <img src="../../static/images/package-regular-24.png" alt="">
                     <p>Entrega</p>
@@ -115,6 +124,7 @@
                 <div class="progreso-separador">
                     <img src="../../static/images/separador.png" alt="">
                 </div>
+                {% endif %}
                 <div class="progreso-text">
                     <img src="../../static/images/credit-card-regular-24.png" alt="">
                     <p>Pago</p>
@@ -267,55 +277,61 @@
 
             <!-- Carrito pequeño proceso de pago -->
             <div class="pago-carrito-progreso">
-                {% for carrito in dataCar %}
-                <div class="carrito-progreso">
-                    <div>
-                        {% for producto in dataP %}
-                            {% if producto.id == carrito.producto_id %}
-                                {% if producto.imagen %}
-                                    {% set direccion = 'images/' + producto.imagen %}
-                                    <img src="{{ url_for('static', filename=direccion) }}" alt="{{ producto.nombre }}">
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    <div class="carrito-txt">
-                        <p>{% for producto in dataP %}
-                                {% if producto.id == carrito.producto_id %}
-                                    {{ producto.nombre }}
-                                {% endif %}
-                            {% endfor %}
-                        </p>
-                        <p>EUR 38</p>
-                        <p class="precio">
+                <div>
+                    {% for carrito in dataCar %}
+                    <div class="carrito-progreso">
+                        <div>
                             {% for producto in dataP %}
                                 {% if producto.id == carrito.producto_id %}
-                                    ${{ producto.precio }}
+                                    {% if producto.imagen %}
+                                        {% set direccion = 'images/' + producto.imagen %}
+                                        <img src="{{ url_for('static', filename=direccion) }}" alt="{{ producto.nombre }}">
+                                    {% endif %}
                                 {% endif %}
                             {% endfor %}
-                        </p>
+                        </div>
+                        <div class="carrito-txt">
+                            <p>{% for producto in dataP %}
+                                    {% if producto.id == carrito.producto_id %}
+                                        {{ producto.nombre }}
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                            <p>EUR 38</p>
+                            <p class="precio">
+                                {% for producto in dataP %}
+                                    {% if producto.id == carrito.producto_id %}
+                                        ${{ producto.precio }}
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <hr>
+
+                    <div class="carrito-summary">
+                        <div class="summary-item subtotal">
+                            <span>Subtotal</span>
+                            <span>${{ total }}</span>
+                        </div>
+                        <div class="summary-item subtotal">
+                            <span>Gastos de envio</span>
+                            <span>Gratis</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="carrito-summary">
+                        <div class="summary-item total">
+                            <span>Total</span>
+                            <span>${{ total }}</span>
+                        </div>
                     </div>
                 </div>
-                {% endfor %}
-
-                <hr>
-
-                <div class="carrito-summary">
-                    <div class="summary-item subtotal">
-                        <span>Subtotal</span>
-                        <span>${{ total }}</span>
-                    </div>
-                    <div class="summary-item subtotal">
-                        <span>Gastos de envio</span>
-                        <span>Gratis</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="carrito-summary">
-                    <div class="summary-item total">
-                        <span>Total</span>
-                        <span>${{ total }}</span>
-                    </div>
+                <div class="comprar-ahora">
+                    <button>Comprar ahora</button>
+                    <span>Al confirmar la compra acepto los terminos y condiciones</span>
                 </div>
             </div>
             <!-- Carrito pequeño proceso de pago -->
