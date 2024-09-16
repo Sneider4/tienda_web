@@ -1,7 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash, session
 from flask_login import login_user, logout_user, current_user
+from flask_mail import Message
+from app.forms.reset_password import RequestResetForm, ResetPasswordForm
 from werkzeug.security import check_password_hash
 from app.models.usuario import Usuario
+from app import mail
 from app import db
 
 bp = Blueprint('usuario', __name__)
@@ -65,3 +68,73 @@ def logout():
     logout_user() 
     flash('Has cerrado sesión.', 'info')
     return redirect(url_for('producto.index'))
+
+@bp.route('/reset_password', methods=['GET', 'POST'])
+def reset_request():
+    form = RequestResetForm()
+    print("1", form.validate_on_submit())
+
+    if form.validate_on_submit():
+
+        usuario = Usuario.query.filter_by(correo_electronico=form.correo_electronico.data).first()
+        if usuario:
+            token = usuario.get_reset_token()
+            msg = Message('Solicitud de restablecimiento de contraseña',
+                          sender='programanike@gmail.com',
+                          recipients=[usuario.correo_electronico])
+            msg.body = f'''Para restablecer tu contraseña, haz clic en el siguiente enlace:
+                        
+                        {url_for('usuario.reset_token', token=token, _external=True)}
+
+                        Si no solicitaste este cambio, simplemente ignora este correo.
+                        '''
+            try:
+                print("Enviando correo...")
+
+                mail.send(msg)
+                print("Correo enviado exitosamente")
+                flash('El enlace para restablecer la contraseña ha sido enviado a tu correo electrónico.', 'info')
+                return redirect(url_for('producto.index'))
+            except Exception as e:
+                print(f"Error al enviar el correo: {str(e)}")
+                flash('Hubo un error al intentar enviar el correo. Por favor, intenta nuevamente.', 'danger')
+
+            return render_template('producto/index.html', form = form)
+    return render_template('usuario/reset_request.html', form = form)
+
+@bp.route('/reset_password/<token>', methods=['POST', 'GET'])
+def reset_token(token):
+    print('1', current_user.is_authenticated )
+    formulario = ResetPasswordForm()
+    
+    if current_user.is_authenticated:
+        print('-----------------------------------------------------------')
+        return redirect(url_for('main.index')), print("Ayuda")
+    if request.method == 'POST':
+        
+        usuario = Usuario.verify_reset_token(token)
+        print('3 entra al post')
+        if usuario is None:
+            print('4')
+            flash('El enlace es inválido o ha expirado.', 'warning')
+            print('5')
+            return redirect(url_for('usuario.reset_request')), print("JAJA")
+        
+        print(formulario)
+        print(f'6 ------- {formulario.validate_on_submit()}----metodo ------- {request.method}')
+        print(f"Contraseña --------------------{formulario.contrasena.data}-------")
+        if formulario.validate_on_submit():
+            usuario.contrasena = formulario.contrasena.data
+            db.session.commit()
+            flash('Tu contraseña ha sido actualizada. ¡Ahora puedes iniciar sesión!', 'success')
+            print('7')
+            return redirect(url_for('producto.index')), print("Prueba")
+        else:
+            print("Errores del formulario:", formulario.errors)
+            print(formulario)
+        
+            # Depurar errores del formulario si la validación falla
+        if formulario.errors:
+            print(formulario.errors)
+        print('8')
+    return render_template('usuario/reset_token.html', form=formulario)
