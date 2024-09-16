@@ -37,7 +37,7 @@ def create_app(config_class=None):
 
     csrf.init_app(app)
 
-    from app.routes import carrito_routes, categoria_routes, detalle_orden_routes, envio_routes,orden_routes, pago_routes, producto_routes, usuario_routes, direccion_cliente_routes
+    from app.routes import carrito_routes, categoria_routes, detalle_orden_routes, envio_routes,orden_routes, pago_routes, producto_routes, usuario_routes, admin_routes, direccion_cliente_routes
 
     app.register_blueprint(carrito_routes.bp)
     app.register_blueprint(categoria_routes.bp)
@@ -48,5 +48,7 @@ def create_app(config_class=None):
     app.register_blueprint(producto_routes.bp)
     app.register_blueprint(usuario_routes.bp)
     app.register_blueprint(direccion_cliente_routes.bp)
+    app.register_blueprint(admin_routes.bp)
+
     
     return app

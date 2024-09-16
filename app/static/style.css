@@ -121,7 +121,7 @@ img {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    max-width: 600px;
+    max-width: 450px;
 }
 
 .progreso-text {
@@ -142,7 +142,7 @@ img {
 }
 
 .progreso-separador img{
-    width: 60px;
+    width: 40px;
     opacity: 0.2;
     padding-top: 25px;
 }
@@ -343,7 +343,22 @@ img {
     align-items: center;
 }
 
-.container-datos-entrega {
+.cambiar-datos-entrega {
+    margin-top: 10  px;
+    text-align: center  ;
+    border: 1px dashed #9c9c9c;
+    background-color: #eeeded;
+    border-radius: 10px;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.cambiar-datos-entrega a{
+    color: #000000;
+}
+
+.cambiar-datos-entrega a:hover{
+    color: #000000;
 }
 
 
@@ -393,6 +408,31 @@ img {
 .carrito-progreso img{
     max-width: 65px;
     margin: 0 10px 0 10px;
+}
+
+.comprar-ahora {
+    display: flex;
+    flex-direction: column;
+    margin: 25px 0 10px 0;
+    gap: 20px;
+    text-align: center;
+}
+
+.comprar-ahora button {
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    background-color: #000000;
+    color: white;
+    font-size: 16px;
+}
+
+.comprar-ahora button:hover{
+    background-color: #474747;
+}
+
+.comprar-ahora span {
+    color: #585858;
 }
 
 /* Carrito pequeño proceso de pago */
@@ -717,6 +757,7 @@ hr{
 }
 
 .products-principal {
+    
     background-color: #000000;
 }
 

@@ -11,6 +11,7 @@ bp = Blueprint('usuario', __name__)
 
 @bp.route('/usuario')
 def index():
+
     data = Usuario.query.all()
     return render_template('usuario/index.html', data=data)
 
@@ -45,8 +46,11 @@ def login():
         if usuario:
             login_user(usuario)
             flash(f"Bienvenido, {usuario.nombre} {usuario.apellido}!" , "success")
-            return redirect(url_for('producto.index'))
-        
+            if usuario.rol == "Cliente":
+                return redirect(url_for('producto.index'))
+            elif usuario.rol == "Administrador":
+                return redirect(url_for('admin.index'))
+
         flash('Credenciales invalidos. Intente nuevamente.', 'danger')
     
     if current_user.is_authenticated:
