@@ -14,7 +14,7 @@ import os
 
 bp = Blueprint('producto', __name__)
 
-@bp.route('/')
+@bp.route('/producto')
 def index():
     dataP = Producto.query.all()
     dataC = Categoria.query.all()
@@ -112,7 +112,7 @@ def edit(id):
 
     return render_template('producto/edit.html', dataP=dataP, dataC=dataC)
 
-@bp.route('/producto/ver_producto')
+@bp.route('/')
 def ver_producto():
 
     dataP = Producto.query.all()

@@ -180,9 +180,6 @@
                 <!-- Paso 1: Identificacion -->
 
                 <!-- Paso 2: Entrega -->
-                
-
-
                 <div class="identificacion-2">
                     <div class="titulo">
                         <div class="titulo-numero-paso">
@@ -273,10 +270,162 @@
                     {% endif %}
                 </div>
                 <!-- Paso 2: Entrega -->
+
+                <!-- Paso 3: pago -->
+                <div class="identificacion-2">
+                    <div class="titulo">
+                        <div class="titulo-numero-paso">
+                            <h5>3</h5>
+                        </div>
+                        <div class="titulo-txt">
+                            <h5>Pago</h5>
+                        </div>
+                    </div>
+                    <div class="container-informacion-tarjeta">
+                        <div class="medios-pago">
+                            <ul>
+                                <li onclick="mostrarFormulario('credito'); seleccionarOpcion(this);">Tarjeta de credito</li>
+                                <li onclick="mostrarFormulario('debito'); seleccionarOpcion(this);" >Tarjeta de  debito</li>
+                                <li onclick="mostrarFormulario('pse'); seleccionarOpcion(this);">PSE</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+
+                    <!-- Formularios de pago-->
+
+                    <!-- Pago por tarjeta credito -->
+                    <div class="formulario-envio" id="form-credito">
+                        <form action="">
+                            <div class="col-12 formulario-input">
+                                <label for="">Numero de tarjeta</label>
+                                <input type="text" class="form-control" placeholder="Numero" name="numero" required>
+                            </div>
+                            <div class="col-8 formulario-input">
+                                <label for="">Cuotas disponibles
+                                </label>
+                                <select class="form-select" aria-label="Default select example" required>
+                                    <option selected>¿En cuantas cuotas deseas pagar?</option>
+                                    <option value="1">Total $50.000</option>
+                                    <option value="2">3</option>
+                                    <option value="3">6</option>
+                                    <option value="4">6</option>
+                                    <option value="4">12</option>
+                                  </select>
+                            </div>
+                            <div class="col-12 formulario-input">
+                                <label for="">Nombre y apellido como figura en la tarjeta
+                                </label>
+                                <input type="text" class="form-control" placeholder="Nombre y apellido" name="nombre_tarjeta" required>
+                            </div>
+
+                            <div class="col-8 formulario-input">
+                                <label for="mes-anio" class="form-label">Fecha de vencimiento</label>
+                                <input type="month" class="form-control" id="mes-anio" name="mes-anio" required>
+                            </div>
+
+                            <div class="col-8 formulario-input">
+                                <label for="">Codigo de seguridad
+                                </label>
+                                <input type="text" class="form-control" placeholder="###" name="codigo_seguridad" required>
+                            </div>
+                            
+                            <div class="formulario-input button">
+                                <button class="btn-1 btn-primary" type="submit">Ir a pagar</button>
+                            </div>
+                        </form>
+                    </div> 
+
+                    <!-- Pago por tarjeta credito -->
+
+
+                    <!-- Pago por tarjeta debito -->
+                    
+                    <div id="form-debito" class="formulario-envio" style="display: none;">
+                        <form action=""></form>
+                            <div class="col-12 formulario-input">
+                                <label for="">Numero de tarjeta</label>
+                                <input type="text" class="form-control" placeholder="Numero" name="numero" required>
+                            </div>
+                            <div class="col-8 formulario-input">
+                                <label for="">Cuotas disponibles
+                                </label>
+                                <select class="form-select" aria-label="Default select example" required>
+                                    <option value="1" selected>Total $50.000</option>
+                                </select>
+                            </div>
+                            <div class="col-12 formulario-input">
+                                <label for="">Nombre y apellido como figura en la tarjeta
+                                </label>
+                                <input type="text" class="form-control" placeholder="Nombre y apellido" name="nombre_tarjeta" required>
+                            </div>
+
+                            <div class="col-8 formulario-input">
+                                <label for="mes-anio" class="form-label">Fecha de vencimiento</label>
+                                <input type="month" class="form-control" id="mes-anio" name="mes-anio" required>
+                            </div>
+
+                            <div class="col-8 formulario-input">
+                                <label for="">Codigo de seguridad
+                                </label>
+                                <input type="text" class="form-control" placeholder="###" name="codigo_seguridad" required>
+                            </div>
+                            
+                            <div class="formulario-input button">
+                                <button class="btn-1 btn-primary" type="submit">Ir a pagar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Pago por tarjeta debito -->
+
+
+                    <!-- Pago por pse -->
+
+                    <div id="form-pse" class="formulario-envio" style="display: none;">
+                        <form action="">
+                            <div class="medio-pago-pse">
+                                <img src="../../static/images/logo-pse.jpg" alt="">
+                                <p>Escoge tu banco para continuar con el pago</p>
+                            </div>
+                            <div class="col-12 formulario-input">
+                                <select class="form-select" aria-label="Default select example" required>
+                                    <option value="" selected>Seleccione su banco</option>
+                                    <option value="bancolombia">Bancolombia</option>
+                                    <option value="davivienda">Davivienda</option>
+                                    <option value="banco_de_bogota">Banco de Bogotá</option>
+                                    <option value="banco_popular">Banco Popular</option>
+                                    <option value="banco_agrario">Banco Agrario</option>
+                                    <option value="banco_av_villas">Banco AV Villas</option>
+                                    <option value="bbva">BBVA</option>
+                                    <option value="colpatria">Scotiabank Colpatria</option>
+                                    <option value="banco_occidente">Banco de Occidente</option>
+                                    <option value="itau">Itaú</option>
+                                    <option value="cooperativa_financiera_john_f_kennedy">Cooperativa Financiera John F. Kennedy</option>
+                                    <option value="coopcentral">Coopcentral</option>
+                                    <option value="banco_w">Banco W</option>
+                                    <option value="finandina">Finandina</option>
+                                    <option value="gNB_sudameris">GNB Sudameris</option>
+                                    <option value="banco_pichincha">Banco Pichincha</option>
+                                    <option value="serfinanza">Banco Serfinanza</option>
+                                    <option value="bancoomeva">Bancoomeva</option>
+                                    <option value="banco_falabella">Banco Falabella</option>
+                                    <option value="coomeva_financiera">Coomeva Financiera</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Pago por pse -->
+
+
+                </div>
+                <!-- Paso 3: pago -->
             </div>
 
             <!-- Carrito pequeño proceso de pago -->
             <div class="pago-carrito-progreso">
+                <h4>Resumen de la compra</h4>
                 <div>
                     {% for carrito in dataCar %}
                     <div class="carrito-progreso">
@@ -340,8 +489,7 @@
     </section>
 
 
-
-
+    <script src="{{ url_for('static', filename='js/mostrar_metodo_pago.js') }}"></script>
 
 
      <!--js bootstrap 5-->
