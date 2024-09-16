@@ -2,17 +2,29 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_login import LoginManager
+from flask_mail import Mail
+from flask_bcrypt import Bcrypt
+from flask_wtf.csrf import CSRFProtect
 import os
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+mail = Mail()
+bcrypt = Bcrypt()
+csrf = CSRFProtect()
 
-def create_app():
+def create_app(config_class=None):
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = os.urandom(24)
-    app.config.from_object('config.Config')
+    if config_class:
+        app.config.from_object(config_class)
+    else:
+        app.config.from_object('config.Config')
     
+    app.config['SECRET_KEY'] = os.urandom(24)
+    
+    mail.init_app(app)
     db.init_app(app)
+    bcrypt.init_app(app)
 
     login_manager.init_app(app)
     login_manager.login_view = 'usuario.login'
@@ -23,6 +35,7 @@ def create_app():
         from .models.usuario import Usuario
         return Usuario.query.get(int(user_id))
 
+    csrf.init_app(app)
 
     from app.routes import carrito_routes, categoria_routes, detalle_orden_routes, envio_routes,orden_routes, pago_routes, producto_routes, usuario_routes, direccion_cliente_routes
 

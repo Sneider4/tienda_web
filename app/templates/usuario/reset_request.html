@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+{% block content %}
+    <div class="container mt-4">
+        <h2>Restablecer contraseña</h2>
+        <p>Introduce tu correo electrónico para recibir un enlace para restablecer tu contraseña.</p>
+        
+        <form method="POST" action="{{ url_for('usuario.reset_request') }}">
+            {{ form.hidden_tag() }}
+      
+        <div class="form-group">
+            {{ form.correo_electronico.label(class="form-label") }}
+            {{ form.correo_electronico(class="form-control", placeholder="Introduce tu correo electrónico") }}
+
+            {% if form.correo_electronico.errors %}
+            <div class="text-danger">
+                {% for error in form.correo_electronico.errors %}
+                    <span>{{ error }}</span>
+                 {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar enlace de restablecimiento</button>
+        </form>
+    </div>
+{% endblock %}
+
+</body>
+</html>

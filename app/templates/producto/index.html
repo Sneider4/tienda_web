@@ -186,6 +186,8 @@
                         </div>
                         <button class="w-100 mb-2 btn btn-primary rounded-3 " type="submit">Iniciar sesion</button>
                         <small class="text-body-secondary">Al firmar registrarse, acepta todos los terminos de uso.</small>
+                        <a href="{{ url_for('usuario.reset_request')}}">¿Haz olvidado tu contraseña?</a>
+
                         <hr class="my-4">
                         <small class="text-body-secondary">¿No tienes cuenta? <a href="{{ url_for('usuario.add') }}">Registrarse</a></small>
                         
