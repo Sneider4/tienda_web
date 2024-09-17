@@ -13,7 +13,7 @@
     
         <form method="POST" action="{{ url_for('usuario.reset_token', token=token) }}" >
             {{ form.hidden_tag() }}
-
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="form-group">
                 {{ form.contrasena.label(class="form-label") }}
                 {{ form.contrasena(class="form-control", placeholder="Nueva contraseña") }}
