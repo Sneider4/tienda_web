@@ -154,7 +154,8 @@
                             <td colspan="2">
                                 {% for producto in dataP %}
                                     {% if producto.id == carrito.producto_id %}
-                                        {{ producto.nombre }}
+                                        <strong>{{ producto.nombre }}
+                                        </strong>
                                     {% endif %}
                                 {% endfor %}
                             </td>
@@ -164,7 +165,7 @@
                             <td>
                                 {% for producto in dataP %}
                                     {% if producto.id == carrito.producto_id %}
-                                        ${{ producto.precio }}
+                                        <strong>${{ producto.precio }}</strong>
                                     {% endif %}
                                 {% endfor %}
                             </td>
@@ -223,36 +224,38 @@
 
 
             <div class="contenedor-pago">
-                <div class="pagar-content">
-                    <div class="carrito-summary">
-                        <div class="summary-item subtotal">
-                            <span>Subtotal</span>
-                            <span>${{ total }}</span>
+                <form action="{{ url_for('pago.identificacion') }}">
+                    <div class="pagar-content">
+                        <div class="carrito-summary">
+                            <div class="summary-item subtotal">
+                                <span>Subtotal</span>
+                                <span>${{ total }}</span>
+                            </div>
+                            <div class="summary-item subtotal">
+                                <span>Gastos de envio</span>
+                                <span>Gratis</span>
+                            </div>
                         </div>
-                        <div class="summary-item subtotal">
-                            <span>Gastos de envio</span>
-                            <span>Gratis</span>
+                        <hr>
+                        <div class="carrito-summary">
+                            <div class="summary-item total">
+                                <span>Total</span>
+                                <span>${{ total }}</span>
+                            </div>
+                        </div>
+                        <div class="check-pago">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="" required>
+                                <label>
+                                    Acepto los <a href="">Términos y Condiciones</a> Autorizo a Street Snakers a procesar mis datos personales, de acuerdo con el <a href="">Aviso de Privacidad de Street Snakers</a>
+                                </label>
+                            </div>  
+                        </div>
+                        <div class="btn-pagar">
+                            <button class="btn btn-primary" type="submit">Proceder a identificacion</button>
                         </div>
                     </div>
-                    <hr>
-                    <div class="carrito-summary">
-                        <div class="summary-item total">
-                            <span>Total</span>
-                            <span>${{ total }}</span>
-                        </div>
-                    </div>
-                    <div class="check-pago">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="" required>
-                            <label>
-                                Acepto los <a href="">Términos y Condiciones</a> Autorizo a Street Snakers a procesar mis datos personales, de acuerdo con el <a href="">Aviso de Privacidad de Street Snakers</a>
-                            </label>
-                        </div>  
-                    </div>
-                    <div class="btn-pagar">
-                        <a class="btn btn-primary" href="{{ url_for('pago.identificacion') }}">Proceder a identificacion</a>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </section>
