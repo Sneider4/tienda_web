@@ -42,10 +42,13 @@ def login():
         usuario = Usuario.query.filter_by(correo_electronico=correo_electronico, contrasena=contrasena).first()
         if usuario:
             login_user(usuario)
-            flash(f"Bienvenido, {usuario.nombre} {usuario.apellido}!" , "success")
+            
             if usuario.rol == "Cliente":
+                flash(f"Bienvenido, {usuario.nombre} {usuario.apellido}!" , "success")
                 return redirect(url_for('producto.index'))
+
             elif usuario.rol == "Administrador":
+                flash(f"Bienvenido Administrador, {usuario.nombre} {usuario.apellido}!" , "success")
                 return redirect(url_for('admin.index'))
 
         flash('Credenciales invalidos. Intente nuevamente.', 'danger')

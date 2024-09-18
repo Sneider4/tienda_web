@@ -269,6 +269,9 @@
                     messageDiv.style.color = 'green';
                     messageDiv.textContent = data.message; // Muestra el mensaje de éxito
                     document.getElementById('productForm').reset(); // Resetea el formulario
+                    setTimeout(function() {
+                        window.location.href = '{{ url_for("admin.tabla") }}'; // Redirige usando la URL obtenida del backend
+                    }, 1000);
                 } else {
                     messageDiv.style.display = 'block';
                     messageDiv.style.color = 'red';
@@ -280,9 +283,10 @@
                 let messageDiv = document.getElementById('message');
                 messageDiv.style.display = 'block';
                 messageDiv.style.color = 'red';
-                messageDiv.textContent = 'Ocurrió un error inesperado';
+                messageDiv.textContent = 'Ocurrió un error inesperado: ';
             });
         });
     </script>
+
     
 </html>

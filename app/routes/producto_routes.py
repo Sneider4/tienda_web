@@ -36,6 +36,8 @@ def index():
 
     return render_template('producto/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto)
 
+from flask import flash, redirect, url_for
+
 @bp.route('/producto/add', methods=['GET', 'POST'])
 @login_required
 def add():
@@ -68,19 +70,19 @@ def add():
                 )
                 db.session.add(new_producto)
                 db.session.commit()
-
-                # Respuesta JSON indicando éxito
-                return jsonify(success=True, message="Producto guardado con éxito")
-            
+                 # Respuesta JSON indicando éxito       
+                return jsonify(success=True, message="Producto guardado con éxito")            
             except Exception as e:
                 # En caso de error, enviar el mensaje de error
                 return jsonify(success=False, message=f"Ocurrió un error: {str(e)}")
+
 
         data = Categoria.query.all()
         return render_template('producto/add.html', data=data)
     
     else:
         return redirect(url_for('producto.index'))
+
 
 @bp.route('/producto/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -96,7 +98,7 @@ def edit(id):
         dataP.descripcion = request.form['descripcion']
         dataP.precio = request.form['precio']
         dataP.stock = request.form['stock']
-        dataP.categoria_id = request.form['categoria']  # Cambiado a categoria_id si así está en tu modelo
+        dataP.categoria = request.form['categoria']  # Cambiado a id si así está en tu modelo
         imagen = request.files['imagen']
 
         if imagen:
@@ -137,18 +139,28 @@ def ver_producto():
 @bp.route('/producto/delete/<int:id>', methods=['POST'])
 @login_required
 def delete(id):
-    if current_user.rol == "Administrador":
-        producto = Producto.query.get_or_404(id)
-        db.session.delete(producto)
-        db.session.commit()
-        flash('Producto eliminado con éxito', 'success')
+    try:    
+        if current_user.rol == "Administrador":
+            producto = Producto.query.get_or_404(id)
+            db.session.delete(producto)
+            db.session.commit()
+            flash('Producto eliminado con éxito', 'success')
+            return redirect(url_for('producto.tabla'))
+        else:
+            return redirect(url_for('producto.index'))
+    except:
+        flash('El producto no se puede eliminar porque se está usando el registro en otras tablas', 'danger')
         return redirect(url_for('producto.tabla'))
-    else:
-        return redirect(url_for('producto.index'))
-    
+
 @bp.route('/tabla')
 @login_required
 def tabla():
-    dataP = Producto.query.all()
-    dataC = Categoria.query.all()
-    return render_template('producto/tabla.html', dataP=dataP, dataC=dataC)
+
+    if current_user.rol == "Administrador":
+        dataP = Producto.query.all()
+        dataC = Categoria.query.all()
+        return render_template('producto/tabla.html', dataP=dataP, dataC=dataC)
+    else:
+        return redirect(url_for('producto.index'))
+
+   
