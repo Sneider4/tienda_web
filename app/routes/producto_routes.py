@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, session, redirect, url_for, jsonify, current_app
 from flask_login import current_user
 from werkzeug.utils import secure_filename
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash, get_flashed_messages
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 from flask_login import current_user, login_required
 from app.models.producto import Producto
 from app.models.categoria import Categoria
@@ -9,13 +9,14 @@ from app.models.usuario import Usuario
 from app.models.carrito import Carrito
 from app.models.direccion_cliente import DireccionCliente
 from app import db
-import os
+import os, app
 
 
 bp = Blueprint('producto', __name__)
 
 @bp.route('/')
 def index():
+
     dataP = Producto.query.all()
     dataC = Categoria.query.all()
     dataU = Usuario.query.all()

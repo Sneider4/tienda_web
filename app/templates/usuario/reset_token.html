@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reestablecer contraseña</title>
+</head>
+<body>
+    {% block content %}
+        <div class="container mt-4">
+            <h2>Restablecer contraseña----------------------------------------------------------------------------</h2>
+            <p>Introduce una nueva contraseña para tu cuenta.</p>
+    
+        <form method="POST" action="{{ url_for('usuario.reset_token', token=token) }}" >
+            {{ form.hidden_tag() }}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                {{ form.contrasena.label(class="form-label") }}
+                {{ form.contrasena(class="form-control", placeholder="Nueva contraseña") }}
+                {% if form.contrasena.errors %}
+                    <div class="text-danger">
+                        {% for error in form.contrasena.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.confirmar_contrasena.label(class="form-label") }}
+                {{ form.confirmar_contrasena(class="form-control", placeholder="Confirma tu nueva contraseña") }}
+                {% if form.confirmar_contrasena.errors %}
+
+                <div class="text-danger">
+                    {% for error in form.confirmar_contrasena.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Restablecer contraseña</button>
+        </form>
+        </div>
+    {% endblock %}
+</body>
+</html>
