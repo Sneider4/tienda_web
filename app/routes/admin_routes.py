@@ -30,7 +30,7 @@ def index():
 
     impuesto = total * 0.19
 
-    return render_template('admin/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto)
+    return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto)
 
 
 @bp.route('/admin/layout_static')

@@ -250,6 +250,23 @@ img {
     flex-basis: 60%;
 }
 
+/* Volver al inicio */
+
+.volver-inicio {
+    padding-bottom: 15px;
+}
+
+.volver-inicio-txt {
+    color: #000000;
+    font-family: 'Oswald', sans-serif;
+}
+
+.volver-inicio-txt:hover {
+    color: #000000;
+}
+
+/* Volver al inicio */
+
 /*paso 1 identificacion*/
 
 .identificacion-1 {
@@ -413,6 +430,17 @@ img {
     background-color: #007bff; 
     color: white;
 }
+
+/* titulo medios de pago */
+
+.title-metodo-pago {
+    font-family: 'Oswald', sans-serif;
+    margin: 22px 15px 15px 15px;
+    text-align: center;
+}
+
+/* titulo medios de pago */
+
 
 /* medio de pago por pse */
 
@@ -1007,14 +1035,11 @@ hr{
 
 /* Ver informacion del producto */
 
-.container-title {
-	padding: 30px;
-	background-color: #eee;
-	margin-bottom: 50px;
-	color: #222;
+.container-principal {
+    margin-top: 50px;
 }
 
-main {
+.container-main {
 	display: flex;
 	gap: 30px;
 	margin-bottom: 80px;

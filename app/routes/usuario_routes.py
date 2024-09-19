@@ -18,7 +18,6 @@ def index():
 
 @bp.route('/usuario/add', methods=['GET', 'POST'])
 def add():
-    {{ print(f"SECRET_KEY: {app.config['SECRET_KEY']}")}}
     if request.method == 'POST':
         nombre = request.form['nombre']
         apellido = request.form['apellido']
@@ -56,7 +55,6 @@ def login():
             login_user(usuario)
             flash(f"Bienvenido, {usuario.nombre} {usuario.apellido}!" , "success")
             if usuario.rol == "Cliente":
-                print("Entra a cliente")
                 return redirect(url_for('producto.index'))
             elif usuario.rol == "Administrador":
                 return redirect(url_for('admin.index'))
@@ -78,7 +76,7 @@ def dashboard():
 @bp.route('/logout')
 def logout():
     logout_user() 
-    flash('Has cerrado sesión.', 'info')
+    flash('Has cerrado sesión.', 'danger')
     return redirect(url_for('producto.index'))
 
 @bp.route('/reset_password', methods=['GET', 'POST'])

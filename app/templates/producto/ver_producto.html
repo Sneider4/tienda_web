@@ -85,20 +85,15 @@
 
     </div>
 
-    <div class="container-title">Zapatos</div>
+    <div class="container container-principal">
 
-    <div class="container-title">Zapatos</div>
-
-		<main class="container">
+		<main class="container-main">
 			<div class="container-img">
-				<img
-					src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
-					alt="imagen-producto"
-				/>
+				<img src="{{ url_for('static', filename='images/' + dataP.imagen) }}" alt="{{ dataP.nombre }}">	
 			</div>
 			<div class="container-info-product">
 				<div class="container-price">
-					<span>$95.00</span>
+					<span>${{ dataP.precio }}</span>
 					<i class="fa-solid fa-angle-right"></i>
 				</div>
 
@@ -139,8 +134,8 @@
 							class="input-quantity"
 						/>
 						<div class="btn-increment-decrement">
-							<i class="fa-solid fa-chevron-up" id="increment"></i>
-							<i class="fa-solid fa-chevron-down" id="decrement"></i>
+							<img src="../../static/images/bxs-chevron-up.svg" alt="">
+							<img src="../../static/images/bxs-chevron-down.svg" alt="">
 						</div>
 					</div>
 					<button class="btn-add-to-cart">
@@ -192,11 +187,11 @@
 				<div class="container-social">
 					<span>Compartir</span>
 					<div class="container-buttons-social">
-						<a href="#"><i class="fa-solid fa-envelope"></i></a>
-						<a href="#"><i class="fa-brands fa-facebook"></i></a>
-						<a href="#"><i class="fa-brands fa-twitter"></i></a>
-						<a href="#"><i class="fa-brands fa-instagram"></i></a>
-						<a href="#"><i class="fa-brands fa-pinterest"></i></a>
+						<a href="#"><img src="../../static/images/bxl-instagram-alt.svg" alt=""></a>
+						<a href="#"><img src="../../static/images/bxl-facebook-circle.svg" alt=""></a>
+						<a href="#"><img src="../../static/images/bxl-twitter.svg" alt=""></a>
+						<a href="#"><img src="../../static/images/bxl-pinterest.svg" alt=""></a>
+						<a href="#"><img src="../../static/images/bxs-envelope.svg" alt=""></a>
 					</div>
 				</div>
 			</div>
@@ -271,6 +266,7 @@
 		<footer>
 			<p>Footer</p>
 		</footer>
+	</div>
 
 
 

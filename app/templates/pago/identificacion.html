@@ -141,6 +141,12 @@
         <div class="pago-carrito container">
             <div class="identificacion">
 
+                <!-- Volver al inicio -->
+                <div class="container volver-inicio">
+                    <a href="{{ url_for('producto.index') }}" class="volver-inicio-txt">< Volver a comprar</a>
+                </div>
+                <!-- Volver al inicio -->
+
                 <!-- Paso 1: Identificacion -->
                 <div class="identificacion-1">
                     <div class="titulo">
@@ -296,6 +302,7 @@
 
                     <!-- Pago por tarjeta credito -->
                     <div class="formulario-envio" id="form-credito">
+                        <h4 class="title-metodo-pago">Tarjeta de credito</h4>
                         <form action="">
                             <div class="col-12 formulario-input">
                                 <label for="">Numero de tarjeta</label>
@@ -342,6 +349,7 @@
                     <!-- Pago por tarjeta debito -->
                     
                     <div id="form-debito" class="formulario-envio" style="display: none;">
+                        <h4 class="title-metodo-pago">Tarjeta de debito</h4>
                         <form action=""></form>
                             <div class="col-12 formulario-input">
                                 <label for="">Numero de tarjeta</label>
@@ -383,6 +391,7 @@
                     <!-- Pago por pse -->
 
                     <div id="form-pse" class="formulario-envio" style="display: none;">
+                        <h4 class="title-metodo-pago">Pago por PSE</h4>
                         <form action="">
                             <div class="medio-pago-pse">
                                 <img src="../../static/images/logo-pse.jpg" alt="">
