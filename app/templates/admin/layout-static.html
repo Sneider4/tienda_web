@@ -121,6 +121,18 @@
                         <div class="d-flex justify-content-end mb-2">
                             <a href="{{ url_for('categoria.add') }}" class="btn btn-success">Agregar Categoría</a>
                         </div>
+                        <div class="flash-container">
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
@@ -143,6 +155,7 @@
                                             <td>
                                                 <a href="{{ url_for('admin.edit', id=categoria.id) }}" class="btn btn-sm btn-primary">Editar</a>
                                                 <form action="{{ url_for('admin.delete', id=categoria.id) }}" method="POST" style="display:inline;">
+                                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');">Eliminar</button>
                                                 </form>
                                             </td>    

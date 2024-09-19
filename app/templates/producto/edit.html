@@ -212,6 +212,7 @@
                     <div class="form-container">
                         <h1>Editar Producto</h1>
                         <form action="{{ url_for('producto.edit', id=dataP.id) }}" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
                                 <input type="text" id="nombre" name="nombre" value="{{ dataP.nombre }}" required />

@@ -119,9 +119,22 @@
             </nav>
         </div>
 
+
         <!-- Main Content -->
         <div id="layoutSidenav_content">
             <main>
+                <div class="flash-container">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
                 <div class="container-fluid px-4">
                     <div class="card mb-4">
                         <div class="card-header">
@@ -161,6 +174,7 @@
                                             <a href="{{ url_for('producto.edit', id=producto.id) }}" class="btn btn-warning btn-sm">Editar</a>
 
                                             <form action="{{ url_for('producto.delete', id=producto.id) }}" method="POST" style="display:inline;">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">Eliminar</button>
                                             </form>                                            
                                         </td>

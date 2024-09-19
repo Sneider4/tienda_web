@@ -135,6 +135,7 @@
                         <!-- Div para el mensaje de éxito -->
                         <div id="message" style="display: none; color: green; font-weight: bold;"></div>
                         <form id="productForm" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="text" id="nombre" name="nombre" required placeholder="Nombre">
                             <input type="text" id="descripcion" name="descripcion" placeholder="Descripcion">
                             <input type="number" id="precio" name="precio" required placeholder="Precio">
@@ -269,6 +270,9 @@
                     messageDiv.style.color = 'green';
                     messageDiv.textContent = data.message; // Muestra el mensaje de éxito
                     document.getElementById('productForm').reset(); // Resetea el formulario
+                    setTimeout(function() {
+                        window.location.href = '{{ url_for("admin.tabla") }}'; // Redirige usando la URL obtenida del backend
+                    }, 1000);
                 } else {
                     messageDiv.style.display = 'block';
                     messageDiv.style.color = 'red';
@@ -280,9 +284,10 @@
                 let messageDiv = document.getElementById('message');
                 messageDiv.style.display = 'block';
                 messageDiv.style.color = 'red';
-                messageDiv.textContent = 'Ocurrió un error inesperado';
+                messageDiv.textContent = 'Ocurrió un error inesperado: ';
             });
         });
     </script>
+
     
 </html>
