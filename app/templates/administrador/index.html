@@ -22,7 +22,7 @@
                         <span class="icon">
                             <ion-icon name="logo-apple"></ion-icon>
                         </span>
-                        <span class="title">Brand Name</span>
+                        <span class="title">STREET SNAKERS</span>
                     </a>
                 </li>
 
@@ -40,7 +40,7 @@
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
-                        <span class="title">Customers</span>
+                        <span class="title">Clientes</span>
                     </a>
                 </li>
 
@@ -49,16 +49,16 @@
                         <span class="icon">
                             <ion-icon name="chatbubble-outline"></ion-icon>
                         </span>
-                        <span class="title">Messages</span>
+                        <span class="title">Categorias</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('producto.add') }}">
                         <span class="icon">
-                            <ion-icon name="help-outline"></ion-icon>
+                            <ion-icon name="cart-outline"></ion-icon>
                         </span>
-                        <span class="title">Help</span>
+                        <span class="title">Productos</span>
                     </a>
                 </li>
 
@@ -81,11 +81,11 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('usuario.logout') }}">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class="title">Sign Out</span>
+                        <span class="title">Cerrar sesion</span>
                     </a>
                 </li>
             </ul>
