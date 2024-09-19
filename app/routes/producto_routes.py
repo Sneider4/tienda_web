@@ -72,18 +72,21 @@ def add():
                 db.session.add(new_producto)
                 db.session.commit()
 
-                # Respuesta JSON indicando éxito
-                return jsonify(success=True, message="Producto guardado con éxito")
+                 # Mensaje flash indicando éxito
+                flash("Producto guardado con éxito", "success")
+                return redirect(url_for('administrador.index'))  # Redirige a la lista de productos o a la página adecuada
             
             except Exception as e:
-                return jsonify(success=False, message=f"Ocurrió un error: {str(e)}")
+                # Mensaje flash indicando error
+                flash(f"Ocurrió un error: {str(e)}", "danger")
+                return redirect(url_for('producto.add'))  # Redirige nuevamente al formulario para intentar de nuevo
 
 
         data = Categoria.query.all()
         return render_template('producto/add.html', data=data)
     
     else:
-        return redirect(url_for('producto.index'))
+        return redirect(url_for('administrador.index'))
 
 
 @bp.route('/producto/edit/<int:id>', methods=['GET', 'POST'])
