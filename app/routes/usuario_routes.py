@@ -53,11 +53,13 @@ def login():
         if usuario:
             print("5")
             login_user(usuario)
-            flash(f"Bienvenido, {usuario.nombre} {usuario.apellido}!" , "success")
+            
             if usuario.rol == "Cliente":
-                print("Entra a cliente")
+                flash(f"Bienvenido, {usuario.nombre} {usuario.apellido}!" , "success")
                 return redirect(url_for('producto.index'))
+
             elif usuario.rol == "Administrador":
+                flash(f"Bienvenido Administrador, {usuario.nombre} {usuario.apellido}!" , "success")
                 return redirect(url_for('admin.index'))
             else:
                 flash('Credenciales invalidos. Intente nuevamente.', 'danger')

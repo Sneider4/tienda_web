@@ -58,7 +58,7 @@ def charts():
 @bp.route('/categoria/delete/<int:id>', methods=['POST'])
 @login_required
 def delete(id):
-    try:
+    try: 
         if current_user.rol == "Administrador":
             categoria = Categoria.query.get_or_404(id)
             productos_asociados = Producto.query.filter_by(id=id).all()
@@ -77,7 +77,11 @@ def delete(id):
         flash('La categoría no se puede eliminar porque se está usando el registro en otras tablas', 'danger')
         return redirect(url_for('admin.layout_static'))
 
-# Ruta para editar una categoría
+
+
+    
+
+
 @bp.route('/categoria/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
