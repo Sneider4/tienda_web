@@ -454,6 +454,7 @@
                         
                         {% if current_user.is_authenticated %}
                            <form action="{{ url_for('carrito.add') }}" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input type="hidden" id="idP" value="{{producto.id}}" name="idP">
                                 <input type="hidden" id="idU" value="{{current_user.id}}" name="idU">
                                 <div class="cantidad form-floating mb-3">
