@@ -18,7 +18,6 @@ def index():
 
 @bp.route('/usuario/add', methods=['GET', 'POST'])
 def add():
-    {{ print(f"SECRET_KEY: {app.config['SECRET_KEY']}")}}
     if request.method == 'POST':
         nombre = request.form['nombre']
         apellido = request.form['apellido']

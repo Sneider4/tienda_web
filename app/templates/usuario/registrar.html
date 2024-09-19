@@ -93,6 +93,7 @@
             <p>Inscríbete para recibir correos electrónicos de Malcon, oficial de Nike en Colombia y ser el primero en ver contenido inspirador, noticias y ofertas exclusivas.</p>
         </div>
         <form action="{{ url_for('usuario.add') }}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="m2 col-md-12 form-floating">
                 <input type="text" class="form-control" id="floatinInputGrid" name="nombre" placeholder="Primer nombre" required>
                 <label for="floatingInputGrid">Nombres</label>

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
 from app.models.producto import Producto
@@ -58,18 +58,24 @@ def charts():
 @bp.route('/categoria/delete/<int:id>', methods=['POST'])
 @login_required
 def delete(id):
-    if current_user.rol == "Administrador":
-        categoria = Categoria.query.get_or_404(id)
-        productos_asociados = Producto.query.filter_by(categoria_id=id).all()
+    try:
+        if current_user.rol == "Administrador":
+            categoria = Categoria.query.get_or_404(id)
+            productos_asociados = Producto.query.filter_by(id=id).all()
 
-        for producto in productos_asociados:
-            db.session.delete(producto)
-        
-        db.session.delete(categoria)
-        db.session.commit()
+            for producto in productos_asociados:
+                db.session.delete(producto)
+            
+            db.session.delete(categoria)
+            db.session.commit()
+            flash('La categoría se eliminó exitosamente', 'info')
+
+            return redirect(url_for('admin.layout_static'))
+        else:
+            return redirect(url_for('producto.index'))
+    except:
+        flash('La categoría no se puede eliminar porque se está usando el registro en otras tablas', 'danger')
         return redirect(url_for('admin.layout_static'))
-    else:
-        return redirect(url_for('producto.index'))
 
 # Ruta para editar una categoría
 @bp.route('/categoria/edit/<int:id>', methods=['GET', 'POST'])
