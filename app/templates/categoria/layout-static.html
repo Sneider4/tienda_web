@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Street Sneakers Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles_admin.css') }}">
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    
     <!-- ======= Styles ====== -->
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style_admin.css') }}">
@@ -28,10 +23,9 @@
                         <span class="icon">
                             <ion-icon name="flash"></ion-icon>
                         </span>
-                        <span class="title">STREET SNAKERS</span>
+                        <span class="title">STREET SNEAKERS</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -40,7 +34,6 @@
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -49,7 +42,6 @@
                         <span class="title">Clientes</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="{{ url_for('categoria.add') }}">
                         <span class="icon">
@@ -58,7 +50,6 @@
                         <span class="title">Categorias</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="{{ url_for('producto.add') }}">
                         <span class="icon">
@@ -67,7 +58,6 @@
                         <span class="title">Productos</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -76,7 +66,6 @@
                         <span class="title">Settings</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -85,59 +74,59 @@
                         <span class="title">Password</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="{{ url_for('usuario.logout') }}">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class="title">Cerrar sesion</span>
+                        <span class="title">Cerrar sesión</span>
                     </a>
                 </li>
             </ul>
         </div>
 
         <!-- =============== Main Content ================ -->
-
-            <main class="main">
-                <div class="cardBox">
-                    <h1>Agregar Tipo</h1>
-                        <form action="{{ url_for('categoria.add') }}" method="post">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" id="nombre" name="nombre" class="form-control" required placeholder="Nombre">
-                            </div>
-                            <div class="mb-3">
-                                <label for="descripcion" class="form-label">Descripción</label>
-                                <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="Descripción">
-                            </div>
-                            <input type="submit" class="btn btn-primary w-100" value="Continuar">
-                        </form>
-                </div>
-            </main>
+         
+        <div class="main">
+            <div class="mb-3">
+                <a href="{{ url_for('categoria.add') }}" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Agregar Categoría
+                </a>
+            </div>
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Categorias</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categoria in dataC %}
+                    <tr>
+                        <td>{{ categoria.nombre }}</td>
+                        <td>{{ categoria.descripcion }}</td>
+                        <td>
+                            <a href="{{ url_for('admin.edit', id=categoria.id) }}" class="btn btn-sm btn-primary">Editar</a>
+                            <form action="{{ url_for('admin.delete', id=categoria.id) }}" method="POST" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
-
- <!-- =========== Scripts ========= -->
- <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
- <!-- ====== ionicons ======= -->
- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
- <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-
-
-
-    <!-- Bootstrap JS -->
+    <!-- =========== Scripts ========= -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/chart-area-demo.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/chart-bar-demo.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/datatables-simple-demo.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-xnmaN2dYr9J8T9H25plAhcxW1/9M+Etm2z5HQGm9s/NbQeWxGA5HUHsxrVZa5tgn" crossorigin="anonymous"></script>
+
 </body>
+
 </html>

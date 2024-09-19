@@ -38,7 +38,7 @@ def layout_static():
     
     dataC = Categoria.query.all()
     
-    return render_template('admin/layout-static.html',  dataC=dataC)
+    return render_template('categoria/layout-static.html',  dataC=dataC)
 
 @bp.route('/admin/layout_sidenav_light')
 def layout_sidenav_light():
