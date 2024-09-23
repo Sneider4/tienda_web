@@ -74,7 +74,7 @@ def add():
 
                  # Mensaje flash indicando éxito
                 flash("Producto guardado con éxito", "success")
-                return redirect(url_for('administrador.index'))  # Redirige a la lista de productos o a la página adecuada
+                return redirect(url_for('producto.tabla'))  # Redirige a la lista de productos o a la página adecuada
             
             except Exception as e:
                 # Mensaje flash indicando error
