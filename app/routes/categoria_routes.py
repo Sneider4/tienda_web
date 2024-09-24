@@ -37,9 +37,6 @@ def add():
         return render_template('categoria/add.html')
     else:
         return redirect(url_for('producto.index'))
-<<<<<<< HEAD
-    
-=======
 
 @bp.route('/categoria/delete/<int:id>', methods=['POST'])
 @login_required
@@ -63,7 +60,6 @@ def delete(id):
         flash('La categoría no se puede eliminar porque se está usando el registro en otras tablas', 'danger')
         return redirect(url_for('categoria.index'))
 
->>>>>>> 1aed1f35fe3bf42119f40b21e4f028362b06739d
 
 @bp.route('/categoria/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -74,38 +70,8 @@ def edit(id):
             categoria.nombre = request.form['nombre']
             categoria.descripcion = request.form['descripcion']
             db.session.commit()
-<<<<<<< HEAD
-            return redirect(url_for('admin.layout_static'))
-        return render_template('categoria/edit.html', categoria=categoria)
-    else:
-        return redirect(url_for('producto.index'))
-    
-    
-@bp.route('/categoria/delete/<int:id>', methods=['POST'])
-@login_required
-def delete(id):
-    try: 
-        if current_user.rol == "Administrador":
-            categoria = Categoria.query.get_or_404(id)
-            productos_asociados = Producto.query.filter_by(categoria_id=id).all()
-
-            for producto in productos_asociados:
-                db.session.delete(producto)
-            
-            db.session.delete(categoria)
-            db.session.commit()
-            flash('La categoría se eliminó exitosamente', 'info')
-
-            return redirect(url_for('admin.layout_static'))
-        else:
-            return redirect(url_for('producto.index'))
-    except:
-        flash('La categoría no se puede eliminar porque se está usando el registro en otras tablas', 'danger')
-        return redirect(url_for('admin.layout_static'))
-=======
             # Redirige a la página anterior
             return redirect(url_for('categoria.index'))
         return render_template('categoria/edit.html', categoria=categoria)
     else:
         return redirect(url_for('producto.index'))
->>>>>>> 1aed1f35fe3bf42119f40b21e4f028362b06739d
