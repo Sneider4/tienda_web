@@ -479,7 +479,7 @@ body {
 }
 
 .add-producto input, select {
-  padding: 8px;
+  padding: 11px 8px;
   border: 1px solid #cacaca;
   border-radius: 10px;
   width: 90%;
@@ -489,7 +489,7 @@ body {
 
 
 
-/* modal para ver la foto de los tenis en la tabla*/
+/* modal en la tabla*/
 .modal {
   display: none;
   position: fixed;
@@ -517,8 +517,6 @@ body {
 
 .accion-modal {
   text-align: center;
-
-  
 }
 
 .close {
@@ -545,7 +543,7 @@ body {
   cursor: pointer;
   background-color: #0000003a;
 }
-/* modal para ver la foto de los tenis en la tabla*/
+/* modal en la tabla*/
 
 
 

@@ -27,7 +27,7 @@ function openDeleteModal(productId) {
     const deleteForm = document.getElementById("deleteForm");
     
     // Actualizar la acción del formulario con el ID del producto
-    deleteForm.action = "/producto/delete/" + productId;
+    deleteForm.action = "/producto/delete/" + productId;    
     
     // Mostrar el modal
     modal.style.display = "block";
@@ -39,3 +39,8 @@ function closeDeleteModal() {
     modal.style.display = "none";
 }
 // funcion paera abrir el modal de confirmación de eliminación de producto
+
+
+
+// ---------
+

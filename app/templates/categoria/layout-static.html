@@ -91,40 +91,102 @@
                 </li>
             </ul>
         </div>
+
+
         <!-- =============== Main Content ================ -->
-         
+
         <div class="main">
-            <div class="mb-3">
-                <a href="{{ url_for('categoria.add') }}" class="btn btn-success">
-                    <i class="fas fa-plus"></i> Agregar Categoría
-                </a>
+
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Search here">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+
+                <div class="user">
+                    <img src="assets/imgs/customer01.jpg" alt="">
+                </div>
             </div>
-            <table id="datatablesSimple">
-                <thead>
-                    <tr>
-                        <th>Categorias</th>
-                        <th>Descripción</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for categoria in dataC %}
-                    <tr>
-                        <td>{{ categoria.nombre }}</td>
-                        <td>{{ categoria.descripcion }}</td>
-                        <td>
-                            <a href="{{ url_for('admin.edit', id=categoria.id) }}" class="btn btn-sm btn-primary">Editar</a>
-                            <form action="{{ url_for('admin.delete', id=categoria.id) }}" method="POST" style="display:inline;">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');">Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Productos</h2>
+                        <a href="{{ url_for('categoria.add') }}" class="btn">Agregar</a>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Categorias</td>
+                                <td>Descripción</td>
+                                <td>Acciones</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for categoria in dataC %}
+                            <tr>
+                                <td>{{ categoria.nombre }}</td>
+                                <td>{{ categoria.descripcion }}</td>
+                                <td>
+                                    <div class="accion">
+                                        <a href="{{ url_for('categoria.edit', id=categoria.id) }}" class="btn-warning">Editar</a>
+                                        <form action="{{ url_for('categoria.delete', id=categoria.id) }}" method="POST">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="button" class="btn-danger" onclick="openDeleteModalCategoria('{{ categoria.id }}')">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ================= New Category ================ -->
+                <div class="recentCustomers">
+                    <div class="cardHeader">
+                        <h2>Agregar categoria</h2>
+                    </div>
+
+                    <div class="">
+                        <form class="add-producto" action="{{ url_for('categoria.add')}}" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="text" id="nombre" name="nombre" required placeholder="Nombre">
+                            <input type="text" id="descripcion" name="descripcion" placeholder="Descripción">
+                            <button class="btn-primary" type="submit">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+    </div>
+
+
+    <!-- Modal para confirmación de eliminar categoría -->
+    <div id="deleteModalCategoria" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDeleteModalCategoria()">&times;</span>
+            <h2>¿Estás seguro de que deseas eliminar esta categoría?</h2>
+            <p>Esta acción no se puede deshacer.</p>
+            <div class="accion-modal">
+                <form id="deleteFormCategoria" action="" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn-danger">Eliminar</button>
+                    <button type="button" class="btn-secondary" onclick="closeDeleteModalCategoria()">Cancelar</button>
+                </form>
+            </div>
         </div>
     </div>
+    <!-- Modal para confirmación de eliminar categoría -->
+
+
 
     <!-- =========== Scripts ========= -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
@@ -132,6 +194,7 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modals.js') }}"></script>
 
 </body>
 
