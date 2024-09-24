@@ -225,6 +225,7 @@
 
             <div class="contenedor-pago">
                 <form action="{{ url_for('pago.identificacion') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="pagar-content">
                         <div class="carrito-summary">
                             <div class="summary-item subtotal">

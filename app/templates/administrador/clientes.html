@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
-    
     <!-- ======= Styles ====== -->
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style_admin.css') }}">
@@ -19,23 +18,21 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="{{ url_for('admin.index') }}">
+                    <a href="#">
                         <span class="icon">
                             <ion-icon name="flash"></ion-icon>
                         </span>
                         <span class="title">STREET SNEAKERS</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="{{ url_for('admin.index') }}">
+                    <a href="#">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -44,34 +41,30 @@
                         <span class="title">Clientes</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="{{ url_for('admin.layout_static') }}">
+                    <a href="{{ url_for('categoria.add') }}">
                         <span class="icon">
                             <ion-icon name="layers"></ion-icon>
                         </span>
                         <span class="title">Categorias</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="{{ url_for('admin.tabla') }}">
+                    <a href="{{ url_for('producto.add') }}">
                         <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </span>
                         <span class="title">Productos</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
-                        <span class="title">Configuracion</span>
+                        <span class="title">Settings</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -80,50 +73,64 @@
                         <span class="title">Password</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="{{ url_for('usuario.logout') }}">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class="title">Cerrar sesion</span>
+                        <span class="title">Cerrar sesión</span>
                     </a>
                 </li>
             </ul>
         </div>
+
         <!-- =============== Main Content ================ -->
-         
-        <div class="main">
-            <div class="mb-3">
-                <a href="{{ url_for('categoria.add') }}" class="btn btn-success">
-                    <i class="fas fa-plus"></i> Agregar Categoría
-                </a>
+        <main class="main">
+            <div class="cardBox">
+                    
+                    <div class="cardBox">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>ID </th>
+                                    <th>Nombre del Cliente </th>
+                                    <th>Apellido</th>
+                                    <th>Correo electronico</th>
+                                    <th>Telefono</th>
+                                    <th>Departamento</th>
+                                    <th>Ciudad</th>
+                                    <th>Genero</th>
+                                    <th>Fecha de nacimiento</th>                                    
+                                    <th>Rol</th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for usuario in dataU %}
+                                <tr>
+                                    <td>{{ usuario.id }}</td>
+                                    <td>{{ usuario.nombre }}</td>
+                                    <td>{{ usuario.apellido }}</td>
+                                    <td>{{ usuario.correo_electronico }}</td>
+                                    <td>{{ usuario.telefono }}</td>
+                                    <td>{{ usuario.departamento }}</td>
+                                    <td>{{ usuario.ciudad }}</td>
+                                    <td>{{ usuario.genero }}</td>
+                                    <td>{{ usuario.fecha_nacimiento }}</td>
+                                    <td>{{ usuario.rol }}</td>
+                                    <td>
+                                        <form action="{{ url_for('usuario.delete', id=usuario.id) }}" method="POST" style="display:inline;">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?')">Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <table id="datatablesSimple">
-                <thead>
-                    <tr>
-                        <th>Categorias</th>
-                        <th>Descripción</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for categoria in dataC %}
-                    <tr>
-                        <td>{{ categoria.nombre }}</td>
-                        <td>{{ categoria.descripcion }}</td>
-                        <td>
-                            <a href="{{ url_for('admin.edit', id=categoria.id) }}" class="btn btn-sm btn-primary">Editar</a>
-                            <form action="{{ url_for('admin.delete', id=categoria.id) }}" method="POST" style="display:inline;">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');">Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        </main>
     </div>
 
     <!-- =========== Scripts ========= -->
