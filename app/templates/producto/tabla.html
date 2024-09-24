@@ -46,7 +46,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ url_for('admin.layout_static') }}">
+                    <a href="{{ url_for('categoria.index') }}">
                         <span class="icon">
                             <ion-icon name="layers"></ion-icon>
                         </span>
@@ -178,7 +178,7 @@
                             <input type="number" id="precio" name="precio" required placeholder="Precio">
                             <input type="number" id="stock" name="stock" required placeholder="Stock">
                             <select id="categoria" name="categoria" aria-placeholder="Categoría">
-                                <option value="" selected>Categoria</option>
+                                <option value="" selected>Seleccionar Categoria</option>
                                 {% for categoria in dataC %}
                                     <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
                                 {% endfor %}

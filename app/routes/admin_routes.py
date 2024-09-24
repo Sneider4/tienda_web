@@ -34,12 +34,6 @@ def index():
     return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto, tamaño=tamaño)
 
 
-@bp.route('/admin/layout_static')
-def layout_static():
-    
-    dataC = Categoria.query.all()
-    
-    return render_template('categoria/layout-static.html',  dataC=dataC)
 
 @bp.route('/admin/layout_sidenav_light')
 def layout_sidenav_light():
@@ -56,43 +50,7 @@ def tables():
 def charts():
     return render_template('admin/charts.html')
 
-@bp.route('/categoria/delete/<int:id>', methods=['POST'])
-@login_required
-def delete(id):
-    try: 
-        if current_user.rol == "Administrador":
-            categoria = Categoria.query.get_or_404(id)
-            productos_asociados = Producto.query.filter_by(id=id).all()
 
-            for producto in productos_asociados:
-                db.session.delete(producto)
-            
-            db.session.delete(categoria)
-            db.session.commit()
-            flash('La categoría se eliminó exitosamente', 'info')
-
-            return redirect(url_for('admin.layout_static'))
-        else:
-            return redirect(url_for('producto.index'))
-    except:
-        flash('La categoría no se puede eliminar porque se está usando el registro en otras tablas', 'danger')
-        return redirect(url_for('admin.layout_static'))
-
-
-@bp.route('/categoria/edit/<int:id>', methods=['GET', 'POST'])
-@login_required
-def edit(id):
-    if current_user.rol == "Administrador":
-        categoria = Categoria.query.get_or_404(id)
-        if request.method == 'POST':
-            categoria.nombre = request.form['nombre']
-            categoria.descripcion = request.form['descripcion']
-            db.session.commit()
-            # Redirige a la página anterior
-            return redirect(url_for('admin.layout_static'))
-        return render_template('categoria/edit.html', categoria=categoria)
-    else:
-        return redirect(url_for('producto.index'))
     
 @bp.route('/producto/tabla')
 def tabla():

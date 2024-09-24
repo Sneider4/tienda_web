@@ -97,11 +97,6 @@
             <main> class ="main"
                 <div class="cardBox">
                     <h1 class="mt-4">Editar Producto</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="{{ url_for('admin.index') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Editar Producto</li>
-                    </ol>
-                    
                     <div class="form-container">
                         <h1>Editar Producto</h1>
                         <form action="{{ url_for('producto.edit', id=dataP.id) }}" method="POST" enctype="multipart/form-data">
