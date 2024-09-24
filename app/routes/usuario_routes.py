@@ -37,6 +37,15 @@ def add():
 
     return render_template('usuario/registrar.html')
 
+@bp.route('/usuario/delete/<int:id>', methods=['POST'])
+def delete(id):    
+    usuario = Usuario.query.get_or_404(id)
+            
+    db.session.delete(usuario)
+    db.session.commit()
+    flash('Usuario eliminado con éxito', 'success')
+    return redirect(url_for('admin.clientes'))
+
 @bp.route('/usuario/login', methods=['GET', 'POST'])
 def login():
     

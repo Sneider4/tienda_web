@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +10,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style_admin.css') }}">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
     <!-- =============== Navigation ================ -->
     <div class="container">
@@ -20,19 +18,21 @@
                 <li>
                     <a href="#">
                         <span class="icon">
-                            <ion-icon name="flash"></ion-icon>
+                            <ion-icon name="logo-apple"></ion-icon>
                         </span>
                         <span class="title">STREET SNAKERS</span>
                     </a>
                 </li>
+
                 <li>
-                    <a href="{{ url_for('admin.index') }}">
+                    <a href="#">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -41,6 +41,7 @@
                         <span class="title">Clientes</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -49,14 +50,16 @@
                         <span class="title">Categorias</span>
                     </a>
                 </li>
+
                 <li>
-                    <a href="{{ url_for('producto.add') }}">
+                    <a href="{{ url_for('producto.listar') }}">
                         <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </span>
                         <span class="title">Productos</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -65,6 +68,7 @@
                         <span class="title">Settings</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -73,47 +77,61 @@
                         <span class="title">Password</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="{{ url_for('usuario.logout') }}">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class="title">Cerrar sesión</span>
+                        <span class="title">Cerrar sesion</span>
                     </a>
                 </li>
             </ul>
         </div>
 
-        <!-- =============== Main Content ================ -->
-        <main class="main">
-            <div class="cardBox">
-                <h1>Agregar producto</h1>
+        <!-- ========================= Main ==================== -->
 
-                <form action="{{ url_for('producto.add')}}" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                    <input type="text" id="nombre" name="nombre" required placeholder="Nombre">
-                    <input type="text" id="descripcion" name="descripcion" placeholder="Descripción">
-                    <input type="number" id="precio" name="precio" required placeholder="Precio">
-                    <input type="number" id="stock" name="stock" required placeholder="Stock">
-                    <select id="categoria" name="categoria" aria-placeholder="Categoría">
-                        {% for categoria in data %}
-                            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
-                        {% endfor %}
-                    </select>
-                    <input type="file" id="imagen" name="imagen">
-                    <button type="submit">Guardar</button>
-                    <a href="{{ url_for('admin.tabla') }}" class="btn">Volver</a>
-                </form> 
-            </div>
-        </main>
-    </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Nombre del producto</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Categorías</th>
+                        <th>Imágenes</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in dataP %}
+                    <tr>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.descripcion }}</td>
+                        <td>${{ producto.precio }}</td>
+                        <td>{{ producto.stock }}</td>
+                        <td>
+                            {% for categoria in dataC %}
+                                {% if categoria.id == producto.categoria %}
+                                    {{ categoria.nombre }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td><img src="{{ url_for('static', filename='images/' + producto.imagen) }}" alt="Producto" style="width: 100px; height: auto;"></td>
+                        <td>
+                            <a href="{{ url_for('producto.edit', id=producto.id) }}" class="btn btn-warning btn-sm">Editar</a>
 
-    <!-- =========== Scripts ========= -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
-    <!-- ====== ionicons ======= -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+                            <form action="{{ url_for('producto.delete', id=producto.id) }}" method="POST" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">Eliminar</button>
+                            </form>                                            
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 </body>
-
 </html>

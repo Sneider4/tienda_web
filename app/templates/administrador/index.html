@@ -36,7 +36,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('admin.clientes') }}">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
@@ -114,8 +114,8 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <h1 class="numbers">{{ tamaño }} </h1>
+                        <div class="cardName">Usuarios Registrados</div>
                     </div>
 
                     <div class="iconBx">
@@ -126,7 +126,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
+                        <div class="cardName">Pedidos</div>
                     </div>
 
                     <div class="iconBx">
@@ -161,7 +161,7 @@
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Recent Orders</h2>
+                        <h2>Detalles de pedidos</h2>
                         <a href="#" class="btn">View All</a>
                     </div>
 
