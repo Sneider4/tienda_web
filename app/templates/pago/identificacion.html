@@ -219,6 +219,7 @@
                     {% else %}
 
                         <form action="{{ url_for('direccion_cliente.add') }}" method="post">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <div class="formulario-envio">
                                 <h5>Formulario de envio</h5>
                                 <div class="formulario-input">
@@ -304,6 +305,7 @@
                     <div class="formulario-envio" id="form-credito">
                         <h4 class="title-metodo-pago">Tarjeta de credito</h4>
                         <form action="">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <div class="col-12 formulario-input">
                                 <label for="">Numero de tarjeta</label>
                                 <input type="text" class="form-control" placeholder="Numero" name="numero" required>
@@ -350,7 +352,8 @@
                     
                     <div id="form-debito" class="formulario-envio" style="display: none;">
                         <h4 class="title-metodo-pago">Tarjeta de debito</h4>
-                        <form action=""></form>
+                        <form action="">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <div class="col-12 formulario-input">
                                 <label for="">Numero de tarjeta</label>
                                 <input type="text" class="form-control" placeholder="Numero" name="numero" required>
@@ -393,6 +396,7 @@
                     <div id="form-pse" class="formulario-envio" style="display: none;">
                         <h4 class="title-metodo-pago">Pago por PSE</h4>
                         <form action="">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <div class="medio-pago-pse">
                                 <img src="../../static/images/logo-pse.jpg" alt="">
                                 <p>Escoge tu banco para continuar con el pago</p>

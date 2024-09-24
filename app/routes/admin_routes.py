@@ -16,6 +16,7 @@ def index():
     dataP = Producto.query.all()
     dataC = Categoria.query.all()
     dataU = Usuario.query.all()
+    tamaño = len(dataU)
     total = 0
 
     if current_user.is_authenticated:
@@ -30,7 +31,7 @@ def index():
 
     impuesto = total * 0.19
 
-    return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto)
+    return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto, tamaño=tamaño)
 
 
 @bp.route('/admin/layout_static')
@@ -78,10 +79,6 @@ def delete(id):
         return redirect(url_for('admin.layout_static'))
 
 
-
-    
-
-
 @bp.route('/categoria/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
@@ -104,3 +101,8 @@ def tabla():
 
     return render_template('producto/tabla.html', dataP=dataP,dataC=dataC)
 
+@bp.route('/admin/clientes')
+def clientes():
+    dataU = Usuario.query.all()
+
+    return render_template('administrador/clientes.html', dataU=dataU)
