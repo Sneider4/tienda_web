@@ -37,7 +37,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('admin.clientes') }}">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
@@ -137,9 +137,9 @@
                                 <td>
                                     <div class="accion">
                                         <a href="{{ url_for('categoria.edit', id=categoria.id) }}" class="btn-warning">Editar</a>
-                                        <form action="{{ url_for('categoria.delete', id=categoria.id) }}" method="POST">
+                                        <form action="{{ url_for('categoria.delete', id=categoria.id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar esta categoría?');">
                                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                            <button type="button" class="btn-danger" onclick="openDeleteModalCategoria('{{ categoria.id }}')">Eliminar</button>
+                                            <button type="submit" class="btn btn-danger">Eliminar</button>
                                         </form>
                                     </div>
                                 </td>
