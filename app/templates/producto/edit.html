@@ -19,13 +19,14 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('admin.index') }}">
                         <span class="icon">
                             <ion-icon name="flash"></ion-icon>
                         </span>
                         <span class="title">STREET SNEAKERS</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="{{ url_for('admin.index') }}">
                         <span class="icon">
@@ -34,38 +35,43 @@
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="#">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
-                        <span class="title">Customers</span>
+                        <span class="title">Clientes</span>
                     </a>
                 </li>
+
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('admin.layout_static') }}">
                         <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
+                            <ion-icon name="layers"></ion-icon>
                         </span>
-                        <span class="title">Messages</span>
+                        <span class="title">Categorias</span>
                     </a>
                 </li>
+
                 <li>
-                    <a href="{{ url_for('producto.add') }}">
+                    <a href="{{ url_for('admin.tabla') }}">
                         <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </span>
                         <span class="title">Productos</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="#">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
-                        <span class="title">Settings</span>
+                        <span class="title">Configuracion</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="#">
                         <span class="icon">
@@ -74,12 +80,13 @@
                         <span class="title">Password</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="{{ url_for('usuario.logout') }}">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class="title">Cerrar sesión</span>
+                        <span class="title">Cerrar sesion</span>
                     </a>
                 </li>
             </ul>

@@ -271,8 +271,7 @@ body {
 
 .details .recentOrders {
   position: relative;
-  display: grid;
-  min-height: 500px;
+  align-self:self-start;
   background: var(--white);
   padding: 20px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
@@ -280,6 +279,7 @@ body {
 }
 
 .details .cardHeader {
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -290,7 +290,7 @@ body {
 }
 .cardHeader .btn {
   position: relative;
-  padding: 5px 10px;
+  padding: 7px 10px;
   background: var(--blue);
   text-decoration: none;
   color: var(--white);
@@ -300,8 +300,70 @@ body {
 .details table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 20px;
+  text-transform: capitalize;
 }
+
+.btn-1 {
+  background-color: rgba(211, 211, 211, 0.863);
+  border: none;
+  cursor: pointer;
+  padding: 7px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.btn-danger {
+  background-color: #f00;
+  border: none;
+  padding: 7px;
+  text-decoration: none;
+  color: #ffffff;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-warning {
+  background-color: rgb(222, 255, 75);
+  border: none;
+  padding: 7px;
+  text-decoration: none;
+  color: #000000;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: rgb(214, 214, 214);
+  border: none;
+  padding: 7px;
+  text-decoration: none;
+  color: #000000;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: rgb(54, 50, 255);
+  border: none;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #ffffff;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.accion {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 7px;
+}
+
 .details table thead td {
   font-weight: 600;
 }
@@ -317,7 +379,7 @@ body {
   color: var(--white);
 }
 .details .recentOrders table tr td {
-  padding: 10px;
+  padding: 15px 10px;
 }
 .details .recentOrders table tr td:last-child {
   text-align: end;
@@ -363,12 +425,11 @@ body {
 
 .recentCustomers {
   position: relative;
-  display: grid;
-  min-height: 500px;
   padding: 20px;
   background: var(--white);
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
+  align-self: self-start;
 }
 .recentCustomers .imgBx {
   position: relative;
@@ -404,6 +465,89 @@ body {
 .recentCustomers table tr:hover td h4 span {
   color: var(--white);
 }
+
+
+
+/* Agregar producto */
+.add-producto {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center ;
+  align-items: center;
+  gap: 15px;
+}
+
+.add-producto input, select {
+  padding: 8px;
+  border: 1px solid #cacaca;
+  border-radius: 10px;
+  width: 90%;
+  font-size: 14px;
+}
+/* Agregar producto */
+
+
+
+/* modal para ver la foto de los tenis en la tabla*/
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 70px auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+.modal-content h2, p{
+  margin-bottom: 20px;
+}
+
+.accion-modal {
+  text-align: center;
+
+  
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  cursor: pointer;
+}
+
+/* Galería de imágenes */
+.gallery {
+  display: flex;
+  
+}
+
+.gallery img {
+  width: 60%;
+  cursor: pointer;
+  background-color: #0000003a;
+}
+/* modal para ver la foto de los tenis en la tabla*/
+
+
 
 /* ====================== Responsive Design ========================== */
 @media (max-width: 991px) {

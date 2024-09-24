@@ -18,16 +18,16 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('admin.index') }}">
                         <span class="icon">
                             <ion-icon name="flash"></ion-icon>
                         </span>
-                        <span class="title">STREET SNAKERS</span>
+                        <span class="title">STREET SNEAKERS</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('admin.index') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -67,7 +67,7 @@
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
-                        <span class="title">Settings</span>
+                        <span class="title">Configuracion</span>
                     </a>
                 </li>
 
@@ -115,7 +115,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <div class="cardName">Vistas diarias</div>
                     </div>
 
                     <div class="iconBx">
@@ -126,7 +126,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
+                        <div class="cardName">Ventas</div>
                     </div>
 
                     <div class="iconBx">
@@ -137,7 +137,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers">284</div>
-                        <div class="cardName">Comments</div>
+                        <div class="cardName">Comentarios</div>
                     </div>
 
                     <div class="iconBx">
@@ -148,7 +148,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="cardName">Ganancias</div>
                     </div>
 
                     <div class="iconBx">
@@ -161,17 +161,17 @@
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Recent Orders</h2>
-                        <a href="#" class="btn">View All</a>
+                        <h2>Pedidos Recientes</h2>
+                        <a href="#" class="btn">Ver todo</a>
                     </div>
 
                     <table>
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
-                                <td>Status</td>
+                                <td>Nombre</td>
+                                <td>Precio</td>
+                                <td>Pago</td>
+                                <td>Estado</td>
                             </tr>
                         </thead>
 
@@ -238,7 +238,7 @@
                 <!-- ================= New Customers ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
-                        <h2>Recent Customers</h2>
+                        <h2>Clientes recientes</h2>
                     </div>
 
                     <table>

@@ -24,16 +24,16 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('admin.index') }}">
                         <span class="icon">
                             <ion-icon name="flash"></ion-icon>
                         </span>
-                        <span class="title">STREET SNAKERS</span>
+                        <span class="title">STREET SNEAKERS</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('admin.index') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -51,7 +51,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ url_for('categoria.add') }}">
+                    <a href="{{ url_for('admin.layout_static') }}">
                         <span class="icon">
                             <ion-icon name="layers"></ion-icon>
                         </span>
@@ -60,7 +60,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ url_for('producto.add') }}">
+                    <a href="{{ url_for('admin.tabla') }}">
                         <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </span>
@@ -73,7 +73,7 @@
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
-                        <span class="title">Settings</span>
+                        <span class="title">Configuracion</span>
                     </a>
                 </li>
 
