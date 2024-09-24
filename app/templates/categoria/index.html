@@ -46,7 +46,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ url_for('admin.layout_static') }}">
+                    <a href="{{ url_for('categoria.index') }}">
                         <span class="icon">
                             <ion-icon name="layers"></ion-icon>
                         </span>
@@ -182,6 +182,33 @@
                     <button type="button" class="btn-secondary" onclick="closeDeleteModalCategoria()">Cancelar</button>
                 </form>
             </div>
+<<<<<<< HEAD:app/templates/categoria/layout-static.html
+=======
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Categorias</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categoria in dataC %}
+                    <tr>
+                        <td>{{ categoria.nombre }}</td>
+                        <td>{{ categoria.descripcion }}</td>
+                        <td>
+                            <a href="{{ url_for('categoria.edit', id=categoria.id) }}" class="btn btn-sm btn-primary">Editar</a>
+                            <form action="{{ url_for('categoria.delete', id=categoria.id) }}" method="POST" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+>>>>>>> 1aed1f35fe3bf42119f40b21e4f028362b06739d:app/templates/categoria/index.html
         </div>
     </div>
     <!-- Modal para confirmación de eliminar categoría -->

@@ -34,12 +34,6 @@ def index():
     return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto, tamaño=tamaño)
 
 
-@bp.route('/admin/layout_static')
-def layout_static():
-    
-    dataC = Categoria.query.all()
-    
-    return render_template('categoria/layout-static.html',  dataC=dataC)
 
 @bp.route('/admin/layout_sidenav_light')
 def layout_sidenav_light():
@@ -56,6 +50,10 @@ def tables():
 def charts():
     return render_template('admin/charts.html')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1aed1f35fe3bf42119f40b21e4f028362b06739d
     
 @bp.route('/producto/tabla')
 def tabla():
