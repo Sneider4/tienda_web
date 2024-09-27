@@ -139,7 +139,7 @@ function openCategoryProductsModal(categoriaId) {
                         <td>$${producto.precio.toFixed(3)}</td>
                         <td>${producto.stock}</td>
                         <td>
-                            <button class="btn-1" onclick="openModal('/static/images/${producto.imagen}')" class="btn btn-primary btn-sm">Imagen</button>
+                            <button class="btn-1" onclick="openModal('/static/images/${producto.imagen}', '{{ producto.nombre }}')" >Imagen</button>
                         </td>
                     `;
                     tableBody.appendChild(row);

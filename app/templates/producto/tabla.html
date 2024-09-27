@@ -231,7 +231,7 @@
     <div id="editModalProducto" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeEditModalProducto()">&times;</span>
-            <h2>Editar Producto</h2>
+            <h2 style="text-align: center;">Editar Producto</h2>
             <form class="edit-producto" id="editFormProducto" action="" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="text" id="edit_nombre" name="nombre" placeholder="Nombre" required>
