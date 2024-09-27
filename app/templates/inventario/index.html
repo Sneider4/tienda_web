@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario de Productos | Street Sneakers</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_admin.css') }}">
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="{{ url_for('admin.index') }}">
+                        <span class="icon"><ion-icon name="flash"></ion-icon></span>
+                        <span class="title">STREET SNEAKERS</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('admin.index') }}">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('admin.clientes') }}">
+                        <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                        <span class="title">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('categoria.index') }}">
+                        <span class="icon"><ion-icon name="layers"></ion-icon></span>
+                        <span class="title">Categorias</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('admin.tabla') }}">
+                        <span class="icon"><ion-icon name="cart-outline"></ion-icon></span>
+                        <span class="title">Productos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('producto.inventario') }}">
+                        <span class="icon"><ion-icon name="reader-outline"></ion-icon></span>
+                        <span class="title">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                        <span class="title">Password</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('usuario.logout') }}">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">Cerrar sesion</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Buscar aquí">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+                <div class="user">
+                    <img src="{{ url_for('static', filename='imgs/customer01.jpg') }}" alt="">
+                </div>
+            </div>
+
+            <!-- ======================= Cards ================== -->
+            <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{ total_productos }}</div>
+                        <div class="cardName">Total de productos</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="cube-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">${{ "%.2f"|format(valor_total_inventario) }}</div>
+                        <div class="cardName">Valor total del inventario</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{ productos_sin_stock }}</div>
+                        <div class="cardName">Productos sin stock</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================ Inventory Details List ================= -->
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Inventario de Productos</h2>
+                        <a href="#" class="btn">Ver todo</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Nombre</td>
+                                <td>Precio</td>
+                                <td>Stock Inicial</td>
+                                <td>Stock Actual</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for producto in productos %}
+                            <tr>
+                                <td>{{ producto.nombre }}</td>
+                                <td>${{ "%.2f"|format(producto.precio) }}</td>
+                                <td>{{ producto.stock }}</td>
+                                <td>{{ producto.stock_actual }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

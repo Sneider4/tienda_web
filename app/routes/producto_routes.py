@@ -157,4 +157,38 @@ def tabla():
     else:
         return redirect(url_for('producto.index'))
 
-   
+@bp.route('/inventario')
+@login_required
+def inventario():
+    if current_user.rol == "Administrador":
+        # Obtener todos los productos con sus categorías
+        productos = db.session.query(Producto, Categoria).join(Categoria, Producto.categoria == Categoria.id).all()
+        
+        # Calcular el valor total del inventario
+        valor_total_inventario = sum(producto.precio * producto.stock for producto, _ in productos)
+        
+        # Obtener estadísticas
+        total_productos = len(productos)
+        productos_sin_stock = sum(1 for producto, _ in productos if producto.stock == 0)
+        
+        # Preparar los datos para la plantilla
+        productos_data = []
+        for producto, categoria in productos:
+            productos_data.append({
+                'id': producto.id,
+                'nombre': producto.nombre,
+                'descripcion': producto.descripcion,
+                'precio': producto.precio,
+                'stock': producto.stock,
+                'categoria': categoria.nombre  # Asumiendo que la categoría tiene un atributo 'nombre'
+            })
+        
+        return render_template('inventario/index.html', 
+                               productos=productos_data, 
+                               valor_total_inventario=valor_total_inventario,
+                               total_productos=total_productos,
+                               productos_sin_stock=productos_sin_stock)
+    else:
+        flash('No tienes permiso para acceder al inventario', 'danger')
+        return redirect(url_for('producto.index'))
+
