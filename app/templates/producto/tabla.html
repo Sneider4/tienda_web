@@ -112,12 +112,12 @@
                 </div>
             </div>
 
-            <div class="details">
-                <div class="recentOrders">
-                    <div class="cardHeader">
-                        <h2>Productos</h2>
-                        <a href="#" class="btn">Agregar</a>
-                    </div>
+                <div class="details">
+                    <div class="recentOrders">
+                        <div class="cardHeader">
+                            <h2>Productos</h2>
+                            <p class="btn">Total = {{ totalP }}</p>
+                        </div>
 
                     <table>
                         <thead>
@@ -136,7 +136,7 @@
                             <tr>
                                 <td>{{ producto.nombre }}</td>
                                 <td>{{ producto.descripcion }}</td>
-                                <td>${{ producto.precio }}</td>
+                                <td>${{ producto.precio }}00</td>
                                 <td>{{ producto.stock }}</td>
                                 <td>
                                     {% for categoria in dataC %}
@@ -145,17 +145,14 @@
                                         {% endif %}
                                     {% endfor %}
                                 </td>
-                                <td>
-                                    <button class="btn-1" onclick="openModal('{{ url_for('static', filename='images/' + producto.imagen) }}')" class="btn btn-primary btn-sm">Imagen</button>
+                                <td>    
+                                    <button class="btn-1" onclick="openModal('{{ url_for('static', filename='images/' ~ producto.imagen) }}', '{{ producto.nombre }}')" class="btn btn-primary btn-sm">Imagen</button>
                                     <!-- <img src="{{ url_for('static', filename='images/' + producto.imagen) }}" alt="Producto" style="width: 100px; height: auto;">  -->
                                 </td>
                                 <td>
                                     <div class="accion">
-                                        <a href="{{ url_for('producto.edit', id=producto.id) }}" class="btn-warning">Editar</a>
-                                        <form action="{{ url_for('producto.delete', id=producto.id) }}" method="POST" style="display:inline;">
-                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">Eliminar</button>
-                                        </form>
+                                        <button type="button" class="btn-warning" onclick="openEditModal('{{ producto.id }}', '{{ producto.nombre }}', '{{ producto.descripcion }}', '{{ producto.precio }}', '{{ producto.stock }}', '{{ producto.categoria_id }}', '{{ producto.imagen }}')">Editar</button>
+                                        <button type="button" class="btn-danger" onclick="openDeleteModal('{{ producto.id }}')">Eliminar</button>
                                     </div>
                                 </td>
                             </tr>
@@ -164,7 +161,7 @@
                     </table>
                 </div>
 
-                <!-- ================= New Customers ================ -->
+                <!-- ================= Nuevo producto ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
                         <h2>Agregar producto</h2>
@@ -174,7 +171,7 @@
                         <form class="add-producto" action="{{ url_for('producto.add')}}" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="text" id="nombre" name="nombre" required placeholder="Nombre">
-                            <input type="text" id="descripcion" name="descripcion" placeholder="Descripción">
+                            <textarea id="descripcion" name="descripcion" placeholder="Descripción"></textarea>
                             <input type="number" id="precio" name="precio" required placeholder="Precio">
                             <input type="number" id="stock" name="stock" required placeholder="Stock">
                             <select id="categoria" name="categoria" aria-placeholder="Categoría">
@@ -185,12 +182,32 @@
                             </select>
                             <input type="file" id="imagen" name="imagen">
                             <button class="btn-primary" type="submit">Guardar</button>
+                        </form>
                     </div>
                 </div>
+                <!-- ================= Nuevo producto ================ -->
+
             </div>
         </div>
     </div>
 
+
+    <!-- Modal para confirmacion de eliminar producto-->
+    <div id="deleteModal" name="deleteModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeDeleteModal()">&times;</span>
+            <h2>¿Estás seguro de que deseas eliminar este producto?</h2>
+            <p>Esta acción no se puede deshacer.</p>
+            <div class="accion-modal">               
+                <form id="deleteForm" action="" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para confirmacion de eliminar producto-->
     
 
 
@@ -198,6 +215,9 @@
     <div id="imageModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
+            <div class="subtitulo-modal">
+                <h3 id="modalProductName"></h3>
+            </div>
             <div id="gallery" class="gallery">
                 <img class="modal-content" id="modalImage">
             </div>
@@ -207,36 +227,45 @@
 
 
 
-
-    <!-- Modal para confirmacion de eliminar producto-->
-
-    <div id="deleteModal" class="modal">
+    <!-- Modal para editar producto-->
+    <div id="editModalProducto" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeDeleteModal()">&times;</span>
-            <h2>¿Estás seguro de que deseas eliminar este producto?</h2>
-            <p>Esta acción no se puede deshacer.</p>
-            <div class="accion-modal">
-                <form id="deleteForm" action="" method="POST">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn-danger">Eliminar</button>
-                    <button type="button" class="btn-secondary" onclick="closeDeleteModal()">Cancelar</button>
-                </form>
-            </div>
+            <span class="close" onclick="closeEditModalProducto()">&times;</span>
+            <h2>Editar Producto</h2>
+            <form class="edit-producto" id="editFormProducto" action="" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="text" id="edit_nombre" name="nombre" placeholder="Nombre" required>
+                <textarea id="edit_descripcion" name="descripcion" placeholder="Descripcion" required></textarea>
+                <input type="number" id="edit_precio" name="precio" placeholder="Precio" required>
+                <input type="number" id="edit_stock" name="stock" placeholder="Stock" required>
+                <select id="edit_categoria" name="categoria" required>
+                    <option selected value="">Seleccionar categoria</option>
+                    {% for categoria in dataC %}
+                    <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <input type="file" id="edit_imagen" name="imagen">
+                <img id="imagen_actual" src="" alt="Imagen actual" style="display:none; max-width: 100px; max-height: 100px;">
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Guardar cambios</button>
+                    <button type="button" class="btn-secondary" onclick="closeEditModalProducto()">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
-
-    <!-- Modal para confirmacion de eliminar producto-->
+    <!-- Modal para editar producto-->
 
 
     
     <!-- =========== Scripts ========= -->
      
-    <script src="{{ url_for('static', filename='js/modals.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modals.js') }}"></script>
+
 
 </body>
 
