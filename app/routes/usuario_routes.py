@@ -56,15 +56,11 @@ def login():
         print("2")
         correo_electronico = request.form['correo_electronico']
         contrasena = request.form['contrasena']
-        print("3")
-        print(f"4 correo {correo_electronico} contraseña: {contrasena}")
         usuario = Usuario.query.filter_by(correo_electronico=correo_electronico, contrasena=contrasena).first()
         if usuario:
-            print("5")
             login_user(usuario)
             
             if usuario.rol == "Cliente":
-                print("Entra a cliente")
                 return redirect(url_for('producto.index'))
 
             elif usuario.rol == "Administrador":
