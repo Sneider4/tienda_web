@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .ticket {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #000;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .ticket h2, .ticket h3, .ticket p {
+            text-align: center;
+        }
+        .ticket .details {
+            margin-top: 20px;
+        }
+        .ticket .details p {
+            margin: 5px 0;
+        }
+        .ticket .total {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <h2>Factura</h2>
+        <h3>Orden #{{ orden.id }}</h3>
+        <p>Fecha: {{ orden.fecha_orden.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        <div class="details">
+            <p><strong>Detalles de la Orden:</strong></p>
+            {% for detalle in detalles %}
+                <p>Producto: {{ detalle.producto.nombre }}</p>
+                <p>Cantidad: {{ detalle.cantidad }}</p>
+                <p>Precio Unitario: ${{ detalle.precio_unitario }}</p>
+                <p>Subtotal: ${{ detalle.cantidad * detalle.precio_unitario }}</p>
+                <hr>
+            {% endfor %}
+        </div>
+        <div class="total">
+            <p>Total: ${{ orden.total }}</p>
+        </div>
+    </div>
+</body>
+</html>

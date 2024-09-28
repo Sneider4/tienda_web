@@ -50,10 +50,7 @@ def delete(id):
 def login():
     
     secret_key = current_app.config['SECRET_KEY']
-    print(f"SECRET_KEY: {secret_key}")
-    print("1--------------")
     if request.method == 'POST':
-        print("2")
         correo_electronico = request.form['correo_electronico']
         contrasena = request.form['contrasena']
         usuario = Usuario.query.filter_by(correo_electronico=correo_electronico, contrasena=contrasena).first()

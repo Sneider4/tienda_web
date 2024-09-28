@@ -493,7 +493,7 @@
                     </div>
                 </div>
                 <div class="comprar-ahora">
-                    <a href="{{ url_for('orden.generar_orden') }}"><button>Comprar ahora</button></a>
+                    <a href="{{ url_for('orden.generar_orden') }}", method="POST"><button>Comprar ahora</button></a>
                 </div>
             </div>
             <!-- Carrito pequeño proceso de pago -->
