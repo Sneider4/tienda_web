@@ -104,7 +104,7 @@
 
                 <div class="search">
                     <label>
-                        <input type="text" placeholder="Search here">
+                        <input type="text"id="searchInput" placeholder="Search here">
                         <ion-icon name="search-outline"></ion-icon>
                     </label>
                 </div>
@@ -130,7 +130,7 @@
                                 <td>Acciones</td>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="productTable">
                             {% for categoria in dataC %}
                             <tr>
                                 <td>{{ categoria.nombre }}</td>
@@ -255,6 +255,7 @@
 
 
     <!-- =========== Scripts ========= -->
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
