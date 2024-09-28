@@ -11,7 +11,7 @@ def index():
     data = Orden.query.all()
     return render_template('orden/index.html', data=data)
 
-@bp.route('/generar_orden', methods=['GET'])
+@bp.route('/generar_orden', methods=['POST'])
 def generar_orden():
     print('1')
     usuario_id = request.form.get('usuario_id')  # ID del usuario
@@ -38,7 +38,7 @@ def generar_orden():
     orden.total = total
     db.session.commit()
 
-    return redirect(url_for('mostrar_factura', orden_id=orden.id))
+    return redirect(url_for('orden.mostrar_factura', orden_id=orden.id))
 
 @bp.route('/mostrar_factura/<int:orden_id>')
 def mostrar_factura(orden_id):

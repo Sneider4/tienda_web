@@ -493,7 +493,15 @@
                     </div>
                 </div>
                 <div class="comprar-ahora">
-                    <a href="{{ url_for('orden.generar_orden') }}", method="POST"><button>Comprar ahora</button></a>
+                    <form action="{{ url_for('orden.generar_orden') }}" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="usuario_id" value="{{ current_user.id }}">
+                        <input type="hidden" name="direccion_id" value="{{ direccion_cliente.id }}">
+                        {% for item in carrito %}
+                            <input type="hidden" name="carrito" value="{{ item.producto_id }}-{{ item.cantidad }}">
+                        {% endfor %}
+                        <button type="submit">Comprar ahora</button>
+                    </form>
                 </div>
             </div>
             <!-- Carrito pequeño proceso de pago -->
