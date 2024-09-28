@@ -357,6 +357,17 @@ body {
   cursor: pointer;
 }
 
+.btn-submit {
+  background-color: rgb(37, 197, 16);
+  border: none;
+  padding: 7px;
+  text-decoration: none;
+  color: #ffffff;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 .accion {
   display: flex;
   flex-direction: column;
@@ -467,9 +478,88 @@ body {
 }
 
 
+.flash-container {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1050;
+  width: 90%;
+  max-width: 500px;
+  animation: fadeOut 3s ease forwards;
+}
+
+
+.details-2 {
+  position: relative;
+  width: 100%;
+  padding: 0 20px 20px 20px;
+  display: grid;
+  grid-gap: 30px;
+  /* margin-top: 10px; */
+}
+
+.details-2 .recentOrders {
+  position: relative;
+  align-self:self-start;
+  background: var(--white);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+.details-2 table {
+  width: 100%;
+  border-collapse: collapse;
+  text-transform: capitalize;
+}
+
+.details-2 table thead td {
+  font-weight: 600;
+}
+
+.details-2 .recentOrders table tr td {
+  padding: 10px 10px;
+}
+
+.details-2 .recentOrders table tr td:nth-child(3) {
+  text-align: center;
+}
+
+.details-2 .recentOrders table tr {
+  color: var(--black1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.subtitulo-modal {
+  text-align: center;
+  margin-top: 20px;
+  text-transform: uppercase;
+  font-size: 20px;
+}
 
 /* Agregar producto */
 .add-producto {
+  margin: 20px auto ;
+  display: flex;
+  flex-direction: column;
+  justify-content: center ;
+  align-items: center;
+  gap: 15px;
+}
+
+.add-producto input, select, textarea {
+  padding: 11px 8px;
+  border: 1px solid #cacaca;
+  border-radius: 10px;
+  width: 80%;
+  font-size: 14px;
+}
+/* Agregar producto */
+
+
+/* editar producto */
+.edit-producto {
   margin: 20px auto;
   display: flex;
   flex-direction: column;
@@ -478,15 +568,15 @@ body {
   gap: 15px;
 }
 
-.add-producto input, select {
+.edit-producto input, select, textarea {
+  text-transform:capitalize;
   padding: 11px 8px;
   border: 1px solid #cacaca;
   border-radius: 10px;
-  width: 90%;
+  width: 80%;
   font-size: 14px;
 }
-/* Agregar producto */
-
+/* editar producto */
 
 
 /* modal en la tabla*/
@@ -504,10 +594,10 @@ body {
 
 .modal-content {
   background-color: #fff;
-  margin: 70px auto;
+  margin: 40px auto;
   padding: 20px;
   width: 80%;
-  max-width: 600px;
+  max-width: 500px;
   border-radius: 10px;
 }
 

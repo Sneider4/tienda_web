@@ -117,8 +117,8 @@
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Productos</h2>
-                        <a href="{{ url_for('categoria.add') }}" class="btn">Agregar</a>
+                        <h2>Categorias</h2>
+                        <a href="" class="btn">Total = {{ totalC }}</a>
                     </div>
 
                     <table>
@@ -126,6 +126,7 @@
                             <tr>
                                 <td>Categorias</td>
                                 <td>Descripción</td>
+                                <td>Productos asociados</td>
                                 <td>Acciones</td>
                             </tr>
                         </thead>
@@ -134,13 +135,11 @@
                             <tr>
                                 <td>{{ categoria.nombre }}</td>
                                 <td>{{ categoria.descripcion }}</td>
+                                <td><button type="button" class="btn-1" onclick="openCategoryProductsModal('{{ categoria.id }}')">Ver Productos</button></td>
                                 <td>
                                     <div class="accion">
-                                        <a href="{{ url_for('categoria.edit', id=categoria.id) }}" class="btn-warning">Editar</a>
-                                        <form action="{{ url_for('categoria.delete', id=categoria.id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar esta categoría?');">
-                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                        </form>
+                                        <button type="button" class="btn-warning" onclick="openEditModalCategoria('{{ categoria.id }}', '{{ categoria.nombre }}', '{{ categoria.descripcion }}')">Editar</button>
+                                        <button type="button" class="btn-danger" onclick="openDeleteModalCategoria('{{ categoria.id }}')">Eliminar</button>
                                     </div>
                                 </td>
                             </tr>
@@ -159,8 +158,9 @@
                         <form class="add-producto" action="{{ url_for('categoria.add')}}" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="text" id="nombre" name="nombre" required placeholder="Nombre">
-                            <input type="text" id="descripcion" name="descripcion" placeholder="Descripción">
+                            <textarea id="descripcion" name="descripcion" placeholder="Descripción"></textarea>
                             <button class="btn-primary" type="submit">Guardar</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -185,6 +185,72 @@
         </div>
     </div>
     <!-- Modal para confirmación de eliminar categoría -->
+
+
+
+    <!-- Modal para confirmación de editar categoria -->
+    <div id="editModalCategoria" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModalCategoria()">&times;</span>
+            <h2>Editar Categoría</h2>
+            <form class="edit-producto" id="editFormCategoria" action="" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="text" id="edit_categoria_nombre" name="nombre" placeholder="Nombre" required>
+                <textarea id="edit_categoria_descripcion" name="descripcion" placeholder="Descripcion" required></textarea>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Guardar cambios</button>
+                    <button type="button" class="btn-secondary" onclick="closeEditModalCategoria()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal para confirmación de editar categoria -->
+
+
+
+    <!-- Modal para mostrar la imagen del producto-->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="subtitulo-modal" style="display: none;">
+                <h3 id="modalProductName"></h3>
+            </div>
+            <div id="gallery" class="gallery">
+                <img class="modal-content" id="modalImage">
+            </div>
+        </div>
+    </div>
+    <!-- Modal para mostrar la imagen del producto-->
+     
+
+
+    <!-- Modal para mostrar la tabla de productos asociados-->
+    <div id="categoryProductsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCategoryProductsModal()">&times;</span>
+            <h2>Productos Asociados a la Categoría</h2>
+            <div class="details-2">
+                <div class="recentOrders" id="modalBodyProductos">
+                    <table id="productosTable">
+                        <thead>
+                            <tr>
+                                <td>Nombre</td>
+                                <td>Precio</td>
+                                <td>Stock</td>
+                                <td>Imagen</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los productos se mostraran aca aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <button type="button" class="btn-secondary" onclick="closeCategoryProductsModal()">Cerrar</button>
+        </div>
+    </div>
+    <!-- Modal para mostrar la tabla de productos asociados-->
+
 
 
 

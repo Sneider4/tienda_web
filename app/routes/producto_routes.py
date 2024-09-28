@@ -37,8 +37,6 @@ def index():
 
     return render_template('producto/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto)
 
-from flask import flash, redirect, url_for
-
 @bp.route('/producto/add', methods=['GET', 'POST'])
 @login_required
 def add():
@@ -72,14 +70,13 @@ def add():
                 db.session.add(new_producto)
                 db.session.commit()
 
-                 # Mensaje flash indicando éxito
                 flash("Producto guardado con éxito", "success")
-                return redirect(url_for('producto.tabla'))  # Redirige a la lista de productos o a la página adecuada
+                return redirect(url_for('producto.tabla'))
             
             except Exception as e:
-                # Mensaje flash indicando error
+
                 flash(f"Ocurrió un error: {str(e)}", "danger")
-                return redirect(url_for('producto.add'))  # Redirige nuevamente al formulario para intentar de nuevo
+                return redirect(url_for('producto.add'))
 
 
         data = Categoria.query.all()
@@ -103,7 +100,7 @@ def edit(id):
         dataP.descripcion = request.form['descripcion']
         dataP.precio = request.form['precio']
         dataP.stock = request.form['stock']
-        dataP.categoria = request.form['categoria']  # Cambiado a id si así está en tu modelo
+        dataP.categoria = request.form['categoria']
         imagen = request.files['imagen']
 
         if imagen:
@@ -115,9 +112,9 @@ def edit(id):
         db.session.commit()
         flash('Producto actualizado con éxito', 'success')
         return redirect(url_for('producto.tabla'))
-    print(f"hola")
 
     return render_template('producto/edit.html', dataP=dataP, dataC=dataC)
+
 
 @bp.route('/producto/ver_producto/<int:id>', methods = ['GET'])
 def ver_producto(id):
@@ -130,7 +127,8 @@ def ver_producto(id):
     
     return render_template('producto/ver_producto.html', dataP=dataP, dataC=dataC, dataU=dataU, total=total)
 
-@bp.route('/producto/delete/<int:id>', methods=['POST'])
+
+@bp.route('/producto/delete/<int:id>', methods=['POST','GET'])
 @login_required
 def delete(id):
     try:    
@@ -145,16 +143,55 @@ def delete(id):
     except:
         flash('El producto no se puede eliminar porque se está usando el registro en otras tablas', 'danger')
         return redirect(url_for('producto.tabla'))
+    
 
-@bp.route('/tabla')
+@bp.route('/producto/tabla', methods=['POST','GET'])
 @login_required
 def tabla():
 
     if current_user.rol == "Administrador":
         dataP = Producto.query.all()
         dataC = Categoria.query.all()
-        return render_template('producto/tabla.html', dataP=dataP, dataC=dataC)
+        totalP = Producto.query.count()
+        
+        print(f"Total de productos: {totalP}")
+        
+        return render_template('producto/tabla.html', dataP=dataP, dataC=dataC, totalP=totalP)
     else:
         return redirect(url_for('producto.index'))
 
-   
+@bp.route('/inventario')
+@login_required
+def inventario():
+    if current_user.rol == "Administrador":
+        # Obtener todos los productos con sus categorías
+        productos = db.session.query(Producto, Categoria).join(Categoria, Producto.categoria == Categoria.id).all()
+        
+        # Calcular el valor total del inventario
+        valor_total_inventario = sum(producto.precio * producto.stock for producto, _ in productos)
+        
+        # Obtener estadísticas
+        total_productos = len(productos)
+        productos_sin_stock = sum(1 for producto, _ in productos if producto.stock == 0)
+        
+        # Preparar los datos para la plantilla
+        productos_data = []
+        for producto, categoria in productos:
+            productos_data.append({
+                'id': producto.id,
+                'nombre': producto.nombre,
+                'descripcion': producto.descripcion,
+                'precio': producto.precio,
+                'stock': producto.stock,
+                'categoria': categoria.nombre  # Asumiendo que la categoría tiene un atributo 'nombre'
+            })
+        
+        return render_template('inventario/index.html', 
+                               productos=productos_data, 
+                               valor_total_inventario=valor_total_inventario,
+                               total_productos=total_productos,
+                               productos_sin_stock=productos_sin_stock)
+    else:
+        flash('No tienes permiso para acceder al inventario', 'danger')
+        return redirect(url_for('producto.index'))
+
