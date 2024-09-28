@@ -169,7 +169,7 @@ img {
 /*carrito de shopping bag*/
 .carrito-shopping {
     display: flex;
-    background-color: #f3f3f3;
+    background-color: #f8f8f8;
 }
 
 .pago-carrito  {
@@ -187,6 +187,8 @@ img {
     padding: 20px;
     border-radius: 8px;
     align-self: flex-start;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+
 }
 
 .tabla {
@@ -225,6 +227,7 @@ img {
 }
 
 .contenedor-pago {
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     align-self: flex-start;
     flex-basis: 25%;
     padding: 25px;
@@ -270,6 +273,7 @@ img {
 /*paso 1 identificacion*/
 
 .identificacion-1 {
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     align-self: flex-start;
     background-color: white;
     padding: 20px;
@@ -312,6 +316,7 @@ img {
 /*paso 2 identificacion*/
 
 .identificacion-2 {
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     background-color: white;
     padding: 20px 20px 40px 20px;
     border-radius: 8px;
@@ -472,6 +477,7 @@ img {
 /* Carrito pequeño proceso de pago */
 
 .pago-carrito-progreso {
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     flex-basis: 35%;
     background-color: white;
     padding: 20px;  
@@ -778,7 +784,6 @@ hr{
     opacity: 1;
     filter: contrast(120%);
 }
-
 
 
 .tendencia {
@@ -1312,6 +1317,47 @@ footer {
 
 
 /* Ver informacion del producto */
+
+
+/* Cambiar contraseña estilos */
+
+.cambiar-contraseña {
+    padding: 40px;
+    width: 80%;
+    max-width: 460px;
+    margin: 40px auto;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.cambiar-contraseña-txt h2{
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    margin-bottom: 19px;
+}
+
+.cambiar-contraseña-txt p{
+    font-size: 16px;
+    color: #818181;
+}
+
+.cambiar-contraseña-button{
+    text-align: center;
+    margin-top: 30px;
+}
+/* Cambiar contraseña estilos */
+
+
+
+/* Iconos del footer */
+.icons-footer {
+    background-color: white;
+    color: rgba(33, 37, 41);
+    padding: 5px 9px;
+    border-radius: 100%;
+  }
+/* Iconos del footer */
+
 
 
 @media (max-width:991px) {

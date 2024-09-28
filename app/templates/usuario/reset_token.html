@@ -4,44 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reestablecer contraseña</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
+
+    <!--Navbar top-->
+    <div class="container">
+        <div class="navbar-top">
+            <div class="social-link">
+                <i><img src="../../static/images/facebook-logo-24.png" alt="" width="30px"></i>
+                <i><img src="../../static/images/instagram-logo-24.png" alt="" width="30px"></i>
+                <i><img src="../../static/images/twitch-logo-24.png" alt="" width="30px"></i>
+            </div>
+            <div class="logo">
+                <i><img src="../../static/images/logo.png" alt="" height="30px"></i>    
+            </div>
+            <div class="search">
+                <i><img src="../../static/images/search-alt-2-regular-24.png" alt="" width="30px"></i>
+
+                {% if current_user.is_authenticated %}
+                    <i>
+                        <a data-bs-toggle="modal" data-bs-target="#carrito">
+                            <img src="../../static/images/shopping-bag-regular-24.png" alt="" width="30px">
+                            <!--<span id="contador-carrito" class="contador">{{ session.get('total_items', 0) }}</span>-->
+                        </a>
+                    </i>
+                    <i>
+                        <a href="{{ url_for('usuario.logout') }}">
+                            <img src="../../static/images/exit-regular-24.png" alt="" width="35px">
+                        </a>
+                    </i>
+                    {% else %}
+                    <i>
+                        <a data-bs-toggle="modal" data-bs-target="#mi-modal">
+                            <img src="../../static/images/user-plus-regular-24.png" alt="" width="35px">
+                        </a>
+                    </i>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!--Navbar top-->
+
+    <div class="main-content">
+        <nav class="navbar navbar-expand-md" id="navbar-color">
+            <div class="container">
+          
+            <!-- Toggler/collapsibe Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span><i><img src="../../static/images/menu-regular-24.png" alt="" width="30px"></i></span>
+                </button>
+            
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Top Chair</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Chair</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Brands</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contac</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="container">
     {% block content %}
-        <div class="container mt-4">
-            <h2>Restablecer contraseña----------------------------------------------------------------------------</h2>
-            <p>Introduce una nueva contraseña para tu cuenta.</p>
-    
-        <form method="POST" action="{{ url_for('usuario.reset_token', token=token) }}" >
-            {{ form.hidden_tag() }}
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <div class="form-group">
-                {{ form.contrasena.label(class="form-label") }}
-                {{ form.contrasena(class="form-control", placeholder="Nueva contraseña") }}
-                {% if form.contrasena.errors %}
+        <div class="cambiar-contraseña">
+
+            <div class="cambiar-contraseña-txt">
+                <h2>Restablecer contraseña</h2>
+                <p>Introduce una nueva contraseña para tu cuenta.</p>
+            </div>
+
+            <form method="POST" action="{{ url_for('usuario.reset_token', token=token) }}" enctype="multipart/form-data" class="cambiar-contraseña-content">
+                {{ form.hidden_tag() }}
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <div class="m2 col-md-12 form-floating">
+                    {{ form.contrasena(class="form-control", id="floatinInputGrid", placeholder="Nueva contraseña") }}
+                    {{ form.contrasena.label(class="form-label", for="floatinInputGrid") }}
+                    {% if form.contrasena.errors %}
+                        <div class="text-danger">
+                            {% for error in form.contrasena.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="m2 col-md-12 form-floating">
+                    {{ form.confirmar_contrasena(class="form-control", id="floatinInputGrid", placeholder="Confirma tu nueva contraseña") }}
+                    {{ form.confirmar_contrasena.label(class="form-label", for="floatinInputGrid") }}
+                    {% if form.confirmar_contrasena.errors %}
+
                     <div class="text-danger">
-                        {% for error in form.contrasena.errors %}
+                        {% for error in form.confirmar_contrasena.errors %}
                         <span>{{ error }}</span>
                         {% endfor %}
                     </div>
-                {% endif %}
-            </div>
-
-            <div class="form-group">
-                {{ form.confirmar_contrasena.label(class="form-label") }}
-                {{ form.confirmar_contrasena(class="form-control", placeholder="Confirma tu nueva contraseña") }}
-                {% if form.confirmar_contrasena.errors %}
-
-                <div class="text-danger">
-                    {% for error in form.confirmar_contrasena.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
+                    {% endif %}
                 </div>
-                {% endif %}
-            </div>
-
-            <button type="submit" class="btn btn-primary">Restablecer contraseña</button>
-        </form>
+                <div class="cambiar-contraseña-button">
+                    <button type="submit" class="btn btn-primary">Restablecer contraseña</button>
+                </div>
+            </form>
         </div>
-    {% endblock %}
+        {% endblock %}
+    </div>
+
+
+
+
+    <!-- Script bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
