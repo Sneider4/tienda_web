@@ -50,10 +50,7 @@ def delete(id):
 def login():
     
     secret_key = current_app.config['SECRET_KEY']
-    print(f"SECRET_KEY: {secret_key}")
-    print("1--------------")
     if request.method == 'POST':
-        print("2")
         correo_electronico = request.form['correo_electronico']
         contrasena = request.form['contrasena']
         print("3")
@@ -64,7 +61,6 @@ def login():
             login_user(usuario)
             
             if usuario.rol == "Cliente":
-                print("Entra a cliente")
                 return redirect(url_for('producto.index'))
 
             elif usuario.rol == "Administrador":

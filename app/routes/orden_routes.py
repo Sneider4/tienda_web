@@ -11,8 +11,9 @@ def index():
     data = Orden.query.all()
     return render_template('orden/index.html', data=data)
 
-@bp.route('/generar_orden', methods=['POST'])
+@bp.route('/generar_orden', methods=['GET'])
 def generar_orden():
+    print('1')
     usuario_id = request.form.get('usuario_id')  # ID del usuario
     direccion_id = request.form.get('direccion_id')  # ID de la dirección seleccionada
     carrito = request.form.getlist('carrito')  # Lista de productos en el carrito
@@ -38,3 +39,9 @@ def generar_orden():
     db.session.commit()
 
     return redirect(url_for('mostrar_factura', orden_id=orden.id))
+
+@bp.route('/mostrar_factura/<int:orden_id>')
+def mostrar_factura(orden_id):
+    orden = Orden.query.get_or_404(orden_id)
+    detalles = DetalleOrden.query.filter_by(orden_id=orden_id).all()
+    return render_template('pago/factura.html', orden=orden, detalles=detalles)
