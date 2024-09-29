@@ -25,7 +25,7 @@ def add():
         db.session.add(new_carrito)
         db.session.commit()
 
-        carrito_items = Carrito.query.filter_by(usuario_id=usuario_id).all()
+        carrito_items = Carrito.query.filter_by(usuario_id=usuario_id).all()    
 
         total_items = sum(item.cantidad for item in carrito_items)
         session['total_items'] = total_items

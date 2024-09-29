@@ -11,44 +11,69 @@ def index():
     data = Orden.query.all()
     return render_template('orden/index.html', data=data)
 
-@bp.route('/generar_orden', methods=['POST'])
+
+@bp.route('/orden/generar_orden', methods=['POST'])
 def generar_orden():
-    usuario_id = request.form.get('usuario_id')  # ID del usuario
-    direccion_id = request.form.get('direccion_id')  # ID de la dirección seleccionada
-    carrito = request.form.getlist('carrito')  # Lista de productos en el carrito
+    usuario_id = request.form.get('usuario_id')
+    direccion_id = request.form.get('direccion_id')
+    metodo_pago = request.form.get('metodo_pago')
+    
+    carrito_items = request.form.getlist('carrito')
 
-    if not usuario_id or not direccion_id:
-        return "Usuario ID o Dirección ID no proporcionados", 400
+    total = 0.0
+    productos = []
 
-    total = 0
-    orden = Orden(usuario_id=usuario_id, direccion_id=direccion_id, total=total)
-    db.session.add(orden)
-    db.session.flush()  # Para obtener el ID de la factura antes de hacer commit
-
-    # Procesar los productos del carrito
-    for item in carrito:
+    for item in carrito_items:
+        print(f"Producto: {item}")
         producto_id, cantidad = item.split('-')
-        producto = Producto.query.get(producto_id)
         cantidad = int(cantidad)
-        precio_unitario = producto.precio
-        total += cantidad * precio_unitario
+        
+        producto = Producto.query.get(producto_id)
+        
+        if producto:
+            total += producto.precio * cantidad
+            productos.append({'producto_id': producto_id, 'cantidad': cantidad})
 
-        detalle = DetalleOrden(orden_id=orden.id, producto_id=producto.id, cantidad=cantidad, precio_unitario=precio_unitario )
-        db.session.add(detalle)
-    # Actualizar el total de la factura
-    orden.total = total
+    impuesto = total * 0.19
+    total_con_impuesto = total + impuesto
+
+    nueva_orden = Orden(
+        usuario_id=usuario_id,
+        direccion_id=direccion_id,
+        metodo_pago=metodo_pago,
+        total=total_con_impuesto 
+    )
+
+    db.session.add(nueva_orden)
     db.session.commit()
 
-    return redirect(url_for('orden.mostrar_factura', orden_id=orden.id))
+    guardar_detalle_orden(nueva_orden.id, productos)
 
-@bp.route('/mostrar_factura/<int:orden_id>')
-def mostrar_factura(orden_id):
-    orden = Orden.query.get_or_404(orden_id)
-    detalles = DetalleOrden.query.filter_by(orden_id=orden_id).all()
+    print(f"Usuario ID: {usuario_id}")
+    print(f"Dirección ID: {direccion_id}")
+    print(f"Método de Pago ID: {metodo_pago}")
+    print(f"Productos: {productos}")
+    print(f"Productos: {total_con_impuesto}")
+    print(f"Carrito Items: {carrito_items}")
     
-    # Debugging: Print the order and details to the console
-    print(f"Orden: {orden}")
-    for detalle in detalles:
-        print(f"Detalle: {detalle}")
+    return redirect(url_for('orden.orden_confirmada'))
+
+
+def guardar_detalle_orden(orden_id, productos):
     
-    return render_template('pago/factura.html', orden=orden, detalles=detalles)
+    for producto in productos:
+        print(f"Guardando detalle de orden: {producto}")
+        detalle_orden = DetalleOrden(
+            orden_id=orden_id,
+            producto_id=producto['producto_id'],
+            cantidad=producto['cantidad'],
+            precio=producto['precio']
+        )
+        db.session.add(detalle_orden)
+    
+    db.session.commit()
+
+
+@bp.route('/orden/confirmada')
+def orden_confirmada():
+   return render_template('pago/factura.html')

@@ -9,4 +9,4 @@ class Producto(db.Model):
     categoria = db.Column(db.Integer, db.ForeignKey('categoria.id'), nullable=False)
     imagen = db.Column(db.String(255), nullable=True)
 
-    
+    detalles_orden = db.relationship('DetalleOrden', back_populates='producto')    
