@@ -6,3 +6,5 @@ class DetalleOrden(db.Model):
     producto_id = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
     cantidad = db.Column(db.Integer, nullable=False)
     precio_unitario = db.Column(db.Float, nullable=False)
+
+    producto = db.relationship('Producto', backref='detalle_orden')

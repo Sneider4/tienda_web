@@ -8,3 +8,5 @@ class Producto(db.Model):
     stock = db.Column(db.Integer, nullable=False)
     categoria = db.Column(db.Integer, db.ForeignKey('categoria.id'), nullable=False)
     imagen = db.Column(db.String(255), nullable=True)
+
+    

@@ -7,6 +7,7 @@ class Orden(db.Model):
     total = db.Column(db.Float, nullable=False)
     estado = db.Column(db.String(50), default='Pendiente')
     direccion_id = db.Column(db.Integer, db.ForeignKey('direccion_cliente.id'), nullable=False)  
+    carrito_id = db.Column(db.Integer, db.ForeignKey('carrito.id'), nullable=False)  
     
     direccion = db.relationship('DireccionCliente', backref='orden')
     productos = db.relationship('DetalleOrden', backref='orden', lazy=True)

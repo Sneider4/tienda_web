@@ -13,10 +13,12 @@ def index():
 
 @bp.route('/generar_orden', methods=['POST'])
 def generar_orden():
-    print('1')
     usuario_id = request.form.get('usuario_id')  # ID del usuario
     direccion_id = request.form.get('direccion_id')  # ID de la dirección seleccionada
     carrito = request.form.getlist('carrito')  # Lista de productos en el carrito
+
+    if not usuario_id or not direccion_id:
+        return "Usuario ID o Dirección ID no proporcionados", 400
 
     total = 0
     orden = Orden(usuario_id=usuario_id, direccion_id=direccion_id, total=total)
@@ -31,9 +33,8 @@ def generar_orden():
         precio_unitario = producto.precio
         total += cantidad * precio_unitario
 
-        detalle = DetalleOrden(factura_id=orden.id, producto_id=producto.id, cantidad=cantidad, precio_unitario=precio_unitario)
+        detalle = DetalleOrden(orden_id=orden.id, producto_id=producto.id, cantidad=cantidad, precio_unitario=precio_unitario )
         db.session.add(detalle)
-
     # Actualizar el total de la factura
     orden.total = total
     db.session.commit()
@@ -44,4 +45,10 @@ def generar_orden():
 def mostrar_factura(orden_id):
     orden = Orden.query.get_or_404(orden_id)
     detalles = DetalleOrden.query.filter_by(orden_id=orden_id).all()
+    
+    # Debugging: Print the order and details to the console
+    print(f"Orden: {orden}")
+    for detalle in detalles:
+        print(f"Detalle: {detalle}")
+    
     return render_template('pago/factura.html', orden=orden, detalles=detalles)
