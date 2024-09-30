@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Imagen de Perfil</title>
+</head>
+<body>
+    <h2>Cambiar Imagen de Perfil</h2>
+    
+    <!-- Si ya tiene una imagen, mostrarla -->
+    {% if usuario.imagen %}
+    <h3>Imagen Actual:</h3>
+    <img src="{{ url_for('static', filename='images/' + usuario.imagen) }}" alt="Imagen de Perfil" style="width:150px; height:150px;">
+    {% endif %}
+    
+    <form method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="file">Selecciona una nueva imagen de perfil:</label>
+        <input type="file" name="file" id="file" accept="image/*">
+        <br><br>
+        <button type="submit">Subir Imagen</button>
+    </form>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
