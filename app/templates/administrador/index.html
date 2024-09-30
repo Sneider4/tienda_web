@@ -72,9 +72,9 @@
                 </li>
 
                 <li>
-                    <a href="{{ url_for('usuario.cambiar_imagen', id=current_user.id) }}">
+                    <a href="{{ url_for('usuario.cambiar_imagen', id=usuario.id) }}">
                         <span class="icon">
-                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <ion-icon name="settings-outline"></ion-icon>
                         </span>
                         <span class="title">Configuraciones</span>
                     </a>
@@ -226,10 +226,7 @@
                     {% for dataU in dataU %}
                     <tr>
                         <td width="60px">
-                            <div class="imgBx">
-                                {% if usuario.imagen %}
-                                <img src="{{ url_for('static', filename='images/' + usuario.imagen) }}" alt="Imagen de Perfil">
-                                {% endif %}</div>
+                            <div class="imgBx"><img src="{{ dataU.imagen }}" alt=""></div>
                         </td>
                             <td>
                             <h4>{{ dataU.nombre }}<br> <span>{{dataU.ciudad}} - {{ dataU.departamento }}</span></h4>
