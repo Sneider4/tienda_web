@@ -14,6 +14,7 @@ import os
 bp = Blueprint('admin', __name__)
 
 @bp.route('/admin')
+@login_required
 def index():
     dataP = Producto.query.all()
     dataC = Categoria.query.all()
@@ -35,7 +36,7 @@ def index():
 
     impuesto = total * 0.19
 
-    return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto, tamaño=tamaño, ordenes=ordenes, usuario=usuario)
+    return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto, tamaño=tamaño, ordenes=ordenes, usuario=current_user)
 
 
 
