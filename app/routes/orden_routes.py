@@ -18,24 +18,44 @@ def generar_orden():
     direccion_id = request.form.get('direccion_id')
     metodo_pago = request.form.get('metodo_pago')
     
-    carrito_items = request.form.getlist('carrito')
+    dataCar = request.form.getlist('carrito')
+
+    # Debugging: Print the form data to the console
+    print(f"Usuario ID: {usuario_id}")
+    print(f"Dirección ID: {direccion_id}")
+    print(f"Método de Pago: {metodo_pago}")
+    print(f"Carrito Items: {dataCar}")
+
+    if not usuario_id or not direccion_id:
+        return "Usuario ID o Dirección ID no proporcionados", 400
+
+    if not dataCar:
+        return "El carrito está vacío", 400
 
     total = 0.0
     productos = []
 
-    for item in carrito_items:
-        print(f"Producto: {item}")
-        producto_id, cantidad = item.split('-')
-        cantidad = int(cantidad)
-        
-        producto = Producto.query.get(producto_id)
-        
-        if producto:
-            total += producto.precio * cantidad
-            productos.append({'producto_id': producto_id, 'cantidad': cantidad})
+    for carrito in dataCar:
+        print(f"Producto: {carrito}")
+        try:
+            producto_id, cantidad = carrito.split('-')  # Dividir la cadena en producto_id y cantidad
+            cantidad = int(cantidad)  # Convertir cantidad a entero
+            
+            producto = Producto.query.get(producto_id)
+            
+            if producto:
+                print(f"Producto encontrado: {producto.nombre}, Precio: {producto.precio}, Cantidad: {cantidad}")
+                total += producto.precio * cantidad
+                productos.append({'producto_id': producto_id, 'cantidad': cantidad})
+            else:
+                print(f"Producto con ID {producto_id} no encontrado")
+        except ValueError as e:
+            print(f"Error al procesar el carrito: {e}")
 
     impuesto = total * 0.19
     total_con_impuesto = total + impuesto
+
+    print(f"Total: {total}, Impuesto: {impuesto}, Total con Impuesto: {total_con_impuesto}")
 
     nueva_orden = Orden(
         usuario_id=usuario_id,
@@ -49,13 +69,6 @@ def generar_orden():
 
     guardar_detalle_orden(nueva_orden.id, productos)
 
-    print(f"Usuario ID: {usuario_id}")
-    print(f"Dirección ID: {direccion_id}")
-    print(f"Método de Pago ID: {metodo_pago}")
-    print(f"Productos: {productos}")
-    print(f"Productos: {total_con_impuesto}")
-    print(f"Carrito Items: {carrito_items}")
-    
     return redirect(url_for('orden.orden_confirmada'))
 
 
