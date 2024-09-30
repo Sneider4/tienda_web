@@ -5,6 +5,8 @@ from app.models.producto import Producto
 from app.models.categoria import Categoria
 from app.models.usuario import Usuario
 from app.models.carrito import Carrito
+from app.models.orden import Orden
+
 from app import db
 import os
 
@@ -17,7 +19,9 @@ def index():
     dataC = Categoria.query.all()
     dataU = Usuario.query.all()
     tamaño = len(dataU)
+    ordenes = Orden.query.all()
     total = 0
+    usuario = current_user
 
     if current_user.is_authenticated:
         dataCar = Carrito.query.filter_by(usuario_id=current_user.id).all()
@@ -31,7 +35,7 @@ def index():
 
     impuesto = total * 0.19
 
-    return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto, tamaño=tamaño)
+    return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto, tamaño=tamaño, ordenes=ordenes, usuario=usuario)
 
 
 
@@ -55,11 +59,13 @@ def charts():
 def tabla():
     dataP = Producto.query.all()
     dataC = Categoria.query.all()
+    usuario = current_user
 
-    return render_template('producto/tabla.html', dataP=dataP,dataC=dataC)
+    return render_template('producto/tabla.html', dataP=dataP,dataC=dataC, usuario=usuario)
 
 @bp.route('/admin/clientes')
 def clientes():
     dataU = Usuario.query.all()
+    usuario = current_user
 
-    return render_template('administrador/clientes.html', dataU=dataU)
+    return render_template('administrador/clientes.html', dataU=dataU, usuario=usuario)

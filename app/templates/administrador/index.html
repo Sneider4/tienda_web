@@ -106,7 +106,7 @@
                 </div>
 
                 <div class="user">
-                    <img src="assets/imgs/customer01.jpg" alt="">
+                    <img src="{{ usuario.imagen }}" alt="">
                 </div>
             </div>
 
@@ -176,12 +176,20 @@
                         </thead>
 
                         <tbody>
+                            {% for orden in ordenes %}
                             <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
+                                <td>
+                                    {% for usuario in dataU %}
+                                        {% if usuario.id == orden.usuario_id %}
+                                            {{ usuario.nombre }} {{ usuario.apellido }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>${{ orden.total }}</td>
+                                <td>Exitoso</td>
+                                <td><span class="status inProgress">En curso</span></td>
                             </tr>
+                            {% endfor %}
 
                             <tr>
                                 <td>Dell Laptop</td>
@@ -196,40 +204,11 @@
                                 <td>Paid</td>
                                 <td><span class="status return">Return</span></td>
                             </tr>
-
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
-
                             <tr>
                                 <td>Star Refrigerator</td>
                                 <td>$1200</td>
                                 <td>Paid</td>
                                 <td><span class="status delivered">Delivered</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -245,13 +224,13 @@
                     {% for dataU in dataU %}
                     <tr>
                         <td width="60px">
-                            <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
+                            <div class="imgBx"><img src="{{ dataU.imagen }}" alt=""></div>
                         </td>
                             <td>
-                            <h4>{{ dataU.nombre }}<br> <span>{{dataU.ciudad}}</span></h4>
+                            <h4>{{ dataU.nombre }}<br> <span>{{dataU.ciudad}} - {{ dataU.departamento }}</span></h4>
                         </td>
                     </tr>
-        {% endfor %}
+                    {% endfor %}
                     </table>
                 </div>
             </div>

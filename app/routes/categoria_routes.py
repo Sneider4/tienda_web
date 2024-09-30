@@ -14,7 +14,8 @@ def index():
     if(rol == "Administrador"):
         dataC = Categoria.query.all()
         totalC = Categoria.query.count()
-        return render_template('categoria/index.html', dataC=dataC, totalC=totalC)
+        usuario = current_user
+        return render_template('categoria/index.html', dataC=dataC, totalC=totalC, usuario=usuario)
     else:
         return redirect(url_for('producto.index'))
     

@@ -1,12 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash, session, current_app
 from flask_login import login_user, logout_user, current_user
 from flask_mail import Message
+from werkzeug.utils import secure_filename
 from app.forms.reset_password import RequestResetForm, ResetPasswordForm
 from werkzeug.security import check_password_hash
 from app.models.usuario import Usuario
 from app import mail
 from app import db
 import app
+import os, app
 
 bp = Blueprint('usuario', __name__)
 
@@ -28,8 +30,34 @@ def add():
         ciudad = request.form['ciudad']
         genero = request.form['genero']
         fecha_nacimiento = request.form['fecha_nacimiento']
+        imagen = request.files['imagen']  # Para obtener la imagen del formulario
         
-        new_usuario = Usuario(nombre=nombre, apellido=apellido, correo_electronico=correo_electronico, telefono=telefono, contrasena=contrasena, departamento=departamento, ciudad=ciudad, genero=genero, fecha_nacimiento=fecha_nacimiento)
+        # Asignar imagen por defecto dependiendo del género si no se sube una imagen
+        if imagen.filename == '':
+            if genero == 'masculino':
+                imagen_path = '../static/images/avatar-hombre.jpeg'  # Imagen por defecto masculina
+            elif genero == 'femenino':
+                imagen_path = '../static/images/avatar-mujer.jpeg'  # Imagen por defecto femenina
+            else:
+                imagen_path = '../static/images/avatar-gay.jpeg'  # Imagen por defecto para otro género
+        else:
+            # Si se subió una imagen, guardar la imagen en una carpeta
+            filename = secure_filename(imagen.filename)
+            imagen_path = os.path.join('static', 'images', filename)
+            imagen.save(os.path.join(os.path.dirname(__file__), '..', imagen_path))
+            ruta_imagen = imagen_path  # Guardar la imagen en la carpeta 'static/uploads'
+        
+        new_usuario = Usuario(
+            nombre=nombre, 
+            apellido=apellido, 
+            correo_electronico=correo_electronico, 
+            telefono=telefono,
+            contrasena=contrasena, 
+            departamento=departamento, 
+            ciudad=ciudad, 
+            genero=genero, 
+            fecha_nacimiento=fecha_nacimiento,
+            imagen=imagen_path)
         db.session.add(new_usuario)
         db.session.commit()
         

@@ -20,6 +20,7 @@ def index():
     dataP = Producto.query.all()
     dataC = Categoria.query.all()
     dataU = Usuario.query.all()
+    usuario = current_user
     total = 0
 
 
@@ -35,7 +36,7 @@ def index():
 
     impuesto = total * 0.19
 
-    return render_template('producto/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto)
+    return render_template('producto/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto, usuario=usuario)
 
 @bp.route('/producto/add', methods=['GET', 'POST'])
 @login_required
@@ -153,10 +154,11 @@ def tabla():
         dataP = Producto.query.all()
         dataC = Categoria.query.all()
         totalP = Producto.query.count()
+        usuario = current_user
         
         print(f"Total de productos: {totalP}")
         
-        return render_template('producto/tabla.html', dataP=dataP, dataC=dataC, totalP=totalP)
+        return render_template('producto/tabla.html', dataP=dataP, dataC=dataC, totalP=totalP, usuario=usuario)
     else:
         return redirect(url_for('producto.index'))
 
@@ -166,6 +168,8 @@ def inventario():
     if current_user.rol == "Administrador":
         # Obtener todos los productos con sus categorías
         productos = db.session.query(Producto, Categoria).join(Categoria, Producto.categoria == Categoria.id).all()
+
+        usuario = current_user
         
         # Calcular el valor total del inventario
         valor_total_inventario = sum(producto.precio * producto.stock for producto, _ in productos)
@@ -190,7 +194,7 @@ def inventario():
                                productos=productos_data, 
                                valor_total_inventario=valor_total_inventario,
                                total_productos=total_productos,
-                               productos_sin_stock=productos_sin_stock)
+                               productos_sin_stock=productos_sin_stock, usuario=usuario)
     else:
         flash('No tienes permiso para acceder al inventario', 'danger')
         return redirect(url_for('producto.index'))

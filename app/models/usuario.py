@@ -15,6 +15,7 @@ class Usuario(db.Model, UserMixin):
     genero = db.Column(db.String(255))
     fecha_nacimiento = db.Column(db.Date, nullable=False)
     rol = db.Column(db.String(50), default='Cliente')
+    imagen = db.Column(db.String(255), default=None)
 
 
     def get_reset_token(self, expires_sec=1800):
