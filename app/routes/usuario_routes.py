@@ -30,22 +30,20 @@ def add():
         ciudad = request.form['ciudad']
         genero = request.form['genero']
         fecha_nacimiento = request.form['fecha_nacimiento']
-        imagen = request.files['imagen']  # Para obtener la imagen del formulario
+        imagen = request.files['imagen'] 
         
-        # Asignar imagen por defecto dependiendo del género si no se sube una imagen
         if imagen.filename == '':
             if genero == 'masculino':
-                imagen_path = '../static/images/avatar-hombre.jpeg'  # Imagen por defecto masculina
+                imagen_path = '../static/images/avatar-hombre.jpeg'  
             elif genero == 'femenino':
-                imagen_path = '../static/images/avatar-mujer.jpeg'  # Imagen por defecto femenina
+                imagen_path = '../static/images/avatar-mujer.jpeg'
             else:
-                imagen_path = '../static/images/avatar-gay.jpeg'  # Imagen por defecto para otro género
+                imagen_path = '../static/images/avatar-gay.jpeg' 
         else:
-            # Si se subió una imagen, guardar la imagen en una carpeta
             filename = secure_filename(imagen.filename)
             imagen_path = os.path.join('static', 'images', filename)
             imagen.save(os.path.join(os.path.dirname(__file__), '..', imagen_path))
-            ruta_imagen = imagen_path  # Guardar la imagen en la carpeta 'static/uploads'
+            ruta_imagen = imagen_path
         
         new_usuario = Usuario(
             nombre=nombre, 
@@ -189,40 +187,3 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
 
-# Ruta para cambiar el avatar del usuario
-@bp.route('/usuario/cambiar_imagen/<int:id>', methods=['GET', 'POST'])
-def cambiar_imagen(id):
-    usuario = Usuario.query.get_or_404(id)
-    
-    if request.method == 'POST':
-        # Verifica si se subió un archivo
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        
-        file = request.files['file']
-        
-        # Verifica si se seleccionó un archivo
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        
-        if file and allowed_file(file.filename):
-            # Guardar el archivo en una ubicación segura
-            filename = secure_filename(file.filename)
-            upload_folder = os.path.join(current_app.root_path, 'static', 'images')
-            
-            # Crear el directorio si no existe
-            os.makedirs(upload_folder, exist_ok=True)
-            
-            filepath = os.path.join(upload_folder, filename)
-            file.save(filepath)
-            
-            # Actualizar el campo "imagen" en el usuario
-            usuario.imagen = filename
-            db.session.commit()
-            
-            flash('Imagen de perfil actualizada correctamente')
-            return redirect(url_for('usuario.cambiar_imagen', id=id))
-    
-    return render_template('administrador/configuraciones.html', usuario=usuario)

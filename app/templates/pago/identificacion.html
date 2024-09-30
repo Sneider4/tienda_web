@@ -11,10 +11,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!--css bootstrap 5-->
 
-    <!--css bootstrap 4-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!--css bootstrap 4-->
-
 </head>
 <body>
     
@@ -206,7 +202,7 @@
                                         <p>{{ direccion_cliente.municipio }} - {{ direccion_cliente.departamento }}</p>
                                     </div>
                                     <div>
-                                        <p><strong>Disponible viernes, 27 septiembre</strong></p>
+                                        <p><strong>Disponible viernes, 04 octubre</strong></p>
                                     </div>
                                 </div>
                                 <div class="datos-img">
@@ -214,7 +210,7 @@
                                 </div>
                             </div>
                             <div class="cambiar-datos-entrega">
-                                <a href="#">Cambiar opciones de entrega</a>
+                                <a type="button" onclick="openEditModalDireccion('{{ direccion_cliente.id }}', '{{ direccion_cliente.departamento }}', '{{ direccion_cliente.municipio }}', '{{ direccion_cliente.calle }}', '{{ direccion_cliente.informacion_adicional }}', '{{ direccion_cliente.barrio }}', '{{ direccion_cliente.destinatario }}')">Editar Dirección</a>
                             </div>
                         </div>
                     {% else %}
@@ -302,7 +298,7 @@
                             </div>
                         </div>
                         <div class="cambiar-datos-entrega">
-                            <a href="#">Cambiar metodo de pago</a>
+                            <a type="button" onclick="openEditModalPago('{{ metodo_pago.id }}', '{{ metodo_pago.tipo }}', '{{ metodo_pago.numero_tarjeta }}', '{{ metodo_pago.nombre_tarjeta }}', '{{ metodo_pago.fecha_vencimiento }}', '{{ metodo_pago.codigo_seguridad }}')">Editar Método de Pago</a>
                         </div>
                     </div>
                     {% else %}
@@ -599,7 +595,56 @@
     <!-- Footer -->
 
 
+    <!-- Modal para editar direccion-->
+    <div id="editModalDireccion" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModalDireccion()">&times;</span>
+            <h2 style="text-align: center;">Editar Dirección</h2>
+            <form class="edit-producto" id="editFormDireccion" action="" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="text" id="edit_departamento" name="departamento" placeholder="Departamento" required>
+                <input type="text" id="edit_municipio" name="municipio" placeholder="Municipio" required>
+                <input type="text" id="edit_calle" name="calle" placeholder="Calle" required>
+                <input type="text" id="edit_informacion_adicional" name="informacion_adicional" placeholder="Dirección complementaria" required>
+                <input type="text" id="edit_barrio" name="barrio" placeholder="Barrio" required>
+                <input type="text" id="edit_destinatario" name="destinatario" required>
+                
+                <div class="form-actions m-1 mb-3">
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModalDireccion()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal para editar direccion-->
+
+
+
+
+    <!-- Modal para editar metoo de pago-->
+    <div id="editModalPago" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModalPago()">&times;</span>
+            <h2 style="text-align: center;">Editar Método de Pago</h2>
+            <form class="edit-producto" id="editFormPago" action="" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="text" id="edit_tipo" name="tipo" placeholder="Tipo de Tarjeta" required>
+                <input type="text" id="edit_numero_tarjeta" name="numero_tarjeta" placeholder="Número de Tarjeta" required>
+                <input type="text" id="edit_nombre_tarjeta" name="nombre_tarjeta" placeholder="Nombre en la Tarjeta" required>
+                <input type="text" id="edit_fecha_vencimiento" name="fecha_vencimiento" placeholder="MM/AA" required>
+                <input type="text" id="edit_codigo_seguridad" name="codigo_seguridad" placeholder="CVV" required>
+                <div class="form-actions m-1 mb-3">
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModalPago()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal para editar metoo de pago-->
+
+
     <script src="{{ url_for('static', filename='js/mostrar_metodo_pago.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modals.js') }}"></script>
 
 
      <!--js bootstrap 5-->

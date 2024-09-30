@@ -114,8 +114,6 @@ def edit(id):
         flash('Producto actualizado con éxito', 'success')
         return redirect(url_for('producto.tabla'))
 
-    return render_template('producto/edit.html', dataP=dataP, dataC=dataC)
-
 
 @bp.route('/producto/ver_producto/<int:id>', methods = ['GET'])
 def ver_producto(id):
