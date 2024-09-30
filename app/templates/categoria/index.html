@@ -73,11 +73,11 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('usuario.cambiar_imagen', id=usuario.id) }}">
                         <span class="icon">
-                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <ion-icon name="settings-outline"></ion-icon>
                         </span>
-                        <span class="title">Password</span>
+                        <span class="title">Configuraciones</span>
                     </a>
                 </li>
 
@@ -110,7 +110,9 @@
                 </div>
 
                 <div class="user">
-                    <img src="{{ usuario.imagen }}" alt="">
+                    {% if usuario.imagen %}
+                    <img src="{{ url_for('static', filename='images/' + usuario.imagen) }}" alt="Imagen de Perfil">
+                    {% endif %}
                 </div>
             </div>
 

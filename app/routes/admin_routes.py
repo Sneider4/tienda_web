@@ -18,8 +18,9 @@ def index():
     dataP = Producto.query.all()
     dataC = Categoria.query.all()
     dataU = Usuario.query.all()
-    tamaño = len(dataU)
+    tamañoU = len(dataU)
     ordenes = Orden.query.all()
+    tamañoO = len(ordenes)
     total = 0
     usuario = current_user
 
@@ -35,7 +36,7 @@ def index():
 
     impuesto = total * 0.19
 
-    return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto, tamaño=tamaño, ordenes=ordenes, usuario=usuario)
+    return render_template('administrador/index.html', dataP=dataP, dataC=dataC, dataCar=dataCar, dataU=dataU, total=total, impuesto=impuesto, tamañoU=tamañoU, ordenes=ordenes, usuario=usuario, tamañoO=tamañoO)
 
 
 

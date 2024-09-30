@@ -510,11 +510,12 @@
                     </div>
                 </div>
                 <div class="comprar-ahora">
-                    <form action="{{ url_for('orden.generar_orden') }}" method="post">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <form method="POST" action="{{ url_for('orden.generar_orden') }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"> 
                         <input type="hidden" name="usuario_id" value="{{ current_user.id }}">
-                        <input type="hidden" name="direccion_id" value="{{ direccion_cliente.id }}">
-                        <input type="hidden" name="metodo_pago" value="{{ metodo_pago.id }}">
+                        <input type="hidden" name="direccion_id" value="{{ direccion_id }}">
+                        <input type="hidden" name="metodo_pago" value="{{ metodo_pago }}">
+                        <input type="hidden" name="total_recibido" value="{{ total }}">
                         {% for item in carrito %}
                             <input type="hidden" name="carrito" value="{{ item.producto_id }}-{{ item.cantidad }}">
                         {% endfor %}
