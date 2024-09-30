@@ -9,6 +9,7 @@
     <!-- ======= Styles ====== -->
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style_admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='clientes.css') }}">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -58,11 +59,11 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('producto.inventario') }}">
                         <span class="icon">
-                            <ion-icon name="settings-outline"></ion-icon>
+                            <ion-icon name="reader-outline"></ion-icon>
                         </span>
-                        <span class="title">Settings</span>
+                        <span class="title">Inventario</span>
                     </a>
                 </li>
                 <li>
@@ -85,35 +86,49 @@
         </div>
 
         <!-- =============== Main Content ================ -->
-        <main class="main">
-            <div class="cardBox">
-                    
-                    <div class="cardBox">
-                        <table id="datatablesSimple">
-                            <thead>
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+                <div class="search">
+                    <label>
+                        <input type="text" id="searchInput" placeholder="Buscar aquí">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+
+                <div class="user">
+                    <img src="assets/imgs/customer01.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="details">
+                
+                <div class="recentOrders">
+                    <h1>Clientes</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Correo electrónico</th>
+                                <th>Teléfono</th>
+                                <th>Ciudad</th>
+                                <th>Género</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for usuario in dataU %}
+                                {% if usuario.rol == 'Cliente' %}
                                 <tr>
-                                    <th>ID </th>
-                                    <th>Nombre del Cliente </th>
-                                    <th>Apellido</th>
-                                    <th>Correo electronico</th>
-                                    <th>Telefono</th>
-                                    <th>Departamento</th>
-                                    <th>Ciudad</th>
-                                    <th>Genero</th>
-                                    <th>Fecha de nacimiento</th>                                    
-                                    <th>Rol</th>                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for usuario in dataU %}
-                                <tr>
-                                    <td>{{ usuario.id }}</td>
-                                    <td>{{ usuario.nombre }}</td>
-                                    <td>{{ usuario.apellido }}</td>
+                                    <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
                                     <td>{{ usuario.correo_electronico }}</td>
                                     <td>{{ usuario.telefono }}</td>
-                                    <td>{{ usuario.departamento }}</td>
-                                    <td>{{ usuario.ciudad }}</td>
+                                    <td>{{ usuario.ciudad }} {{ usuario.departamento }}</td>
                                     <td>{{ usuario.genero }}</td>
                                     <td>{{ usuario.fecha_nacimiento }}</td>
                                     <td>{{ usuario.rol }}</td>
@@ -124,13 +139,14 @@
                                         </form>
                                     </td>
                                 </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </main>
+        </div>
+        
     </div>
 
     <!-- =========== Scripts ========= -->
