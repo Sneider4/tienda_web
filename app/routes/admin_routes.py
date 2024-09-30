@@ -70,3 +70,30 @@ def clientes():
     usuario = current_user
 
     return render_template('administrador/clientes.html', dataU=dataU, usuario=usuario)
+
+
+@bp.route('/admin/configuracion')
+def configuracion():
+    dataU = Usuario.query.all()
+    usuario = current_user
+
+    return render_template('administrador/configuraciones.html', dataU=dataU, usuario=usuario)
+
+
+@bp.route('/admin/edit/<int:id>', methods=['GET', 'POST'])
+def edit_imagen(id):
+
+    dataU = Usuario.query.get_or_404(id)
+
+    if request.method == 'POST':
+        imagen = request.files['imagen']
+
+        if imagen:
+            filename = secure_filename(imagen.filename)
+            imagen_path = os.path.join('static', 'images', filename)
+            imagen.save(os.path.join(os.path.dirname(__file__), '..', imagen_path))
+            dataU.imagen = filename
+
+        db.session.commit()
+        flash('Imagen actualizada con éxito', 'success')
+        return redirect(url_for('admin.index'))

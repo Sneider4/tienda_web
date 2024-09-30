@@ -64,10 +64,10 @@
                             <ion-icon name="reader-outline"></ion-icon>
                         </span>
                         <span class="title">Inventario</span>
-                    </a>
+                    </a>    
                 </li>
                 <li>
-                    <a href="{{ url_for('usuario.cambiar_imagen', id=usuario.id) }}">
+                    <a href="{{ url_for('admin.configuracion') }}">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
@@ -100,9 +100,7 @@
                 </div>
 
                 <div class="user">
-                    {% if usuario.imagen %}
-                    <img src="{{ url_for('static', filename='images/' + usuario.imagen) }}" alt="Imagen de Perfil">
-                    {% endif %}
+                    <img src="{{ url_for('static', filename='images/' + usuario.imagen) }}" alt="">
                 </div>
             </div>
 

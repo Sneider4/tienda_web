@@ -94,7 +94,7 @@
 			</div>
 			<div class="container-info-product">
 				<div class="container-price">
-					<span>${{ dataP.precio }}</span>
+					<span style="text-transform: capitalize; font-family:'Oswald', sans-serif; font-weight:400;">{{ dataP.nombre }}</span>
 					<i class="fa-solid fa-angle-right"></i>
 				</div>
 
@@ -122,7 +122,6 @@
 							<option value="44">44</option>
 						</select>
 					</div>
-					<button class="btn-clean">Limpiar</button>
 				</div>
 
 				<div class="container-add-cart">
@@ -134,54 +133,60 @@
 							min="1"
 							class="input-quantity"
 						/>
-						<div class="btn-increment-decrement">
-							<img src="../../static/images/bxs-chevron-up.svg" alt="">
-							<img src="../../static/images/bxs-chevron-down.svg" alt="">
-						</div>
 					</div>
-					<button class="btn-add-to-cart">
-						<i class="fa-solid fa-plus"></i>
-						Añadir al carrito
-					</button>
+					{% if current_user.is_authenticated %}
+					<form action="{{ url_for('carrito.add') }}" method="POST">
+						<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+						<input type="hidden" id="idP" value="{{dataP.id}}" name="idP">
+						<input type="hidden" id="idU" value="{{current_user.id}}" name="idU">
+						<div class="cantidad form-floating mb-3">
+							<input type="number" name="cantidad" value="1" min="1"class="form-control" id="floatingInputGrid"  name="correo_electronico" placeholder="name@example.com">
+							<label for="floatingInputGrid cantidad">Cantidad</label>
+						</div>
+						<div class="product-car">
+							<button type="submit" class="btn btn-primary"><img src="../../static/images/car.png" alt=""> Agregar carrito</button>
+						</div>
+					</form>
+						
+
+						
+					{% else %}
+					<div class="product-car">
+						<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mi-modal"><img src="../../static/images/car.png" alt=""> Agregar carrito
+						</button>
+					</div>
+                        {% endif %}
 				</div>
 
 				<div class="container-description">
-					<div class="title-description">
+					<div class="title-description" data-bs-toggle="collapse" data-bs-target="#description-text">
 						<h4>Descripción</h4>
 						<i class="fa-solid fa-chevron-down"></i>
 					</div>
-					<div class="text-description">
+					<div id="description-text" class="text-description collapse show">
 						<p>
-							Lorem ipsum dolor, sit amet consectetur adipisicing
-							elit. Laboriosam iure provident atque voluptatibus
-							reiciendis quae rerum, maxime placeat enim cupiditate
-							voluptatum, temporibus quis iusto. Enim eum qui delectus
-							deleniti similique? Lorem, ipsum dolor sit amet
-							consectetur adipisicing elit. Sint autem magni earum est
-							dolorem saepe perferendis repellat ipsam laudantium cum
-							assumenda quidem quam, vero similique? Iusto officiis
-							quod blanditiis iste?
+							{{ dataP.descripcion }}
 						</p>
 					</div>
 				</div>
-
+				
 				<div class="container-additional-information">
-					<div class="title-additional-information">
+					<div class="title-additional-information" data-bs-toggle="collapse" data-bs-target="#additional-info-text">
 						<h4>Información adicional</h4>
 						<i class="fa-solid fa-chevron-down"></i>
 					</div>
-					<div class="text-additional-information hidden">
-						<p>-----------</p>
+					<div id="additional-info-text" class="text-additional-information collapse">
+						<p>Nike se compromete a ofrecer productos de calidad y garantiza la satisfacción del cliente. Si no estás completamente satisfecho con tu compra, tienes un plazo de 30 días para realizar devoluciones, ya sea que el producto haya sido utilizado o no. Las devoluciones son gratuitas y puedes gestionar el proceso de manera sencilla a través de nuestra página web. Para más detalles sobre las devoluciones, envíos, garantías y privacidad, consulta nuestras políticas completas en el sitio web oficial de Nike.</p>
 					</div>
 				</div>
-
+				
 				<div class="container-reviews">
-					<div class="title-reviews">
+					<div class="title-reviews" data-bs-toggle="collapse" data-bs-target="#reviews-text">
 						<h4>Reseñas</h4>
 						<i class="fa-solid fa-chevron-down"></i>
 					</div>
-					<div class="text-reviews hidden">
-						<p>-----------</p>
+					<div id="reviews-text" class="text-reviews collapse">
+						<p>La página ofrece una experiencia de usuario fluida y sencilla, con un diseño moderno y fácil de navegar. Los productos están bien organizados y la información es clara, lo que facilita el proceso de compra. El servicio al cliente es eficiente y amable, respondiendo rápidamente a cualquier consulta. Sin embargo, algunos usuarios mencionan que los tiempos de envío podrían ser más rápidos. En general, es una plataforma confiable que combina variedad, calidad y buen servicio.</p>
 					</div>
 				</div>
 
