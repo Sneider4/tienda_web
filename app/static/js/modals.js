@@ -157,3 +157,60 @@ function closeCategoryProductsModal() {
     modal.style.display = 'none';
 }
 // funcion paera abrir el modal de mostrar productos asociados
+
+
+
+// ---------
+
+
+
+// funcion paera abrir el modal de editar direccion del cliente
+function openEditModalDireccion(direccionId, departamento, municipio, calle, informacionAdicional, barrio, destinatario) {
+    const modal = document.getElementById("editModalDireccion");
+    const editForm = document.getElementById("editFormDireccion");
+
+    document.getElementById("edit_departamento").value = departamento;
+    document.getElementById("edit_municipio").value = municipio;
+    document.getElementById("edit_calle").value = calle;
+    document.getElementById("edit_informacion_adicional").value = informacionAdicional;
+    document.getElementById("edit_barrio").value = barrio;
+    document.getElementById("edit_destinatario").value = destinatario;
+
+    editForm.action = "/direccion_cliente/edit/" + direccionId;
+
+    modal.style.display = "block";
+}
+
+function closeEditModalDireccion() {
+    const modal = document.getElementById("editModalDireccion");
+    modal.style.display = "none";
+}
+// funcion paera abrir el modal de editar direccion del cliente
+
+
+
+// ---------
+
+
+
+// funcion paera abrir el modal de editar el metodo de pago
+function openEditModalPago(id, tipo, numero_tarjeta, nombre_tarjeta, fecha_vencimiento, codigo_seguridad) {
+    const modal = document.getElementById("editModalPago");
+    const editForm = document.getElementById("editFormPago");
+
+    document.getElementById("edit_tipo").value = tipo;
+    document.getElementById("edit_numero_tarjeta").value = numero_tarjeta;
+    document.getElementById("edit_nombre_tarjeta").value = nombre_tarjeta;
+    document.getElementById("edit_fecha_vencimiento").value = fecha_vencimiento;
+    document.getElementById("edit_codigo_seguridad").value = codigo_seguridad;
+
+    editForm.action = "/metodo_pago/edit/" + id;
+
+    modal.style.display = "block";
+}
+
+function closeEditModalPago() {
+    const modal = document.getElementById("editModalPago");
+    modal.style.display = "none";
+}
+// funcion paera abrir el modal de editar el metodo de pago
