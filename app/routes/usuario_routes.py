@@ -103,7 +103,6 @@ def login():
 def dashboard():
     return render_template('producto/index.html', email=current_user.correo_electronico)
 
-# Ruta de Logout
 @bp.route('/logout')
 def logout():
     logout_user() 
