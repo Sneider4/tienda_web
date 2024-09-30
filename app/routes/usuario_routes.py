@@ -183,3 +183,40 @@ def reset_token(token):
             print(formulario.errors)
         print('8')
     return render_template('usuario/reset_token.html', form=formulario, token=token, _external=True)
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
+# Ruta para cambiar el avatar del usuario
+@bp.route('/usuario/cambiar_imagen/<int:id>', methods=['GET', 'POST'])
+def cambiar_imagen(id):
+    usuario = Usuario.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        # Verifica si se subió un archivo
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        
+        file = request.files['file']
+        
+        # Verifica si se seleccionó un archivo
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        
+        if file and allowed_file(file.filename):
+            # Guardar el archivo en una ubicación segura
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            
+            # Actualizar el campo "imagen" en el usuario
+            usuario.imagen = filename
+            db.session.commit()
+            
+            flash('Imagen de perfil actualizada correctamente')
+            return redirect(url_for('usuario.cambiar_imagen', id=id))
+    
+    return render_template('administrador/configuraciones.html', usuario=usuario)

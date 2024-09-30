@@ -47,6 +47,7 @@ def create_app(config_class=None):
     app.register_blueprint(metodo_pago_routes.bp)
     app.register_blueprint(pago_routes.bp)
 
+    app.config['UPLOAD_FOLDER'] = 'static/images'
+    app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
-    
     return app
