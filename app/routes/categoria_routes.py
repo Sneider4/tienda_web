@@ -72,7 +72,6 @@ def edit(id):
             categoria.nombre = request.form['nombre']
             categoria.descripcion = request.form['descripcion']
             db.session.commit()
-            # Redirige a la página anterior
             return redirect(url_for('categoria.index'))
         return render_template('categoria/edit.html', categoria=categoria)
     else:
