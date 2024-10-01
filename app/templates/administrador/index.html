@@ -137,7 +137,7 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">284</div>
+                        <div class="numbers">0</div>
                         <div class="cardName">Comentarios</div>
                     </div>
 
@@ -148,7 +148,7 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
+                        <div class="numbers">$0</div>
                         <div class="cardName">Ganancias</div>
                     </div>
 
@@ -176,7 +176,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="productTable">
                             {% for orden in ordenes %}
                             <tr>
                                 <td>
@@ -221,7 +221,7 @@
                         <h2>Clientes recientes</h2>
                     </div>
 
-                    <table>
+                    <table id="productTable">
                     {% for dataU in dataU %}
                     <tr>
                         <td width="60px">
@@ -244,6 +244,7 @@
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
 </body>
 
 </html>
