@@ -32,7 +32,7 @@ def generar_orden():
         
         if producto:
             total += producto.precio * cantidad
-            productos.append({'producto_id': producto_id, 'cantidad': cantidad})
+            productos.append({'producto_id': producto_id, 'cantidad': cantidad, 'precio': producto.precio})
 
     impuesto = total * 0.19
     total_con_impuesto = total + impuesto
@@ -69,4 +69,5 @@ def guardar_detalle_orden(orden_id, productos):
 
 @bp.route('/orden/confirmada')
 def orden_confirmada():
-   return render_template('pago/factura.html')
+   orden=Orden.query.order_by(Orden.id.desc()).first()
+   return render_template('pago/factura.html', orden=orden)

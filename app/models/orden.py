@@ -10,3 +10,4 @@ class Orden(db.Model):
     
     direccion = db.relationship('DireccionCliente', backref='orden')
     detalles = db.relationship('DetalleOrden', back_populates='orden')
+    usuario = db.relationship('Usuario', backref='ordenes') 
