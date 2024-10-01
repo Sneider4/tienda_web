@@ -48,13 +48,6 @@ def generar_orden():
     db.session.commit()
 
     guardar_detalle_orden(nueva_orden.id, productos)
-
-    print(f"Usuario ID: {usuario_id}")
-    print(f"Dirección ID: {direccion_id}")
-    print(f"Método de Pago ID: {metodo_pago}")
-    print(f"Productos: {productos}")
-    print(f"Productos: {total_con_impuesto}")
-    print(f"Carrito Items: {carrito_items}")
     
     return redirect(url_for('orden.orden_confirmada'))
 
