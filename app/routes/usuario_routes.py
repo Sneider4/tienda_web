@@ -12,12 +12,6 @@ import os, app
 
 bp = Blueprint('usuario', __name__)
 
-@bp.route('/usuario')
-def index():
-
-    data = Usuario.query.all()
-    return render_template('usuario/index.html', data=data)
-
 @bp.route('/usuario/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
