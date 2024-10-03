@@ -1,15 +1,14 @@
 from app import create_app, db
 import pytest
-from app.models.usuario import Usuario
 
 @pytest.fixture
 def app():
     app = create_app()
-    app.config['WTF_CSRF_ENABLED'] = False
     with app.app_context():
         db.create_all()
         yield app
         db.session.remove()
+        #db.drop_all()
 
 @pytest.fixture
 def client(app):
@@ -17,20 +16,13 @@ def client(app):
 
 @pytest.fixture
 def user(app):
-    usuario = Usuario(
-        nombre="test_user", 
-        apellido="test_apellido",
-        correo_electronico="test_user@example.com",
-        telefono="test_telefono",
-        contrasena="test_contrasena",
-        departamento="test_departamento",
-        ciudad="test_ciudad",
-        genero="test_genero",
-        fecha_nacimiento="2000-01-01",
-        imagen="avatar-gay.jpeg"
-    )
+    from app.models.usuario import Usuario
+    usuario = Usuario(nombre="test_user", apellido="test_apellido", correo_electronico="testscorreo@gmail.com", 
+                      telefono="1234567891", departamento= "test_departamento", ciudad="test_ciudad", 
+                      genero="test_genero", contrasena="test_contrasena", fecha_nacimiento="2024-07-08", 
+                      rol="Administrador", imagen="test_imagen")
     db.session.add(usuario)
-    db.session.commit()
+    db.session.commit
     yield usuario
     # db.session.delete(usuario)
     # db.session.commit()
