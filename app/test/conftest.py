@@ -16,7 +16,7 @@ def client(app):
     return app.test_client()
 
 @pytest.fixture
-def usuario(app):
+def user(app):
     usuario = Usuario(
         nombre="test_user", 
         apellido="test_apellido",
@@ -27,9 +27,10 @@ def usuario(app):
         ciudad="test_ciudad",
         genero="test_genero",
         fecha_nacimiento="2000-01-01",
-        imagen="test_imagen"
+        imagen="avatar-gay.jpeg"
     )
     db.session.add(usuario)
     db.session.commit()
     yield usuario
-    db.session.delete(usuario)
+    # db.session.delete(usuario)
+    # db.session.commit()

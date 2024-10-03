@@ -65,6 +65,7 @@ def tabla():
     return render_template('producto/tabla.html', dataP=dataP,dataC=dataC, usuario=usuario)
 
 @bp.route('/admin/clientes')
+@login_required
 def clientes():
     dataU = Usuario.query.all()
     usuario = current_user
