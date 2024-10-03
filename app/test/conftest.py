@@ -12,7 +12,7 @@ def app():
 
 @pytest.fixture
 def client(app):
-    return app.text_client()
+    return app.test_client()
 
 @pytest.fixture
 def user(app):
@@ -21,3 +21,11 @@ def user(app):
     db.session.add(usuario)
     db.session.commit
     yield usuario
+
+@pytest.fixture
+def categoria(app):
+    from app.models.categoria import Categoria
+    categoria = Categoria(nombre="test_categoria", descripcion="test_descripcion" )
+    db.session.add(categoria)
+    db.session.commit
+    yield categoria
