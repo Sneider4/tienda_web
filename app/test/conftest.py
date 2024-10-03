@@ -17,15 +17,20 @@ def client(app):
 @pytest.fixture
 def user(app):
     from app.models.usuario import Usuario
-    usuario = Usuario(nombre="test_user", contrasena="test_contrasena" )
+    usuario = Usuario(nombre="test_user", apellido="test_apellido", correo_electronico="testscorreo@gmail.com", 
+                      telefono="1234567891", departamento= "test_departamento", ciudad="test_ciudad", 
+                      genero="test_genero", contrasena="test_contrasena", fecha_nacimiento="2024-07-08", 
+                      rol="Administrador", imagen="test_imagen")
     db.session.add(usuario)
     db.session.commit
     yield usuario
+    #db.session.delete(usuario)
+    #db.session.commit()
 
-@pytest.fixture
-def categoria(app):
-    from app.models.categoria import Categoria
-    categoria = Categoria(nombre="test_categoria", descripcion="test_descripcion" )
-    db.session.add(categoria)
-    db.session.commit
-    yield categoria
+#@pytest.fixture
+#def categoria(app):
+ #   from app.models.categoria import Categoria
+  #  categoria = Categoria(nombre="test_categoria", descripcion="test_descripcion" )
+   # db.session.add(categoria)
+    #db.session.commit
+    #yield categoria
