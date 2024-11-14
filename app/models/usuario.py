@@ -17,6 +17,21 @@ class Usuario(db.Model, UserMixin):
     rol = db.Column(db.String(50), default='Cliente')
     imagen = db.Column(db.String(255), default=None)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "nombre": self.nombre,
+            "apellido": self.apellido,
+            "correo": self.correo_electronico,
+            "passwordUser": self.contrasena,
+            "telefono": self.telefono,
+            "departamento": self.departamento,
+            "ciudad": self.ciudad,
+            "genero": self.genero,
+            "fecha_nacimiento": self.fecha_nacimiento,
+            "rol": self.rol,
+            "imagen": self.imagen
+        }
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
