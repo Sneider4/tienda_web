@@ -221,14 +221,23 @@
                         <h2>Clientes recientes</h2>
                     </div>
 
+<<<<<<< Updated upstream
                     <table id="productTable">
                     {% for dataU in dataU %}
+=======
+                    <table>
+                    {% for usuario in dataU %}
+>>>>>>> Stashed changes
                     <tr>
                         <td width="60px">
                             <div class="imgBx"><img src="{{ dataU.imagen }}" alt=""></div>
                         </td>
                             <td>
+<<<<<<< Updated upstream
                             <h4>{{ dataU.nombre }}<br> <span>{{dataU.ciudad}} - {{ dataU.departamento }}</span></h4>
+=======
+                            <h4>{{ usuario.nombre }} {{ usuario.apellido }}<br> <span>{{usuario.ciudad}}</span></h4>
+>>>>>>> Stashed changes
                         </td>
                     </tr>
                     {% endfor %}
