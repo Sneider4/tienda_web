@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda Malcon</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
     <!--css bootstrap 5-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> 
     <!--css bootstrap 5-->
 
     <!--css bootstrap 4-->
@@ -32,30 +32,18 @@
                 </a>
             </div>
             <div class="logo">
-                <i><img src="../../static/images/logo.png" alt="" height="30px"></i>    
+                <i><img src="../../static/images/logo.png" alt="" height="30px"></i>
             </div>
             <div class="search">
                 <i><img src="../../static/images/search-alt-2-regular-24.png" alt="" width="30px"></i>
 
-                {% if current_user.is_authenticated %}
-                <i>
-                    <a data-bs-toggle="modal" data-bs-target="#carrito">
-                        <img src="../../static/images/shopping-bag-regular-24.png" alt="" width="30px">
-                        <!--<span id="contador-carrito" class="contador">{{ session.get('total_items', 0) }}</span>-->
-                    </a>
-                </i>
-                <i>
-                    <a href="{{ url_for('usuario.logout') }}">
-                        <img src="../../static/images/exit-regular-24.png" alt="" width="30px">
-                    </a>
-                </i>
-                {% else %}
+
                 <i>
                     <a data-bs-toggle="modal" data-bs-target="#mi-modal">
                         <img src="../../static/images/user-plus-regular-24.png" alt="" width="30px">
                     </a>
                 </i>
-                {% endif %}
+
             </div>
         </div>
     </div>
@@ -64,7 +52,7 @@
     <div class="main-content">
         <nav class="navbar navbar-expand-md" id="navbar-color">
             <div class="container" style="width: 100%; justify-content:center;">
-            
+
                 <div id="textCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -84,7 +72,7 @@
                             </div>
                         </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -102,53 +90,16 @@
                     <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    {% for carrito in dataCar %}
-                    <div class="carrito">
-                        <div class="carrito-img">
-                            {% for producto in dataP %}
-                                {% if producto.id == carrito.producto_id %}
-                                    {% if producto.imagen %}
-                                        {% set direccion = 'images/' + producto.imagen %}
-                                        <img src="{{ url_for('static', filename=direccion) }}" alt="{{ producto.nombre }}">
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <div class="carrito-txt-delete">
-                            <div class="carrito-txt">
-                                <h3>{% for producto in dataP %}
-                                        {% if producto.id == carrito.producto_id %}
-                                            {{ producto.nombre }}
-                                        {% endif %}
-                                    {% endfor %}
-                                </h3>
-                                <p>EUR 38</p>
-                                <p>
-                                    {{ carrito.cantidad }} UND
-                                </p>
-                                <p class="precio">
-                                    {% for producto in dataP %}
-                                        {% if producto.id == carrito.producto_id %}
-                                            ${{ producto.precio }}
-                                        {% endif %}
-                                    {% endfor %}
-                                </p>
-                            </div>
-                            <div class="carrito-delete">
-                                <a href="{{ url_for('carrito.delete', id=carrito.id) }}"><img class="carrito-delete" src="../../static/images/delete.png" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
+
 
                     <div class="carrito-summary">
                         <div class="summary-item">
                             <span>Impuesto de iva 9%:</span>
-                            <span><strong>${{ impuesto }}</strong></span>
+                            <span><strong>$</strong></span>
                         </div>
                         <div class="summary-item">
                             <span><strong>Total a pagar:</strong></span>
-                            <span><strong>${{ total }}</strong></span>
+                            <span><strong>$</strong></span>
                         </div>
                     </div>
 
@@ -157,7 +108,7 @@
                 <div class="modal-footer">
                     <div>
                         <a class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</a>
-                        <a href="{{ url_for('pago.shopping')}}" class="btn btn-primary">Ir a pagar</a>
+                        <a href="/pago/shopping" class="btn btn-primary">Ir a pagar</a>
                     </div>
                 </div>
 
@@ -171,13 +122,13 @@
 
                 <div class="modal-header p-5 pb-4 border-bottom-0">
                     <h1 class="fw-bold mb-0 fs-2">Iniciar sesion</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>   
                 </div>
 
                 <div class="modal-body p-5 pt-0">
-                  
-                    <form action="{{ url_for('usuario.login') }}" method="post">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <form action="/usuario/login" method="post">
+                        <input type="hidden" name="csrf_token" value="IjRiYTBlNjY2NjhkOWIzNjQxYTMzMmQ5Njg1YTg4OGZhNDQ1Njc3ZmMi.Zv6atg.yQItMAgijVvPbbWxNR2TWfpZYjk">
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control rounded-3" id="floatingInputGrid"  name="correo_electronico" placeholder="name@example.com">
                             <label for="floatingInputGrid">Correo electronico</label>
@@ -188,11 +139,11 @@
                         </div>
                         <button class="w-100 mb-2 btn btn-primary rounded-3 " type="submit">Iniciar sesion</button>
                         <small class="text-body-secondary">Al firmar registrarse, acepta todos los terminos de uso.</small>
-                        <a style="font-size: 13px;" href="{{ url_for('usuario.reset_request')}}">¿Haz olvidado tu contraseña?</a>
+                        <a style="font-size: 13px;" href="/reset_password">¿Haz olvidado tu contraseña?</a>        
 
                         <hr class="my-4">
-                        <small class="text-body-secondary">¿No tienes cuenta? <a href="{{ url_for('usuario.add') }}">Registrarse</a></small>
-                        
+                        <small class="text-body-secondary">¿No tienes cuenta? <a href="/usuario/add">Registrarse</a></small>
+
                         </button>
                     </form>
                 </div>
@@ -202,16 +153,16 @@
 
 
     <div class="flash-container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                        {{ message }}
+
+
+
+                    <div class="alert alert-message alert-dismissible fade show" role="alert">
+                        Please log in to access this page.
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+
+
+
     </div>
 
 
@@ -269,7 +220,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>       
                                 </div>
 
                             </div>
@@ -286,7 +237,7 @@
         <div class="container my-4">
             <div class=" text-center py-4">
                 <div class="marcas-txt col-lg-6 m-auto">
-                    <h2>"Ve al siguiente nivel con Nike.</h2>   
+                    <h2>"Ve al siguiente nivel con Nike.</h2>
                     <p>
                         "Destino oficial para los amantes de Nike. Aquí encuentras lo mejor de la marca, exclusividad y estilo en cada par de zapatos.""
                     </p>
@@ -380,7 +331,7 @@
             <h2>tendencia</h2>
         </div>
 
-        
+
         <div class="ofert container">
 
             <div class="ofert-1">
@@ -428,50 +379,7 @@
 
             <div class="product-content">
 
-                {% for producto in dataP %} 
-                <div class="product">
-                    {% if producto.imagen %}
-                        {% set direccion = 'images/' + producto.imagen %}
-                        <a href="{{ url_for('producto.ver_producto', id=producto.id) }}">
-                            <img src="{{ url_for('static', filename=direccion) }}" alt="{{ producto.nombre }}">
-                        </a>
-                    {% endif %}
-                    <div class="product-txt">
-                        <h3>{{ producto.nombre }}</h3>
-                        <p class="categoria">
-                            {% for categoria in dataC %}
-                                {% if categoria.id == producto.categoria %}
-                                    {{ categoria.nombre }}
-                                {% endif %}
-                            {% endfor %}</p>
-                        <p class="precio">{{ producto.precio }}</p>
-                        
-                        {% if current_user.is_authenticated %}
-                           <form action="{{ url_for('carrito.add') }}" method="POST">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <input type="hidden" id="idP" value="{{producto.id}}" name="idP">
-                                <input type="hidden" id="idU" value="{{current_user.id}}" name="idU">
-                                <div class="cantidad form-floating mb-3">
-                                    <input type="number" name="cantidad" value="1" min="1"class="form-control" id="floatingInputGrid"  name="correo_electronico" placeholder="name@example.com">
-                                    <label for="floatingInputGrid cantidad">Cantidad</label>
-                                </div>
-                                <div class="product-car">
-                                    <button type="submit" class="btn-3"><img src="../../static/images/car.png" alt=""></button>
-                                </div>
-                            </form>
-                            
-                        
-                            
-                        {% else %}
-                        <div class="product-car">
-                            <button class="btn-3" data-bs-toggle="modal" data-bs-target="#mi-modal"><img src="../../static/images/car.png" alt="">
-                            </button>
-                        </div>
-                        {% endif %}
 
-                    </div>
-                </div>
-                {% endfor %}
 
             </div>
         </div>
@@ -541,9 +449,9 @@
     </section>
 
     <footer class="text-center text-white" style="background-color: black;">
-            
+
         <div class="container p-1">
-            
+
             <div class="container mb-3">
                 <!-- Social Media Icons (Centered in a row) -->
                 <div class="d-flex justify-content-center align-items-center mb-4" style="gap: 30px;">
@@ -554,13 +462,13 @@
                     <a class="icons-footer" href="#!" role="button"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
-            
+
 
             <section class="">
                 <form action="">
-                    
+
                 <div class="row d-flex justify-content-center">
-                    
+
                     <div class="col-auto">
                         <p class="pt-2">
                             <strong>¿Como te parecio nuestro catalogo?</strong>
@@ -568,45 +476,45 @@
                     </div>
 
                     <div class="col-md-5 col-12">
-                    
+
                     <div class="mb-3">
                         <input type="text" class="form-control" id="" placeholder="Comentario" required>
                     </div>
                     </div>
-                    
+
 
                     <div class="col-auto">
-                        
+
                     <button data-mdb-ripple-init type="submit" class="btn btn-primary ">
                         Enviar
                     </button>
                     </div>
-                    
+
                 </div>
-                
+
                 </form>
             </section>
 
             <section class="mb-4">
                 <p>
-                    Inspirando creatividad y elegancia en nuestra comunidad. <br> Contáctanos: 
+                    Inspirando creatividad y elegancia en nuestra comunidad. <br> Contáctanos:
                     programanike@gmail.com | Tel: (311) 575 96 79.
                 </p>
             </section>
-            
-        
+
+
         </div>
 
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
         © 2024 Street Sneakers.
         <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Todos los derechos reservados.</a>
         </div>
-        
+
     </footer>
     <!-- Footer -->
 
     <!--js bootstrap 5-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDRzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!--js bootstrap 5-->
 
 

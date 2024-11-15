@@ -6,3 +6,10 @@ class Categoria(db.Model):
     descripcion = db.Column(db.Text,)
 
     productos = db.relationship('Producto', backref='categoria_rel', lazy=True)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "nombre": self.nombre,
+            "descripcion": self.descripcion
+        }

@@ -7,3 +7,12 @@ class Carrito(db.Model):
     cantidad = db.Column(db.Integer, nullable=False)
 
     usuario = db.relationship('Usuario', backref='carritos')
+
+    def to_dict(self):
+        return{
+            "id": self.id,
+            "usuario_id": self.usuario_id,
+            "producto_id": self.producto_id,
+            "cantidad": self.cantidad,
+        }
+        

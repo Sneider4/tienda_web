@@ -7,7 +7,7 @@ from app.models.producto import Producto
 
 bp = Blueprint('categoria', __name__)
 
-@bp.route('/categoria')
+@bp.route('/categorias')
 @login_required
 def index():
     rol = current_user.rol 
@@ -15,9 +15,11 @@ def index():
         dataC = Categoria.query.all()
         totalC = Categoria.query.count()
         usuario = current_user
-        return render_template('categoria/index.html', dataC=dataC, totalC=totalC, usuario=usuario)
+        return "categorias"
+        #return render_template('categoria/index.html', dataC=dataC, totalC=totalC, usuario=usuario)
     else:
-        return redirect(url_for('producto.index'))
+        return "error-------------------"
+        #return redirect(url_for('producto.index'))
     
 
 @bp.route('/categoria/add', methods=['GET', 'POST'])
@@ -72,7 +74,6 @@ def edit(id):
             categoria.nombre = request.form['nombre']
             categoria.descripcion = request.form['descripcion']
             db.session.commit()
-            # Redirige a la página anterior
             return redirect(url_for('categoria.index'))
         return render_template('categoria/edit.html', categoria=categoria)
     else:

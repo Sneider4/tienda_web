@@ -12,12 +12,6 @@ import os, app
 
 bp = Blueprint('usuario', __name__)
 
-@bp.route('/usuario')
-def index():
-
-    data = Usuario.query.all()
-    return render_template('usuario/index.html', data=data)
-
 @bp.route('/usuario/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
@@ -103,7 +97,6 @@ def login():
 def dashboard():
     return render_template('producto/index.html', email=current_user.correo_electronico)
 
-# Ruta de Logout
 @bp.route('/logout')
 def logout():
     logout_user() 
