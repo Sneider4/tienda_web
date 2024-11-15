@@ -79,17 +79,3 @@ def edit(id):
         return render_template('categoria/edit.html', categoria=categoria)
     else:
         return redirect(url_for('producto.index'))
-    
-
-@bp.route('/categoria/productos/<int:categoria_id>', methods=['GET'])
-@login_required
-def productos_por_categoria(categoria_id):
-    productos = Producto.query.filter_by(categoria=categoria_id).all()
-    productos_list = [{
-        'nombre': producto.nombre,
-        'stock': producto.stock,
-        'precio': producto.precio,
-        'imagen': producto.imagen,
-    } for producto in productos]
-
-    return jsonify(productos_list)
