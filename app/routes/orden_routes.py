@@ -62,8 +62,6 @@ def generar_orden():
     db.session.commit()
 
     guardar_detalle_orden(nueva_orden.id, productos)
-<<<<<<< Updated upstream
-=======
 
     print(f"Usuario ID: {usuario_id}")
     print(f"Dirección ID: {direccion_id}")
@@ -71,7 +69,6 @@ def generar_orden():
     print(f"Productos: {productos}")
     print(f"Total con Impuesto: {total_con_impuesto}")
     print(f"Carrito Items: {carrito_items}")
->>>>>>> Stashed changes
     
     return redirect(url_for('orden.orden_confirmada'))
 
