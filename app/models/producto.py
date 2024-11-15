@@ -10,3 +10,15 @@ class Producto(db.Model):
     imagen = db.Column(db.String(255), nullable=True)
 
     detalles_orden = db.relationship('DetalleOrden', back_populates='producto')    
+
+    def to_dict(self):
+        return{
+            "id": self.id,
+            "nombre": self.nombre,
+            "descripcion": self.descripcion,
+            "precio": self.precio,
+            "stock": self.stock,
+            "categoria": self.categoria,
+            "imagen": self.imagen
+        }
+        

@@ -33,7 +33,7 @@ def create_app(config_class=None):
         from .models.usuario import Usuario
         return Usuario.query.get(int(user_id))
 
-    from app.routes import carrito_routes, carrito_routes_socket, categoria_routes, categoria_routes_socket, detalle_orden_routes, envio_routes, orden_routes, producto_routes, usuario_routes, usuario_routes_socket, admin_routes, direccion_cliente_routes, metodo_pago_routes, pago_routes
+    from app.routes import carrito_routes, carrito_routes_socket, categoria_routes, categoria_routes_socket, detalle_orden_routes, envio_routes, orden_routes, producto_routes, producto_routes_socket, usuario_routes, usuario_routes_socket, admin_routes, direccion_cliente_routes, metodo_pago_routes, pago_routes
 
     app.register_blueprint(carrito_routes.bp)
     app.register_blueprint(carrito_routes_socket.bp)
@@ -43,6 +43,7 @@ def create_app(config_class=None):
     app.register_blueprint(envio_routes.bp)
     app.register_blueprint(orden_routes.bp)
     app.register_blueprint(producto_routes.bp)
+    app.register_blueprint(producto_routes_socket.bp)
     app.register_blueprint(usuario_routes.bp)
     app.register_blueprint(usuario_routes_socket.bp)
     app.register_blueprint(direccion_cliente_routes.bp)
