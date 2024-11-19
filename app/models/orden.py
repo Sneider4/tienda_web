@@ -11,3 +11,13 @@ class Orden(db.Model):
     direccion = db.relationship('DireccionCliente', backref='orden')
     detalles = db.relationship('DetalleOrden', back_populates='orden')
     usuario = db.relationship('Usuario', backref='ordenes') 
+
+    def to_dict(self):
+        return{
+            "id": self.id,
+            "usuario_id": self.usuario_id,
+            "fecha_orden": self.fecha_orden,
+            "total": self.total,
+            "direccion_id": self.direccion_id,
+            "metodo_pago": self.metodo_pago,
+        }
