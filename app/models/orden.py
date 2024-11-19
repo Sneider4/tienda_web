@@ -20,4 +20,10 @@ class Orden(db.Model):
             "total": self.total,
             "direccion_id": self.direccion_id,
             "metodo_pago": self.metodo_pago,
+<<<<<<< Updated upstream
         }
+=======
+            
+        }
+    
+>>>>>>> Stashed changes

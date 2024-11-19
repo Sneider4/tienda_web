@@ -9,3 +9,14 @@ class MetodoPago(db.Model):
     codigo_seguridad = db.Column(db.String(4), nullable=False)
 
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+
+    def to_dict(self):
+        return{
+            "id": self.id,
+            "tipo": self.tipo,
+            "numero_tarjeta": self.numero_tarjeta,
+            "nombre_tarjeta": self.nombre_tarjeta,
+            "fecha_vencimiento": self.fecha_vencimiento,
+            "codigo_seguridad": self.codigo_seguridad
+        }
+        

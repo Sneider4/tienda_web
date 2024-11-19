@@ -68,7 +68,7 @@ def generar_orden():
     print(f"Método de Pago: {metodo_pago}")
     print(f"Productos: {productos}")
     print(f"Total con Impuesto: {total_con_impuesto}")
-    print(f"Carrito Items: {carrito_items}")
+    print(f"Carrito Items: {carrito_items}") # type: ignore
     
     return redirect(url_for('orden.orden_confirmada'))
 

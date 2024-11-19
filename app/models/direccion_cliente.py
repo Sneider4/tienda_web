@@ -29,3 +29,17 @@ class DireccionCliente(db.Model):
     fecha_modificacion = db.Column(db.DateTime, default=obtener_hora_creacion, onupdate=obtener_hora_modificacion)
 
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "calle": self.calle,
+            "barrio": self.barrio,
+            "municipio": self.municipio,
+            "departamento": self.departamento,
+            "pais": self.pais,
+            "informacion_adicional": self.informacion_adicional,
+            "destinatario": self.destinatario,
+            "fecha_creacion": self.fecha_creacion,
+            "fecha_modificacion": self.fecha_modificacion
+        }

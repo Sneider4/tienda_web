@@ -33,14 +33,20 @@ def create_app(config_class=None):
         from .models.usuario import Usuario
         return Usuario.query.get(int(user_id))
 
+<<<<<<< Updated upstream
     from app.routes import carrito_routes, carrito_routes_socket, categoria_routes, categoria_routes_socket, detalle_orden_routes, envio_routes, orden_routes, orden_routes_socket, producto_routes, usuario_routes, usuario_routes_socket, admin_routes, direccion_cliente_routes, metodo_pago_routes, pago_routes
+=======
+    from app.routes import carrito_routes, carrito_routes_socket, categoria_routes, categoria_routes_socket, detalle_orden_routes, detalle_orden_routes_socket, envio_routes, envio_routes_socket, orden_routes, orden_routes_socket, producto_routes, producto_routes_socket, usuario_routes, usuario_routes_socket, admin_routes, direccion_cliente_routes, direccion_cliente_routes_socket, metodo_pago_routes, metodo_pago_routes_socket, pago_routes
+>>>>>>> Stashed changes
 
     app.register_blueprint(carrito_routes.bp)
     app.register_blueprint(carrito_routes_socket.bp)
     app.register_blueprint(categoria_routes.bp)
     app.register_blueprint(categoria_routes_socket.bp)
     app.register_blueprint(detalle_orden_routes.bp)
+    app.register_blueprint(detalle_orden_routes_socket.bp)
     app.register_blueprint(envio_routes.bp)
+    app.register_blueprint(envio_routes_socket.bp)
     app.register_blueprint(orden_routes.bp)
     app.register_blueprint(orden_routes_socket.bp)
     app.register_blueprint(producto_routes.bp)
@@ -48,8 +54,10 @@ def create_app(config_class=None):
     app.register_blueprint(usuario_routes.bp)
     app.register_blueprint(usuario_routes_socket.bp)
     app.register_blueprint(direccion_cliente_routes.bp)
+    app.register_blueprint(direccion_cliente_routes_socket.bp)
     app.register_blueprint(admin_routes.bp)
     app.register_blueprint(metodo_pago_routes.bp)
+    app.register_blueprint(metodo_pago_routes_socket.bp)
     app.register_blueprint(pago_routes.bp)
 
     app.config['UPLOAD_FOLDER'] = 'static/images'
