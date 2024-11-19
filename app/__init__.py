@@ -33,11 +33,7 @@ def create_app(config_class=None):
         from .models.usuario import Usuario
         return Usuario.query.get(int(user_id))
 
-<<<<<<< Updated upstream
-    from app.routes import carrito_routes, carrito_routes_socket, categoria_routes, categoria_routes_socket, detalle_orden_routes, envio_routes, orden_routes, orden_routes_socket, producto_routes, usuario_routes, usuario_routes_socket, admin_routes, direccion_cliente_routes, metodo_pago_routes, pago_routes
-=======
     from app.routes import carrito_routes, carrito_routes_socket, categoria_routes, categoria_routes_socket, detalle_orden_routes, detalle_orden_routes_socket, envio_routes, envio_routes_socket, orden_routes, orden_routes_socket, producto_routes, producto_routes_socket, usuario_routes, usuario_routes_socket, admin_routes, direccion_cliente_routes, direccion_cliente_routes_socket, metodo_pago_routes, metodo_pago_routes_socket, pago_routes
->>>>>>> Stashed changes
 
     app.register_blueprint(carrito_routes.bp)
     app.register_blueprint(carrito_routes_socket.bp)
